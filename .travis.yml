@@ -2,8 +2,10 @@
 language: julia
 os:
   - linux
+  - osx
 julia:
   - 0.5
+  - nightly
 notifications:
   email: false
 # uncomment the following lines to override the default test script
@@ -11,5 +13,5 @@ notifications:
 #  - if [[ -a .git/shallow ]]; then git fetch --unshallow; fi
 #  - julia -e 'Pkg.clone(pwd()); Pkg.build("MPCDocs"); Pkg.test("MPCDocs"; coverage=true)'
 after_success:
-  - julia -e 'Pkg.add("Documenter")'
-  - julia -e 'cd(Pkg.dir("MPCDocs")); include(joinpath("docs", "make.jl"))'
+- julia -e 'cd(Pkg.dir("MPCDocs")); Pkg.add("Coverage"); using Coverage; Codecov.submit(Codecov.process_folder())'
+- julia -e 'cd(Pkg.dir("MPCDocs")); Pkg.add("Documenter"); ENV["DOCUMENTER_DEBUG"] = "true"; include(joinpath("docs", "make.jl"))'
