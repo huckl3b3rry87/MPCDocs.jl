@@ -14,8 +14,8 @@ notifications:
 after_success:
 - if [[ -a .git/shallow ]]; then git fetch --unshallow; fi
 - julia -e 'Pkg.clone(pwd())'
-- julia -e 'Pkg.clone("https://github.com/JuliaMPC/VehicleModels.jl")'
-- julia -e 'Pkg.clone("https://github.com/JuliaMPC/PrettyPlots.jl")'
-- julia -e 'Pkg.clone("https://github.com/JuliaMPC/NLOptControl.jl")'
-- julia -e 'Pkg.add("Documenter");ENV["DOCUMENTER_DEBUG"] = "true";'
+#- julia -e 'Pkg.clone("https://github.com/JuliaMPC/VehicleModels.jl")'
+#- julia -e 'Pkg.clone("https://github.com/JuliaMPC/PrettyPlots.jl")'
+#- julia -e 'Pkg.clone("https://github.com/JuliaMPC/NLOptControl.jl")'
+- julia -e 'Pkg.add("Documenter");ENV["DOCUMENTER_DEBUG"] = true;'
 - julia -e 'cd(Pkg.dir("MPCDocs")); include(joinpath("docs", "make.jl"))'

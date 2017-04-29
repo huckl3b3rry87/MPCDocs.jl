@@ -1,6 +1,7 @@
-using Documenter,MPCDocs,NLOptControl,PrettyPlots,VehicleModels
+using Documenter,MPCDocs#,NLOptControl,PrettyPlots,VehicleModels
 
-makedocs(modules=[NLOptControl,PrettyPlots,VehicleModels],
+#modules=[NLOptControl,PrettyPlots,VehicleModels],
+makedocs(modules=[MPCDocs],
         doctest=false, clean=true,
         format =:html,
         authors="Huckleberry Febbo",
@@ -20,32 +21,3 @@ deploydocs(
     julia = "0.5",
     deps=nothing,
     make=nothing)
-#=
-makedocs(modules=[NLOptControl,PrettyPlots,VehicleModels],
-         doctest=false, clean=true,
-         format =:html,
-         sitename="NLOptControl.jl",
-         authors="Huckleberry Febbo",
-         pages = Any[
-         "Home" => "index.md",
-         "Tutorials" => Any[
-           "tutorials/MoonLander.md"
-         ]
-])
-
-deploydocs(
-   repo = "github.com/JuliaMPC/MPCDocs.jl.git",
-   target = "build",
-   osname = "linux",
-   julia = "0.5",
-   deps = nothing)
-   =#
-#=
-deploydocs(
-   repo = "github.com/JuliaMPC/MPCDocs.jl.git",
-   target = "build",
-   osname = "linux",
-   julia = "0.5",
-   deps = nothing,
-make = nothing)
-=#

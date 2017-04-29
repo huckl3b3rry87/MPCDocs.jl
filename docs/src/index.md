@@ -10,9 +10,6 @@ Some text describing the package.
 
 More text
 
-```@docs
-NLOptControl.defineSolver!
-```
 
 ## Tutorials
 
