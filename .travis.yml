@@ -5,7 +5,6 @@ os:
   - osx
 julia:
   - 0.5
-  - nightly
 notifications:
   email: false
 # uncomment the following lines to override the default test script
@@ -13,5 +12,10 @@ notifications:
 #  - if [[ -a .git/shallow ]]; then git fetch --unshallow; fi
 #  - julia -e 'Pkg.clone(pwd()); Pkg.build("MPCDocs"); Pkg.test("MPCDocs"; coverage=true)'
 after_success:
-- julia -e 'cd(Pkg.dir("MPCDocs")); Pkg.add("Coverage"); using Coverage; Codecov.submit(Codecov.process_folder())'
-- julia -e 'cd(Pkg.dir("MPCDocs")); Pkg.add("Documenter"); ENV["DOCUMENTER_DEBUG"] = "true"; include(joinpath("docs", "make.jl"))'
+- if [[ -a .git/shallow ]]; then git fetch --unshallow; fi
+- julia -e 'Pkg.clone(pwd())'
+- julia -e 'Pkg.clone("https://github.com/JuliaMPC/VehicleModels.jl")'
+- julia -e 'Pkg.clone("https://github.com/JuliaMPC/PrettyPlots.jl")'
+- julia -e 'Pkg.clone("https://github.com/JuliaMPC/NLOptControl.jl")'
+- julia -e 'Pkg.add("Documenter");ENV["DOCUMENTER_DEBUG"] = "true";'
+- julia -e 'cd(Pkg.dir("MPCDocs")); include(joinpath("docs", "make.jl"))'
