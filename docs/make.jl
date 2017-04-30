@@ -14,10 +14,9 @@ makedocs(modules=[MPCDocs],
          ])
 
 deploydocs(
-    deps   = Deps.pip("mkdocs", "python-markdown-math"),
-    repo="https://github.com/JuliaMPC/MPCDocs.jl.git",
+    deps=Deps.pip("mkdocs", "python-markdown-math"),
+    repo="github.com/JuliaMPC/MPCDocs.jl.git",
     target = "build",
     osname = "linux",
     julia = "0.5",
-    deps=nothing,
     make=nothing)
