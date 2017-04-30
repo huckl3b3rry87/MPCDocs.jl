@@ -2,7 +2,6 @@
 language: julia
 os:
   - linux
-  - osx
 julia:
   - 0.5
 notifications:
@@ -17,5 +16,5 @@ after_success:
 #- julia -e 'Pkg.clone("https://github.com/JuliaMPC/VehicleModels.jl")'
 #- julia -e 'Pkg.clone("https://github.com/JuliaMPC/PrettyPlots.jl")'
 #- julia -e 'Pkg.clone("https://github.com/JuliaMPC/NLOptControl.jl")'
-- julia -e 'Pkg.add("Documenter");ENV["DOCUMENTER_DEBUG"] = true;'
-- julia -e 'cd(Pkg.dir("MPCDocs")); include(joinpath("docs", "make.jl"))'
+- julia -e 'Pkg.add("Documenter");'
+- julia -e 'cd(Pkg.dir("MPCDocs"));ENV["DOCUMENTER_DEBUG"]=true; include(joinpath("docs", "make.jl"))'
