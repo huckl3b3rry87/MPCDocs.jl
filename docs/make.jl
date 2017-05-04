@@ -1,7 +1,7 @@
-using Documenter,MPCDocs#,NLOptControl,PrettyPlots,VehicleModels
+using Documenter,MPCDocs,NLOptControl,PrettyPlots,VehicleModels
 
 #modules=[NLOptControl,PrettyPlots,VehicleModels],
-makedocs(modules=[MPCDocs],
+makedocs(modules=[NLOptControl,PrettyPlots,VehicleModels],
         doctest=false, clean=true,
         format =:html,
         authors="Huckleberry Febbo",

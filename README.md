@@ -6,8 +6,18 @@
 [![Build Status](https://travis-ci.org/huckl3b3rry87/MPCDocs.jl.svg?branch=master)](https://travis-ci.org/huckl3b3rry87/MPCDocs.jl)
 
 
+https://juliampc.github.io/MPCDocs.jl/latest/
 
-https://JuliaMPC.github.io/MPCDocs.jl/stable
 
+## Installation
 
-http://docs.JuliaMPC.org/latest/
+The package is registered in `METADATA.jl` and so can be installed with `Pkg.add`.
+
+```julia
+julia> Pkg.clone("https://github.com/JuliaMPC/MPCDocs.jl")
+```
+
+## Documentation
+
+- [**STABLE**][docs-stable-url] &mdash; **most recently tagged version of the documentation.**
+- [**LATEST**][docs-latest-url] &mdash; *in-development version of the documentation.*

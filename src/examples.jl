@@ -30,6 +30,6 @@ function test_examples(problem::Symbol, idx::Int; disp = true)
   defineProb(pkgname)
   map(eval, _examples[idx].exprs)
 
-  
+
 
 end
