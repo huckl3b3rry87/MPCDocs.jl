@@ -4,7 +4,7 @@ Pkg.clone("https://github.com/JuliaMPC/NLOptControl.jl") # hide
 Pkg.add("JuMP") # hide
 Pkg.add("Plots") # hide
 Pkg.add("PGFPlots")
-Pkg.add("PyPlots")
+Pkg.add("PyPlot")
 Pkg.add("GR")
 
 using Documenter,MPCDocs,NLOptControl,PrettyPlots,VehicleModels
