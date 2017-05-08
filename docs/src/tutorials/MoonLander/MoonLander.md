@@ -21,5 +21,6 @@ obj=integrate!(mdl,n,r.u[:,1];C=1.0,(:variable=>:control),(:integrand=>:default)
 @NLobjective(mdl, Min, obj); optimize!(mdl,n,r,s);
 plotSettings(;(:mpc_lines =>[(4.0,:blue,:solid)]),(:size=>(700,700)));
 allPlots(n,r,1)
+nothing # hide
 ```
 ![](results/main.png)
