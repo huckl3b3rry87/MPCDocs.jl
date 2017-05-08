@@ -13,7 +13,15 @@ var documenterSearchIndex = {"docs": [
     "page": "Home",
     "title": "NLOptControl.jl Documentation",
     "category": "section",
-    "text": "#Documentation TitleSome text describing the package."
+    "text": ""
+},
+
+{
+    "location": "index.html#Guide-1",
+    "page": "Home",
+    "title": "Guide",
+    "category": "section",
+    "text": "Pages = [\"main/intro.md\"]\nDepth = 1#Documentation TitleSome text describing the package."
 },
 
 {
@@ -29,7 +37,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Home",
     "title": "Tutorials",
     "category": "section",
-    "text": "Pages = [\n    \"tutorials/MoonLander.md\"\n    ]\nDepth = 2"
+    "text": "Pages = [\n    \"tutorials/MoonLander/MoonLander.md\"\n    ]\nDepth = 2"
 },
 
 {
@@ -41,7 +49,7 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "tutorials/MoonLander.html#",
+    "location": "tutorials/MoonLander/MoonLander.html#",
     "page": "Moon Lander",
     "title": "Moon Lander",
     "category": "page",
@@ -49,11 +57,11 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "tutorials/MoonLander.html#Moon-Lander-1",
+    "location": "tutorials/MoonLander/MoonLander.html#Moon-Lander-1",
     "page": "Moon Lander",
     "title": "Moon Lander",
     "category": "section",
-    "text": "This tutorial.."
+    "text": "using NLOptControl,JuMP,Parameters,PrettyPlots,Plots\nmain_dir=pwd();s=Settings();n=NLOpt();pgfplots();\nconst g = 1.62519; # m/s^2\nfunction MoonLander{T<:Any}(mdl::JuMP.Model,n::NLOpt,r::Result,x::Array{T,2},u::Array{T,2}) # dynamic constraint equations\n  if n.integrationMethod==:tm; L=size(x)[1]; else L=size(x)[1]-1; end\n  dx = Array(Any,L,n.numStates)\n  dx[:,1] =  @NLexpression(mdl, [j=1:L], x[j,2] );\n  dx[:,2] =  @NLexpression(mdl, [j=1:L], u[j,1] - g);\n  return dx\nend\ndefine!(n,stateEquations=MoonLander,numStates=2,numControls=1,X0=[10.,-2],XF=[0.,0.],XL=[NaN,NaN],XU=[NaN,NaN],CL=[0.],CU=[3.])\nconfigure!(n,Ni=4,Nck=[10,10,10,10];(:integrationMethod => :ps),(:integrationScheme => :lgrExplicit),(:finalTimeDV =>true))\n#configure!(n,N=40;(:integrationMethod => :tm),(:integrationScheme => :bkwEuler),(:finalTimeDV =>true))\n\nnames = [:h,:v]; descriptions = [\"h(t)\",\"v(t)\"]; stateNames!(n,names,descriptions);\nmdl=defineSolver!(n;name=:KNITRO,max_iter=1000,feastol_abs=1.0e-3,infeastol=1.0e-8,opttol_abs=1.0e-3); r=OCPdef!(mdl,n,s);\nobj=integrate!(mdl,n,r.u[:,1];C=1.0,(:variable=>:control),(:integrand=>:default))\n@NLobjective(mdl, Min, obj); optimize!(mdl,n,r,s);\nplotSettings(;(:mpc_lines =>[(4.0,:blue,:solid)]),(:size=>(700,700)));\nallPlots(n,r,1)(Image: )"
 },
 
 ]}
