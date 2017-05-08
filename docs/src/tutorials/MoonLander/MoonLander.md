@@ -1,9 +1,6 @@
 # Moon Lander
 
 ```@example MoonLander
-Pkg.clone("https://github.com/JuliaMPC/PrettyPlots.jl") # hide
-Pkg.clone("https://github.com/JuliaMPC/VehicleModels.jl") # hide
-Pkg.clone("https://github.com/JuliaMPC/NLOptControl.jl") # hide
 using NLOptControl,JuMP,Parameters,PrettyPlots,Plots
 main_dir=pwd();s=Settings();n=NLOpt();pgfplots();
 const g = 1.62519; # m/s^2

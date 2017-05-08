@@ -1,6 +1,12 @@
+Pkg.clone("https://github.com/JuliaMPC/PrettyPlots.jl") # hide
+Pkg.clone("https://github.com/JuliaMPC/VehicleModels.jl") # hide
+Pkg.clone("https://github.com/JuliaMPC/NLOptControl.jl") # hide
+Pkg.add("JuMP") # hide
+Pkg.add("Parameters") # hide
+Pkg.add("Plots") # hide
+
 using Documenter,MPCDocs,NLOptControl,PrettyPlots,VehicleModels
 
-#modules=[NLOptControl,PrettyPlots,VehicleModels],
 makedocs(modules=[NLOptControl,PrettyPlots,VehicleModels],
         doctest=false, clean=true,
         format =:html,
@@ -9,7 +15,7 @@ makedocs(modules=[NLOptControl,PrettyPlots,VehicleModels],
         pages = Any[
         "Home" => "index.md",
         "Tutorials" => Any[
-          "tutorials/MoonLander.md"
+          "tutorials/MoonLander/MoonLander.md"
          ]
          ])
 
