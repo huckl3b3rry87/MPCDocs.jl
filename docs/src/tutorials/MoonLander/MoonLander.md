@@ -1,7 +1,10 @@
 # Moon Lander
 
-```@eval
-using NLOptControl, JuMP, Parameters, PrettyPlots, Plots
+```@example MoonLander
+Pkg.clone("https://github.com/JuliaMPC/PrettyPlots.jl") # hide
+Pkg.clone("https://github.com/JuliaMPC/VehicleModels.jl") # hide
+Pkg.clone("https://github.com/JuliaMPC/NLOptControl.jl") # hide
+using NLOptControl,JuMP,Parameters,PrettyPlots,Plots
 main_dir=pwd();s=Settings();n=NLOpt();pgfplots();
 const g = 1.62519; # m/s^2
 function MoonLander{T<:Any}(mdl::JuMP.Model,n::NLOpt,r::Result,x::Array{T,2},u::Array{T,2}) # dynamic constraint equations
@@ -22,4 +25,4 @@ obj=integrate!(mdl,n,r.u[:,1];C=1.0,(:variable=>:control),(:integrand=>:default)
 plotSettings(;(:mpc_lines =>[(4.0,:blue,:solid)]),(:size=>(700,700)));
 allPlots(n,r,1)
 ```
-![](main.png)
+![](results/main.png)
