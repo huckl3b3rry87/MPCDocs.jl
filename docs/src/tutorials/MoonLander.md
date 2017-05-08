@@ -1,3 +1,0 @@
-# Moon Lander
-
-This tutorial..

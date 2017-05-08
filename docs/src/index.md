@@ -2,6 +2,13 @@
 
 
 
+## Guide
+
+```@contents
+Pages = ["main/intro.md"]
+Depth = 1
+```
+
 #Documentation Title
 
 Some text describing the package.
@@ -15,7 +22,7 @@ More text
 
 ```@contents
 Pages = [
-    "tutorials/MoonLander.md"
+    "tutorials/MoonLander/MoonLander.md"
     ]
 Depth = 2
 ```
