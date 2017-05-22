@@ -23,6 +23,6 @@ obj=integrate!(mdl,n,r.u[:,1];C=1.0,(:variable=>:control),(:integrand=>:default)
 plotSettings(;(:mpc_lines =>[(4.0,:blue,:solid)]),(:size=>(700,700)));
 resultsDir!(r);
 allPlots(n,r,1);
-r.dfs_opt
 ```
 ![](results/main.png)
+![](jx.png)
