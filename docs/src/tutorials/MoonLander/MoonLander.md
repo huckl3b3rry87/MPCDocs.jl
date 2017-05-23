@@ -3,7 +3,7 @@
 First setup the packages that will be used:
 ```@example MoonLander
 using NLOptControl,JuMP,Parameters,PrettyPlots,Plots
-s=Settings();n=NLOpt();pgfplots(); nothing # hide
+s=Settings();n=NLOpt();pyplot(); nothing # hide
 ```
 Where, the objects `s` and `n` are the settings and optimal control problem structures, respectively.
 

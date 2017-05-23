@@ -2,15 +2,11 @@
 
 ## Installation
 
-Just do:
-```julia
-Pkg.clone("https://github.com/JuliaMPC/NLOptControl.jl")
-```
-
-While `NLOptControl.jl` can be run by itself, there are several add-ons that that may be useful:
+There are several packages that need to be installed, to do this run:
 ```julia
 Pkg.clone("https://github.com/JuliaMPC/PrettyPlots.jl")
 Pkg.clone("https://github.com/JuliaMPC/VehicleModels.jl")
+Pkg.clone("https://github.com/JuliaMPC/NLOptControl.jl")
 ```
 
 ## Citation

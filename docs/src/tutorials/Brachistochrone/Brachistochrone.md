@@ -5,7 +5,8 @@ Brachistichrone Problem @ http://gpops2.com/Examples/Brachistochrone.html
                         @ http://apmonitor.com/wiki/index.php/Apps/BrachistochroneProblem
 
 
-```@example Brachistichrone
+
+```julia
 using NLOptControl,JuMP, Parameters
 s=Settings(); n=NLOpt(); # initialize
 
