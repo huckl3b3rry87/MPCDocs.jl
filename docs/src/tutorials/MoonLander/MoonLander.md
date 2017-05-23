@@ -1,5 +1,25 @@
 # Moon Lander
 
+First we define some functions
+
+```@example 1
+using PyPlot # hide
+f(x) = sin(2x) + 1
+g(x) = cos(x) - x
+```
+
+and then we plot `f` over the interval from ``-π`` to ``π``
+
+![](f-plot.svg)
+
+and then we do the same with `g`
+
+```@example 1
+x = linspace(-π, π)
+plot(x, f(x), color = "red")
+savefig("f-plot.svg"); nothing # hide
+```
+
 ```@example MoonLander
 using NLOptControl,JuMP,Parameters,PrettyPlots,Plots
 s=Settings();n=NLOpt();pgfplots();
@@ -19,10 +39,11 @@ names = [:h,:v]; descriptions = ["h(t)","v(t)"]; stateNames!(n,names,description
 mdl=defineSolver!(n;name=:IPOPT,max_iter=1000,feastol_abs=1.0e-3,infeastol=1.0e-8,opttol_abs=1.0e-3);
 r=OCPdef!(mdl,n,s);
 obj=integrate!(mdl,n,r.u[:,1];C=1.0,(:variable=>:control),(:integrand=>:default))
-@NLobjective(mdl, Min, obj); optimize!(mdl,n,r,s);
+@NLobjective(mdl, Min, obj);
+optimize!(mdl,n,r,s);
 plotSettings(;(:mpc_lines =>[(4.0,:blue,:solid)]),(:size=>(700,700)));
 resultsDir!(r);
 allPlots(n,r,1);
 ```
-![](results/main.png)
-![](jx.png)
+#![](results/main.png)
+#![](jx.png)
