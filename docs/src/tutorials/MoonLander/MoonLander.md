@@ -1,7 +1,7 @@
 # Moon Lander
 
 First setup the packages that will be used:
-```@example MoonLander
+```@setup MoonLander
 using NLOptControl,JuMP,Parameters,PrettyPlots,Plots
 s=Settings();n=NLOpt();pgfplots();
 ```
@@ -10,7 +10,7 @@ Where, the objects `s` and `n` are the settings and optimal control problem stru
 NOTE: Other plotting backends may be used like `gr()` and `pyplot()`.
 
 Next define the basic differential equation used to model the system:
-```@example MoonLander
+```@setup MoonLander
 const g = 1.62519; # m/s^2
 function MoonLander{T<:Any}(mdl::JuMP.Model,n::NLOpt,r::Result,x::Array{T,2},u::Array{T,2}) # dynamic constraint equations
   if n.integrationMethod==:tm; L=size(x)[1]; else L=size(x)[1]-1; end
@@ -26,7 +26,7 @@ NOTE: eventually most of this code will be pushed to a lower level.
 
 Now that the dynamic constraint equations have been established, the next step is to define the problem:
 
-```@example MoonLander
+```@setup MoonLander
 define!(n,stateEquations=MoonLander,numStates=2,numControls=1,X0=[10.,-2],XF=[0.,0.],XL=[NaN,NaN],XU=[NaN,NaN],CL=[0.],CU=[3.])
 ```
 To do this the user passes `n`, and defines the `stateEquations` to be the dynamic constraint equations defined in `MoonLander()`.
@@ -45,36 +45,34 @@ configure!(n,Ni=4,Nck=[10,10,10,10];(:integrationMethod => :ps),(:integrationSch
 The next parts are optional.
 
 1)  Names and descriptions may be added to both the control and state variables as follows:
-```@example MoonLander
+```@setup MoonLander
 names = [:h,:v]; descriptions = ["h(t)","v(t)"]; stateNames!(n,names,descriptions);
 ```
 NOTE: The names will show up in the results data and the descriptions will show up in the graphs
 
 2) Another option is to define the solver and some optimization settings as:
-```@example MoonLander
+```@setup MoonLander
 mdl=defineSolver!(n;name=:IPOPT,max_iter=1000,feastol_abs=1.0e-3,infeastol=1.0e-8,opttol_abs=1.0e-3);
-nothing
 ```
 
 Now, back to the required parts. The optimal control problem must be defined as:
-```@example MoonLander
+```@setup MoonLander
 r=OCPdef!(mdl,n,s);
 nothing
 ```
 The object `r` stores all of the results as well as both the control and state variables. For instance `r.x[:,1]` should now be used to access the entire vector for the first state.
 
 For generality, `integrate!()` will also be demonstrated in this example. `integrate!()` is used to add terms to the cost function that need to be integrated. Currently there are several forms that these integrals can take (more can be added). In this example the first control variable `r.u[:,1]` and sets up this variable to be integrated over the entire time of the control problem with the following line of code:
-```@example MoonLander  
+```@setup MoonLander  
 obj=integrate!(mdl,n,r.u[:,1];C=1.0,(:variable=>:control),(:integrand=>:default))
-nothing
 ```
 Next the cost function can be defined as:
-```@example MoonLander
+```@setup MoonLander
 @NLobjective(mdl, Min, obj);
 ```
 
 At this stage, the optimal control problem can be solved with:
-```@example MoonLander
+```@setup MoonLander
 optimize!(mdl,n,r,s);
 ```
 
@@ -82,12 +80,12 @@ Then, in order to quickly visualize the problem, functionality is also provided 
 
 The next part is optional:
 1) The plot settings can be modified from the default using the following code:
-```@example MoonLander
+```@setup MoonLander
 plotSettings(;(:mpc_lines =>[(4.0,:blue,:solid)]),(:size=>(700,700)));
 ```
 
 Then, in order to create a new directory to store the plots in call:
-```@example MoonLander
+```@setup MoonLander
 resultsDir!(r);
 ```
 Finally, in order to plot all of the states and controls call:
