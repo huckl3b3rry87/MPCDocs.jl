@@ -28,7 +28,13 @@ Depth = 2
 ```
 
 
-## Functions
+## Basic Functions
+
+```@autodocs
+Modules = [NLOptControl]
+Private = false
+Order = [:function]
+```
 
 ```@contents
 Pages = [

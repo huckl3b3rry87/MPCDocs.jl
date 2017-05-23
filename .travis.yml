@@ -3,28 +3,21 @@ language: julia
 sudo: required
 os:
   - linux
+  - osx
 julia:
   - 0.5
+  - release
 notifications:
-  email: true
-# uncomment the following lines to override the default test script
-#script:
-#  - if [[ -a .git/shallow ]]; then git fetch --unshallow; fi
-#  - julia -e 'Pkg.clone(pwd()); Pkg.build("MPCDocs"); Pkg.test("MPCDocs"; coverage=true)'
+  email: false
 addons:
     apt_packages:
         - gfortran
-script:
-    - if [[ -a .git/shallow ]]; then git fetch --unshallow; fi
-    - julia -e 'Pkg.clone(pwd()); Pkg.build("Ipopt")'
-    #- julia -e 'Pkg.test("Ipopt", coverage=true)'
 after_success:
 - echo $TRAVIS_JULIA_VERSION
-#- julia -e 'Pkg.add("Coverage"); cd(Pkg.dir("Ipopt")); using Coverage; Coveralls.submit(process_folder())'
 - if [[ -a .git/shallow ]]; then git fetch --unshallow; fi
 - julia -e 'Pkg.clone(pwd())'
-#- julia -e 'Pkg.clone("https://github.com/JuliaMPC/VehicleModels.jl")'
-#- julia -e 'Pkg.clone("https://github.com/JuliaMPC/PrettyPlots.jl")'
-#- julia -e 'Pkg.clone("https://github.com/JuliaMPC/NLOptControl.jl")'
+- julia -e 'Pkg.clone("https://github.com/JuliaMPC/VehicleModels.jl")'
+- julia -e 'Pkg.clone("https://github.com/JuliaMPC/PrettyPlots.jl")'
+- julia -e 'Pkg.clone("https://github.com/JuliaMPC/NLOptControl.jl")'
 - julia -e 'Pkg.add("Documenter");'
 - julia -e 'cd(Pkg.dir("MPCDocs"));ENV["DOCUMENTER_DEBUG"]=true; include(joinpath("docs", "make.jl"))'
