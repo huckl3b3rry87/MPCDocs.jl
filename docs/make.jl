@@ -1,5 +1,3 @@
-run('sudo apt-get install build-essential gfortran pkg-config')
-
 Pkg.clone("https://github.com/JuliaMPC/PrettyPlots.jl") # hide
 Pkg.clone("https://github.com/JuliaMPC/VehicleModels.jl") # hide
 Pkg.clone("https://github.com/JuliaMPC/NLOptControl.jl") # hide

@@ -28,6 +28,26 @@ Depth = 2
 ```
 
 
+## Functions
+
+```@contents
+Pages = [
+    "functions/basics.md",
+    "functions/plotting.md",
+    "functions/mpc.md"
+    ]
+Depth = 2
+```
+
+## Background Info
+
+```@contents
+Pages = [
+    "background/index.md"
+    ]
+Depth = 2
+```
+
 ## Index
 
 ```@index
