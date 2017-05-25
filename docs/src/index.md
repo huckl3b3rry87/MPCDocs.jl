@@ -5,35 +5,20 @@
 ## Guide
 
 ```@contents
-Pages = ["main/intro.md"]
-Depth = 1
+Pages=["main/intro.md"]
+Depth=1
 ```
 
 ## Tutorials
 
-```@contents
-Pages = [
-    "tutorials/MoonLander/MoonLander.md"
-    ]
-Depth = 2
-```
-
-
-## Basic Functions
-
-```@autodocs
-Modules = [NLOptControl]
-Private = false
-Order = [:function]
-```
+For `NLOptControl.jl` there are several examples provided:
 
 ```@contents
-Pages = [
-    "functions/basics.md",
-    "functions/plotting.md",
-    "functions/mpc.md"
-    ]
-Depth = 2
+Pages=["tutorials/BrysonDenham/BrysonDenham.md",
+       "tutorials/MoonLander/MoonLander.md",
+       "tutorials/Brachistochrone/Brachistochrone.md"
+      ]
+Depth=1
 ```
 
 ## Background Info
@@ -42,8 +27,22 @@ Depth = 2
 Pages = [
     "background/index.md"
     ]
-Depth = 2
+Depth=2
 ```
+
+## Exported Functions
+
+The following link provides documentation all of the exported functions for `NLOptControl.jl`, `VehicleModels.jl`, and `PrettyPlots.jl`.
+
+```@contents
+Pages=[
+    "functions/NLOptControl.md",
+    "functions/VehicleModels.md",
+    "functions/PrettyPlots.md"
+    ]
+Depth=1
+```
+
 
 ## Index
 
