@@ -1,12 +1,28 @@
 # NLOptControl.jl Documentation
 
 
+## Introduction
+...
 
-## Guide
+## Installation
 
-```@contents
-Pages=["main/intro.md"]
-Depth=1
+There are several packages that need to be installed, to do this run:
+```julia
+Pkg.clone("https://github.com/JuliaMPC/PrettyPlots.jl")
+Pkg.clone("https://github.com/JuliaMPC/VehicleModels.jl")
+Pkg.clone("https://github.com/JuliaMPC/NLOptControl.jl")
+```
+
+## Citation
+
+If you find this package useful, please cite this paper:
+```
+@Conference{Febbo2017,
+  author    = {Huckleberry Febbo, Jiechao Liu, Paramsothy Jayakumar, Jeffrey L. Stein, Tulga Ersal},
+  title     = {Moving Obstacle Avoidance for Large, High-Speed Autonomous Ground Vehicles},
+  year      = {2017},
+  publisher = {IEEE}
+}
 ```
 
 ## Tutorials
@@ -14,11 +30,12 @@ Depth=1
 For `NLOptControl.jl` there are several examples provided:
 
 ```@contents
-Pages=["tutorials/BrysonDenham/BrysonDenham.md",
-       "tutorials/MoonLander/MoonLander.md",
-       "tutorials/Brachistochrone/Brachistochrone.md"
-      ]
-Depth=1
+Pages=[
+      "tutorials/BrysonDenham/BrysonDenham.md",
+      "tutorials/MoonLander/MoonLander.md",
+      "tutorials/KinematicBicycle/KinematicBicycle.md"
+       ]
+Depth=2
 ```
 
 ## Background Info
@@ -48,3 +65,5 @@ Depth=1
 
 ```@index
 ```
+
+## Acknowledgements

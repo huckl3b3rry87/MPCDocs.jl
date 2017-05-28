@@ -11,15 +11,13 @@ Where, the objects `s` and `n` are the settings and optimal control problem stru
 
 Next define the basic differential equation used to model the system:
 
-
-
 ```@example MoonLander
 const g = 1.62519; # m/s^2
 function MoonLander{T<:Any}(mdl::JuMP.Model,n::NLOpt,r::Result,x::Array{T,2},u::Array{T,2}) # dynamic constraint equations
   if n.integrationMethod==:tm; L=size(x)[1]; else L=size(x)[1]-1; end
   dx = Array(Any,L,n.numStates)
-  dx[:,1] =  @NLexpression(mdl, [j=1:L], x[j,2] );
-  dx[:,2] =  @NLexpression(mdl, [j=1:L], u[j,1] - g);
+  dx[:,1] = @NLexpression(mdl, [j=1:L], x[j,2] );
+  dx[:,2] = @NLexpression(mdl, [j=1:L], u[j,1] - g);
   return dx
 end
 nothing # hide

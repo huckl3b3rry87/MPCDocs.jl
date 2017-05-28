@@ -12,21 +12,21 @@ makedocs(modules=[NLOptControl,PrettyPlots,VehicleModels],
         authors="Huckleberry Febbo",
         sitename="NLOptControl.jl",
         pages = Any[
-        "Home" => "index.md"
-        ])
-#=
-makedocs(modules=[NLOptControl,PrettyPlots,VehicleModels],
-        doctest=false, clean=true,
-        format =:html,
-        authors="Huckleberry Febbo",
-        sitename="NLOptControl.jl",
-        pages = Any[
         "Home" => "index.md",
-        "Tutorials" => Any[
-          "tutorials/MoonLander/MoonLander.md"
+        "Tutorials"=>Any[
+          "tutorials/BrysonDenham/BrysonDenham.md",
+          "tutorials/MoonLander/MoonLander.md",
+          "tutorials/KinematicBicycle/KinematicBicycle.md"
+         ],
+         "Background Information"=>Any[
+         "background/index.md"
+         ],
+         "Exported Functions"=>Any[
+         "functions/NLOptControl.md",
+         "functions/VehicleModels.md",
+         "functions/PrettyPlots.md"
          ]
          ])
-=#
 deploydocs(
     deps=Deps.pip("mkdocs","python-markdown-math"),
     repo="github.com/JuliaMPC/MPCDocs.jl.git",
