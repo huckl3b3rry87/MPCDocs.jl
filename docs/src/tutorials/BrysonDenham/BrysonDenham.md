@@ -5,7 +5,6 @@
 
 ```@example BrysonDenham
 using NLOptControl,JuMP,Parameters,PrettyPlots,Plots;gr()
-s=Settings();
 n=NLOpt();
 nothing # hide
 ```
@@ -13,15 +12,15 @@ nothing # hide
 ## Differential Equations
 
 ```@example BrysonDenham
-function BrysonDenham{T<:Any}(mdl::JuMP.Model,n::NLOpt,r::Result,x::Array{T,2},u::Array{T,2}) # dynamic constraint equations
-  if n.integrationMethod==:tm
+function BrysonDenham{T<:Any}(n::NLOpt,x::Array{T,2},u::Array{T,2}) # dynamic constraint equations
+  if n.s.integrationMethod==:tm
     L = size(x)[1];
   else
     L = size(x)[1]-1;
   end
   dx = Array(Any,L,n.numStates)
-  dx[:,1] =  @NLexpression(mdl, [j=1:L], x[j,2] );
-  dx[:,2] =  @NLexpression(mdl, [j=1:L], u[j,1] );
+  dx[:,1] =  @NLexpression(n.mdl, [j=1:L], x[j,2] );
+  dx[:,2] =  @NLexpression(n.mdl, [j=1:L], u[j,1] );
   return dx
 end
 nothing # hide
@@ -37,22 +36,20 @@ configure!(n,Ni=2,Nck=[10,5];(:integrationMethod => :ps),(:integrationScheme => 
 nothing # hide
 ```
 
-## Configure Solver Settings
+## Objective Function
 ```@example BrysonDenham
-mdl=defineSolver!(n;name=:IPOPT,max_iter=1000,feastol_abs=1.0e-3,infeastol=1.0e-8,opttol_abs=1.0e-3);
+obj=integrate!(n,n.r.u[:,1];C=0.5,(:variable=>:control),(:integrand=>:squared))
+@NLobjective(n.mdl,Min,obj);
+nothing # hide
+```
+## Optimize
+```@example BrysonDenham
+optimize!(n)
 nothing # hide
 ```
 
-## Optimize
-```@example BrysonDenham
-r=OCPdef!(mdl,n,s);
-obj=integrate!(mdl,n,r.u[:,1];C=0.5,(:variable=>:control),(:integrand=>:squared))
-@NLobjective(mdl, Min,obj);
-optimize!(mdl,n,r,s)
-nothing # hide
-```
 ## Post Process
 ```@example BrysonDenham
-resultsDir!(r);
-allPlots(n,r,1)
+resultsDir!(n.r);
+allPlots(n,n.r,1)
 ```

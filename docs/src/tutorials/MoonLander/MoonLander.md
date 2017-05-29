@@ -3,11 +3,17 @@
 First setup the packages that will be used:
 ```@example MoonLander
 using NLOptControl,JuMP,Parameters,PrettyPlots,Plots;gr()
-s=Settings();
 n=NLOpt();
 nothing # hide
 ```
-Where, the objects `s` and `n` are the settings and optimal control problem structures, respectively.
+Where, the object `n` is the object for the entire optimal control problem including:
+|setting               | keys        | descriptions           |
+| -------------------- | ----------- | ---------------------- |
+|n.s.integrationMethod | :tm         | time marching          |
+                       | :ps         | pseudospectral methods |
+`n.s` for settings
+`n.r` for results
+`n.mpc` for mpc data
 
 Next define the basic differential equation used to model the system:
 

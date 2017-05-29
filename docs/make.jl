@@ -16,7 +16,8 @@ makedocs(modules=[NLOptControl,PrettyPlots,VehicleModels],
         "Tutorials"=>Any[
           "tutorials/BrysonDenham/BrysonDenham.md",
           "tutorials/MoonLander/MoonLander.md",
-          "tutorials/KinematicBicycle/KinematicBicycle.md"
+          "tutorials/KinematicBicycle/KinematicBicycle.md",
+          "tutorials/HyperSensitive/main.md"
          ],
          "Background Information"=>Any[
          "background/index.md"
