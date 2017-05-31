@@ -31,21 +31,26 @@ For `NLOptControl.jl` there are several examples provided:
 
 ```@contents
 Pages=[
-      "tutorials/BrysonDenham/BrysonDenham.md",
-      "tutorials/MoonLander/MoonLander.md",
-      "tutorials/KinematicBicycle/KinematicBicycle.md",
-      "tutorials/HyperSensitive/main.md"
+      "tutorials/BrysonDenham/main.md",
+      "tutorials/Brachistochrone/main.md",
+      "tutorials/Brachistochrone/macro.md"
        ]
-Depth=2
+Depth=1
 ```
 
 ## Background Info
+While detailed information on these approaches to discretizing infinite dimensional (or continuous) optimal control problems can be found (and comes from) [this Ph.D. dissertation](http://etd.fcla.edu/UF/UFE0042778/darby_c.pdf), [this related journal publication](http://vdol.mae.ufl.edu/JournalPublications/TOMS-GPOPS-II-August-2013.pdf) and [this technical report](http://systemdesign.illinois.edu/publications/Her15a.pdf), the Background Information section will cover some basics.
 
 ```@contents
 Pages = [
-    "background/index.md"
+    "background/lagrange_poly.md",
+    "background/optimal_control.md",
+    "background/ocp.md",
+    "background/time_marching.md",
+    "background/pseudospectral_methods.md",
+    "background/hp-psuedospectral.md"
     ]
-Depth=2
+Depth=1
 ```
 
 ## Exported Functions
@@ -62,9 +67,6 @@ Depth=1
 ```
 
 
-## Index
-
-```@index
-```
-
 ## Acknowledgements
+Miles Lubin, https://jump.readthedocs.io/en/latest/
+Chris Rackauckas, https://github.com/JuliaDiffEq/DifferentialEquations.jl

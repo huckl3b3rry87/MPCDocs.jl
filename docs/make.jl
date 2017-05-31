@@ -14,14 +14,17 @@ makedocs(modules=[NLOptControl,PrettyPlots,VehicleModels],
         pages = Any[
         "Home" => "index.md",
         "Tutorials"=>Any[
-          "tutorials/BrysonDenham/BrysonDenham.md",
-          #"tutorials/MoonLander/MoonLander.md",
-          #"tutorials/KinematicBicycle/KinematicBicycle.md",
-          #"tutorials/HyperSensitive/main.md"
+          "tutorials/BrysonDenham/main.md",
+          "tutorials/Brachistochrone/main.md",
+          "tutorials/Brachistochrone/macro.md"
          ],
          "Background Information"=>Any[
-         "background/index.md"
-         ],
+             "background/lagrange_poly.md",
+             "background/ocp.md",
+             "background/time_marching.md",
+             "background/pseudospectral_methods.md",
+             "background/hp_psuedospectral.md"
+             ],
          "Exported Functions"=>Any[
          "functions/NLOptControl.md",
          "functions/VehicleModels.md",
