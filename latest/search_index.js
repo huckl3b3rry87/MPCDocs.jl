@@ -109,7 +109,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Bryson Denham",
     "title": "Differential Equations",
     "category": "section",
-    "text": "function BrysonDenham{T<:Any}(n::NLOpt,x::Array{T,2},u::Array{T,2}) # dynamic constraint equations\n  if n.s.integrationMethod==:tm; L=size(x)[1]; else; L=size(x)[1]-1; end\n  dx=Array(Any,L,n.numStates);\n  dx[:,1]=@NLexpression(n.mdl,[j=1:L], x[j,2] );\n  dx[:,2]=@NLexpression(n.mdl,[j=1:L], u[j,1] );\n  return dx\nend\nnothing # hide"
+    "text": "@DiffEq(BrysonDenham,[x[j,2];u[j,1]])\nnothing # hide"
 },
 
 {
