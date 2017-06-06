@@ -45,7 +45,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Home",
     "title": "Tutorials",
     "category": "section",
-    "text": "For NLOptControl.jl there are several examples provided:Pages=[\n      \"tutorials/BrysonDenham/main.md\",\n      \"tutorials/Brachistochrone/main.md\",\n      \"tutorials/Brachistochrone/macro.md\"\n       ]\nDepth=1"
+    "text": "For NLOptControl.jl there are several examples provided:Pages=[\n      \"tutorials/BrysonDenham/main.md\",\n      \"tutorials/Brachistochrone/main.md\",\n      \"tutorials/HyperSensitive/main.md\",\n      \"tutorials/MoonLander/main.md\",\n      \"tutorials/KinematicBicycle/main.md\"\n       ]\nDepth=1"
 },
 
 {
@@ -85,7 +85,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Bryson Denham",
     "title": "Bryson Denham",
     "category": "section",
-    "text": ""
+    "text": "This problem can be found here.This example is using the @DiffEq() to define the differential equations, but currently this macro is limited to linear odes."
 },
 
 {
@@ -149,7 +149,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Brachistochrone",
     "title": "Brachistochrone",
     "category": "section",
-    "text": "Brachistochrone Problem  -> Without @DiffEq() "
+    "text": "This problem can be found here."
 },
 
 {
@@ -157,7 +157,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Brachistochrone",
     "title": "Packages that will be used",
     "category": "section",
-    "text": "using NLOptControl,JuMP,Parameters,PrettyPlots,Plots;gr()\nnothing # hide"
+    "text": "using NLOptControl,JuMP,PrettyPlots,Plots;gr()\nnothing # hide"
 },
 
 {
@@ -209,72 +209,176 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "tutorials/Brachistochrone/macro.html#",
-    "page": "Brachistochrone",
-    "title": "Brachistochrone",
+    "location": "tutorials/HyperSensitive/main.html#",
+    "page": "HyperSensitive",
+    "title": "HyperSensitive",
     "category": "page",
     "text": ""
 },
 
 {
-    "location": "tutorials/Brachistochrone/macro.html#Brachistochrone-1",
-    "page": "Brachistochrone",
-    "title": "Brachistochrone",
+    "location": "tutorials/HyperSensitive/main.html#HyperSensitive-1",
+    "page": "HyperSensitive",
+    "title": "HyperSensitive",
     "category": "section",
-    "text": "Brachistochrone Problem  -> With @DiffEq()"
+    "text": "This problem can be found here."
 },
 
 {
-    "location": "tutorials/Brachistochrone/macro.html#Packages-that-will-be-used-1",
-    "page": "Brachistochrone",
+    "location": "tutorials/HyperSensitive/main.html#Packages-that-will-be-used-1",
+    "page": "HyperSensitive",
     "title": "Packages that will be used",
     "category": "section",
-    "text": "using NLOptControl,JuMP,Parameters,PrettyPlots,Plots;gr()\nnothing # hide"
+    "text": "using NLOptControl,JuMP,PrettyPlots,Plots;gr()\nnothing # hide"
 },
 
 {
-    "location": "tutorials/Brachistochrone/macro.html#Differential-Equations-1",
-    "page": "Brachistochrone",
+    "location": "tutorials/HyperSensitive/main.html#Differential-Equations-1",
+    "page": "HyperSensitive",
     "title": "Differential Equations",
     "category": "section",
-    "text": "@DiffEq(Brachistochrone,[x[j,3]*sin(u[j,1]);x[j,3]*cos(u[j,1]);9.81*cos(u[j,1])])\nnothing # hide"
+    "text": "function HyperSensitive{T<:Any}(n::NLOpt,x::Array{T,2},u::Array{T,2}) # dynamic constraint equations\n  if n.s.integrationMethod==:tm; L=size(x)[1]; else; L=size(x)[1]-1; end\n  dx=Array(Any,L,n.numStates);\n  dx[:,1]=@NLexpression(n.mdl, [j=1:L], -x[j,1]^3 + u[j,1] );\n  return dx\nend\nnothing # hide"
 },
 
 {
-    "location": "tutorials/Brachistochrone/macro.html#Define-and-Configure-the-Problem:-1",
-    "page": "Brachistochrone",
+    "location": "tutorials/HyperSensitive/main.html#Define-and-Configure-the-Problem:-1",
+    "page": "HyperSensitive",
     "title": "Define and Configure the Problem:",
     "category": "section",
-    "text": "n=define!(;stateEquations=Brachistochrone,numStates=3,numControls=1,X0=[0.0,0.0,0.0],XF=[2.,2.,NaN],XL=[-NaN,-NaN,-NaN],XU=[NaN,NaN,NaN],CL=[-NaN],CU=[NaN]);\nconfigure!(n,Nck=[100];(:finalTimeDV=>true));\nnothing # hide\n"
+    "text": "n=define!(;stateEquations=HyperSensitive,numStates=1,numControls=1,X0=[1.5],XF=[1.],XL=[NaN],XU=[NaN],CL=[NaN],CU=[NaN])\nconfigure!(n,N=100;(:integrationMethod => :tm),(:integrationScheme => :trapezoidal),(:finalTimeDV => false),(:tf => 10000.0))\nnothing # hide"
 },
 
 {
-    "location": "tutorials/Brachistochrone/macro.html#Additional-Information-1",
-    "page": "Brachistochrone",
-    "title": "Additional Information",
-    "category": "section",
-    "text": "names=[:x,:y,:v]; descriptions=[\"x(t)\",\"y(t)\",\"v(t)\"];\nstateNames!(n,names,descriptions);\nnames=[:u]; descriptions=[\"u(t)\"];\ncontrolNames!(n,names,descriptions);\nnothing # hide"
-},
-
-{
-    "location": "tutorials/Brachistochrone/macro.html#Objective-Function-1",
-    "page": "Brachistochrone",
+    "location": "tutorials/HyperSensitive/main.html#Objective-Function-1",
+    "page": "HyperSensitive",
     "title": "Objective Function",
     "category": "section",
-    "text": "obj=integrate!(n,n.r.u[:,1];C=0.5,(:variable=>:control),(:integrand=>:squared));\n@NLobjective(n.mdl,Min,n.tf);\nnothing # hide"
+    "text": "obj1=integrate!(n,n.r.x[:,1];C=0.5,(:variable=>:control),(:integrand=>:squared))\nobj2=integrate!(n,n.r.u[:,1];C=0.5,(:variable=>:control),(:integrand=>:squared))\n@NLobjective(n.mdl,Min,obj1+obj2);"
 },
 
 {
-    "location": "tutorials/Brachistochrone/macro.html#Optimize-1",
-    "page": "Brachistochrone",
+    "location": "tutorials/HyperSensitive/main.html#Optimize-1",
+    "page": "HyperSensitive",
+    "title": "Optimize",
+    "category": "section",
+    "text": "optimize!(n)\nnothing # hide"
+},
+
+{
+    "location": "tutorials/HyperSensitive/main.html#Post-Process-1",
+    "page": "HyperSensitive",
+    "title": "Post Process",
+    "category": "section",
+    "text": "allPlots(n)"
+},
+
+{
+    "location": "tutorials/MoonLander/main.html#",
+    "page": "Moon Lander",
+    "title": "Moon Lander",
+    "category": "page",
+    "text": ""
+},
+
+{
+    "location": "tutorials/MoonLander/main.html#Moon-Lander-1",
+    "page": "Moon Lander",
+    "title": "Moon Lander",
+    "category": "section",
+    "text": "First setup the packages that will be used:using NLOptControl,JuMP,PrettyPlots,Plots;gr()\nnothing # hideWhere, the object n is the object for the entire optimal control problem including: |setting               | keys        | descriptions           | | –––––––––– | –––––- | ––––––––––– | |n.s.integrationMethod | :tm         | time marching          |                        | :ps         | pseudospectral methods | n.s for settings n.r for results n.mpc for mpc dataNext define the basic differential equation used to model the system:const g = 1.62519; # m/s^2\nfunction MoonLander{T<:Any}(n::NLOpt,x::Array{T,2},u::Array{T,2}) # dynamic constraint equations\n  if n.s.integrationMethod==:tm; L=size(x)[1]; else L=size(x)[1]-1; end\n  dx = Array(Any,L,n.numStates)\n  dx[:,1] = @NLexpression(n.mdl, [j=1:L], x[j,2] );\n  dx[:,2] = @NLexpression(n.mdl, [j=1:L], u[j,1] - g);\n  return dx\nend\nnothing # hideMost of this code is boiler-plate and should be copied directly. The important things to note are thatu is the control variable matrix and x is the state variable matrix. So, in the above example the only thing that the user needs to modify is the right hand side of the dx[] expressions. The indecies for the number of the state or control variable are in the columns. For instance, x[:,2] represents the entire vector for second state variable.NOTE: eventually most of this code will be pushed to a lower level.  Now that the dynamic constraint equations have been established, the next step is to define the problem:n=define!(;stateEquations=MoonLander,numStates=2,numControls=1,X0=[10.,-2],XF=[0.,0.],XL=[NaN,NaN],XU=[NaN,NaN],CL=[0.],CU=[3.]);\nnothing # hideTo do this the user passes n, and defines the stateEquations to be the dynamic constraint equations defined in MoonLander().Basics: numStates = number of state variables numControls = number of control variables X0 = intial sttae TODO-> mention XL etc.There are several different ways to ensure that the stateEquations are satisfied that are set using the keys :integrationMethod and :integrationScheme. In this example the hp-Gaussian Quadrature Collocation Method is used with Radau Nodes. Finally, the final time may be either fixed and set before hand or it can be a variable. This option is set using the :finalTimeDV key and it is set to true in this example.configure!(n,Ni=4,Nck=[10,10,10,10];(:integrationMethod=>:ps),(:integrationScheme=> :lgrExplicit),(:finalTimeDV=>true));\nnothing # hideThe next parts are optional.Names and descriptions may be added to both the control and state variables as follows:names=[:h,:v]; descriptions = [\"h(t)\",\"v(t)\"]; stateNames!(n,names,descriptions);\nnothing # hideNOTE: The names will show up in the results data and the descriptions will show up in the graphsThe object r stores all of the results as well as both the control and state variables. For instance r.x[:,1] should now be used to access the entire vector for the first state.For generality, integrate!() will also be demonstrated in this example. integrate!() is used to add terms to the cost function that need to be integrated. Currently there are several forms that these integrals can take (more can be added). In this example the first control variable r.u[:,1] and sets up this variable to be integrated over the entire time of the control problem with the following line of code:obj=integrate!(n,n.r.u[:,1];C=1.0,(:variable=>:control),(:integrand=>:default));\nnothing # hideNext the cost function can be defined as:@NLobjective(n.mdl, Min, obj);\nnothing # hideAt this stage, the optimal control problem can be solved with:optimize!(n);\nnothing # hideThen, in order to quickly visualize the problem, functionality is also provided for automated visualization."
+},
+
+{
+    "location": "tutorials/MoonLander/main.html#The-next-part-is-optional:-1",
+    "page": "Moon Lander",
+    "title": "The next part is optional:",
+    "category": "section",
+    "text": "The plot settings can be modified from the default using the following code:plotSettings(;(:mpc_lines =>[(4.0,:blue,:solid)]),(:size=>(700,700)));\nnothing # hideFinally, in order to plot all of the states and controls call:allPlots(n);"
+},
+
+{
+    "location": "tutorials/KinematicBicycle/main.html#",
+    "page": "Kinematic Bicycle Model",
+    "title": "Kinematic Bicycle Model",
+    "category": "page",
+    "text": ""
+},
+
+{
+    "location": "tutorials/KinematicBicycle/main.html#Kinematic-Bicycle-Model-1",
+    "page": "Kinematic Bicycle Model",
+    "title": "Kinematic Bicycle Model",
+    "category": "section",
+    "text": "The vehicle model comes from the BARC-project"
+},
+
+{
+    "location": "tutorials/KinematicBicycle/main.html#Packages-that-will-be-used-1",
+    "page": "Kinematic Bicycle Model",
+    "title": "Packages that will be used",
+    "category": "section",
+    "text": "using NLOptControl,JuMP,Parameters,VehicleModels,PrettyPlots,Plots;gr()\nnothing # hide"
+},
+
+{
+    "location": "tutorials/KinematicBicycle/main.html#Parameters-form-VehicleModels.jl-1",
+    "page": "Kinematic Bicycle Model",
+    "title": "Parameters form VehicleModels.jl",
+    "category": "section",
+    "text": "pa=VparaKB(x0_=0.);  \n@unpack_VparaKB pa # vehicle parameters\nX0=[x0_,y0_,psi0_,u0_];\nXF=[NaN,NaN,NaN,NaN];\nXL=[x_min,y_min,psi_min,u_min];\nXU=[x_max,y_max,psi_max,u_max];\nCL=[sa_min,ax_min];\nCU=[sa_max,ax_max];\nnothing # hide"
+},
+
+{
+    "location": "tutorials/KinematicBicycle/main.html#Differential-Equations-1",
+    "page": "Kinematic Bicycle Model",
+    "title": "Differential Equations",
+    "category": "section",
+    "text": "n=define!(;stateEquations=KinematicBicycle,numStates=4,numControls=2,X0=X0,XF=XF,XL=XL,XU=XU,CL=CL,CU=CU);\nnothing # hide"
+},
+
+{
+    "location": "tutorials/KinematicBicycle/main.html#Add-Parameters-to-the-Model-1",
+    "page": "Kinematic Bicycle Model",
+    "title": "Add Parameters to the Model",
+    "category": "section",
+    "text": "n.params=[pa];   # vehicle parameters\nnothing # hide"
+},
+
+{
+    "location": "tutorials/KinematicBicycle/main.html#Define-and-Configure-the-Problem:-1",
+    "page": "Kinematic Bicycle Model",
+    "title": "Define and Configure the Problem:",
+    "category": "section",
+    "text": "configure!(n,Nck=[15,10];(:finalTimeDV=>false),(:tf=>4.0));\nnothing # hide"
+},
+
+{
+    "location": "tutorials/KinematicBicycle/main.html#additional-information-1",
+    "page": "Kinematic Bicycle Model",
+    "title": "additional information",
+    "category": "section",
+    "text": "names=[:x,:y,:psi,:ux];\ndescriptions=[\"X (m)\",\"Y (m)\",\"Yaw Angle (rad)\",\"Longitudinal Velocity (m/s)\"];\nstateNames!(n,names,descriptions)\nnames = [:sr,:jx];\ndescriptions=[\"Steering Angle (rad)\",\"Longitudinal Acceleration (m/s^2)\"];\ncontrolNames!(n,names,descriptions);\nnothing # hide#mXL=Any[false,false,false,false];mXU=Any[false,false,false,-1];  # set to false if you don't want to taper that side #linearStateTolerances(n;mXL=mXL,mXU=mXU);"
+},
+
+{
+    "location": "tutorials/KinematicBicycle/main.html#Objective-Function-1",
+    "page": "Kinematic Bicycle Model",
+    "title": "Objective Function",
+    "category": "section",
+    "text": "x_ref = 10; y_ref = 100; # define target\n@NLobjective(n.mdl, Min, (n.r.x[end,1]-x_ref)^2 + (n.r.x[end,2]-y_ref)^2);\nnothing # hide"
+},
+
+{
+    "location": "tutorials/KinematicBicycle/main.html#Optimize-1",
+    "page": "Kinematic Bicycle Model",
     "title": "Optimize",
     "category": "section",
     "text": "optimize!(n);\nnothing # hide"
 },
 
 {
-    "location": "tutorials/Brachistochrone/macro.html#Post-Process-1",
-    "page": "Brachistochrone",
+    "location": "tutorials/KinematicBicycle/main.html#Post-Process-1",
+    "page": "Kinematic Bicycle Model",
     "title": "Post Process",
     "category": "section",
     "text": "allPlots(n)"
@@ -585,19 +689,19 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "functions/VehicleModels.html#VehicleModels.KinematicBicycle-Tuple{JuMP.Model,Any,Any,Array{T,2},Array{T,2},Any}",
+    "location": "functions/VehicleModels.html#VehicleModels.KinematicBicycle-Tuple{Any,Array{T,2},Array{T,2}}",
     "page": "VehicleModels.jl",
     "title": "VehicleModels.KinematicBicycle",
     "category": "Method",
-    "text": "dx=KinematicBicycle(mdl,n,R,x,u,params)\n\nOriginal Authors: BARC Project, Berkely MPC Laboratory -> https://github.com/MPC-Berkeley/barc Modified for NLOptControl.jl by: Huckleberry Febbo, Graduate Student, University of Michigan Date Create: 2/9/2017, Last Modified: 2/9/2017 \n\n\n\nthis vehicle model is controlled using steering angle and longitudinal acceleration\n\n\n\n"
+    "text": "dx=KinematicBicycle(n,x,u)\n\nOriginal Authors: BARC Project, Berkely MPC Laboratory -> https://github.com/MPC-Berkeley/barc Modified for NLOptControl.jl by: Huckleberry Febbo, Graduate Student, University of Michigan Date Create: 2/9/2017, Last Modified: 5/31/2017 \n\n\n\nthis vehicle model is controlled using steering angle and longitudinal acceleration\n\n\n\n"
 },
 
 {
-    "location": "functions/VehicleModels.html#VehicleModels.ThreeDOFv1-Tuple{JuMP.Model,Any,Any,Array{T,2},Array{T,2},Any}",
+    "location": "functions/VehicleModels.html#VehicleModels.ThreeDOFv1-Tuple{Any,Array{T,2},Array{T,2}}",
     "page": "VehicleModels.jl",
     "title": "VehicleModels.ThreeDOFv1",
     "category": "Method",
-    "text": "dx = ThreeDOFv1(mdl,n,R,x,u,params)\n\nAuthor: Huckleberry Febbo, Graduate Student, University of Michigan Date Create: 10/20/2017, Last Modified: 2/1/2017 \n\n\n\nthis vehicle model is controlled using steering angle and speed\n\n\n\n"
+    "text": "dx = ThreeDOFv1(n,x,u)\n\nAuthor: Huckleberry Febbo, Graduate Student, University of Michigan Date Create: 10/20/2017, Last Modified: 5/31/2017 \n\n\n\nthis vehicle model is controlled using steering angle and speed\n\n\n\n"
 },
 
 {
@@ -609,11 +713,11 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "functions/VehicleModels.html#VehicleModels.ThreeDOFv2-Tuple{JuMP.Model,Any,Any,Array{T,2},Array{T,2},Any}",
+    "location": "functions/VehicleModels.html#VehicleModels.ThreeDOFv2-Tuple{Any,Array{T,2},Array{T,2}}",
     "page": "VehicleModels.jl",
     "title": "VehicleModels.ThreeDOFv2",
     "category": "Method",
-    "text": "dx = ThreeDOFv2(mdl,n,x,u,params)\n\nAuthor: Huckleberry Febbo, Graduate Student, University of Michigan Date Create: 10/20/2017, Last Modified: 2/6/2017 \n\n\n\nthis vehicle model is controlled using steering rate and longitudinal jerk\n\n\n\n"
+    "text": "dx = ThreeDOFv2(n,x,u)\n\nAuthor: Huckleberry Febbo, Graduate Student, University of Michigan Date Create: 10/20/2017, Last Modified:  5/31/2017 \n\n\n\nthis vehicle model is controlled using steering rate and longitudinal jerk\n\n\n\n"
 },
 
 {
