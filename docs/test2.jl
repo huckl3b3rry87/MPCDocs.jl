@@ -2,6 +2,17 @@ using NLOptControl,JuMP,PrettyPlots,Plots;gr()
 
 #@DiffEq(Brachistochrone,[x[j,3]*sin(u[j,1]);x[j,3]*cos(u[j,1]);9.81*cos(u[j,1])])
 #@DiffEq(Brachistochrone,[u[j,1];u[j,1];u[j,1]])
+#$(refcall) =
+
+#JuMP.NonlinearExpression($m, @JuMP.processNLExpr($m, $(esc(x))))
+#=
+ex = JuMP.@processNLExpr($m, $(esc(x)))
+dx=Array(JuMP.NonlinearExpression,3,1);
+dx[1]=:($(n.r.x)[j,3]*sin($(n.r.u)[j,1]));
+dx[2]=:($(n.r.x)[j,3]*cos($(n.r.u)[j,1]));
+dx[3]=:(9.81*cos($(n.r.u)[j,1]));
+=#
+#@DiffEq(Brachistochrone,[$(x[j,3])*sin(u[j,1]);$(x[j,3])*cos($(u[j,1]));9.81*cos($(u[j,1]))])  # can do this afterwards
 
 function Brachistochrone{T<:Any}(n::NLOpt,x::Array{T,2},u::Array{T,2})
   if n.s.integrationMethod==:tm; L=size(x)[1]; else L=size(x)[1]-1; end
@@ -12,7 +23,7 @@ function Brachistochrone{T<:Any}(n::NLOpt,x::Array{T,2},u::Array{T,2})
   return dx
 end
 
-n=define!(;stateEquations=Brachistochrone,numStates=3,numControls=1,X0=[0.0,0.0,0.0],XF=[2.,2.,NaN],XL=[-NaN,-NaN,-NaN],XU=[NaN,NaN,NaN],CL=[-NaN],CU=[NaN]);
+n=define!(stateEquations=Brachistochrone;numStates=3,numControls=1,X0=[0.0,0.0,0.0],XF=[2.,2.,NaN],XL=[-NaN,-NaN,-NaN],XU=[NaN,NaN,NaN],CL=[-NaN],CU=[NaN]);
 configure!(n,Nck=[100];(:finalTimeDV=>true));
 
 #configure!(n,N=30;(:integrationMethod=>:tm),(:integrationScheme=>:trapezoidal),(:finalTimeDV=>true));

@@ -1,13 +1,13 @@
 # Brachistochrone
 
 
-Brachistochrone Problem  
+This problem can be found [here](http://www.gpops2.com/Examples/Brachistochrone.html).
 
--> Without `@DiffEq()` 
+
 
 ## Packages that will be used
 ```@example Brachistochrone
-using NLOptControl,JuMP,Parameters,PrettyPlots,Plots;gr()
+using NLOptControl,JuMP,PrettyPlots,Plots;gr()
 nothing # hide
 ```
 

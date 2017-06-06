@@ -6,9 +6,6 @@
 
 
 ## Installation
-
-The package is registered in `METADATA.jl` and so can be installed with `Pkg.add`.
-
 ```julia
 julia> Pkg.clone("https://github.com/JuliaMPC/MPCDocs.jl")
 ```

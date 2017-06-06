@@ -1,5 +1,9 @@
 # Bryson Denham
 
+This problem can be found [here](http://www.gpops2.com/Examples/Brachistochrone.html).
+
+This example is using the `@DiffEq()` to define the differential equations, but currently this macro is limited to linear odes.
+
 ## Packages that will be used
 ```@example BrysonDenham
 using NLOptControl,JuMP,PrettyPlots,Plots;gr()

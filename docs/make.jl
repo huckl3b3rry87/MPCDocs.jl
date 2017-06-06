@@ -14,9 +14,11 @@ makedocs(modules=[NLOptControl,PrettyPlots,VehicleModels],
         pages = Any[
         "Home" => "index.md",
         "Tutorials"=>Any[
-          "tutorials/BrysonDenham/main.md",
-          "tutorials/Brachistochrone/main.md",
-          "tutorials/Brachistochrone/macro.md"
+            "tutorials/BrysonDenham/main.md",
+            "tutorials/Brachistochrone/main.md",
+            "tutorials/HyperSensitive/main.md",
+            "tutorials/MoonLander/main.md",
+            "tutorials/KinematicBicycle/main.md"
          ],
          "Background Information"=>Any[
              "background/lagrange_poly.md",
