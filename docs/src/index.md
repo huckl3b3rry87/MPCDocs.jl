@@ -33,6 +33,7 @@ For `NLOptControl.jl` there are several examples provided:
 Pages=[
       "tutorials/BrysonDenham/main.md",
       "tutorials/Brachistochrone/main.md",
+      "tutorials/Brachistochrone/main_test.md",
       "tutorials/HyperSensitive/main.md",
       "tutorials/MoonLander/main.md",
       "tutorials/KinematicBicycle/main.md"
