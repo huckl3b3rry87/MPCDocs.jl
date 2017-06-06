@@ -45,7 +45,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Home",
     "title": "Tutorials",
     "category": "section",
-    "text": "For NLOptControl.jl there are several examples provided:Pages=[\n      \"tutorials/BrysonDenham/main.md\",\n      \"tutorials/Brachistochrone/main.md\",\n      \"tutorials/HyperSensitive/main.md\",\n      \"tutorials/MoonLander/main.md\",\n      \"tutorials/KinematicBicycle/main.md\"\n       ]\nDepth=1"
+    "text": "For NLOptControl.jl there are several examples provided:Pages=[\n      \"tutorials/BrysonDenham/main.md\",\n      \"tutorials/Brachistochrone/main.md\",\n      \"tutorials/Brachistochrone/main_test.md\",\n      \"tutorials/HyperSensitive/main.md\",\n      \"tutorials/MoonLander/main.md\",\n      \"tutorials/KinematicBicycle/main.md\"\n       ]\nDepth=1"
 },
 
 {
@@ -202,6 +202,78 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "tutorials/Brachistochrone/main.html#Post-Process-1",
+    "page": "Brachistochrone",
+    "title": "Post Process",
+    "category": "section",
+    "text": "allPlots(n)"
+},
+
+{
+    "location": "tutorials/Brachistochrone/main_test.html#",
+    "page": "Brachistochrone",
+    "title": "Brachistochrone",
+    "category": "page",
+    "text": ""
+},
+
+{
+    "location": "tutorials/Brachistochrone/main_test.html#Brachistochrone-1",
+    "page": "Brachistochrone",
+    "title": "Brachistochrone",
+    "category": "section",
+    "text": "This problem can be found here.This is a test of ODEdef()"
+},
+
+{
+    "location": "tutorials/Brachistochrone/main_test.html#Packages-that-will-be-used-1",
+    "page": "Brachistochrone",
+    "title": "Packages that will be used",
+    "category": "section",
+    "text": "using NLOptControl,JuMP,PrettyPlots,Plots;gr()\nnothing # hide"
+},
+
+{
+    "location": "tutorials/Brachistochrone/main_test.html#Differential-Equations-1",
+    "page": "Brachistochrone",
+    "title": "Differential Equations",
+    "category": "section",
+    "text": "@DiffEq(Brachistochrone,[x[j,3]*sin(u[j,1]);x[j,3]*cos(u[j,1]);9.81*cos(u[j,1])])\nnothing # hide"
+},
+
+{
+    "location": "tutorials/Brachistochrone/main_test.html#Define-and-Configure-the-Problem:-1",
+    "page": "Brachistochrone",
+    "title": "Define and Configure the Problem:",
+    "category": "section",
+    "text": "n=define!(;stateEquations=Brachistochrone,numStates=3,numControls=1,X0=[0.0,0.0,0.0],XF=[2.,2.,NaN],XL=[-NaN,-NaN,-NaN],XU=[NaN,NaN,NaN],CL=[-NaN],CU=[NaN]);\nconfigure!(n,Nck=[100];(:finalTimeDV=>true));\nnothing # hide\n"
+},
+
+{
+    "location": "tutorials/Brachistochrone/main_test.html#Additional-Information-1",
+    "page": "Brachistochrone",
+    "title": "Additional Information",
+    "category": "section",
+    "text": "names=[:x,:y,:v]; descriptions=[\"x(t)\",\"y(t)\",\"v(t)\"];\nstateNames!(n,names,descriptions);\nnames=[:u]; descriptions=[\"u(t)\"];\ncontrolNames!(n,names,descriptions);\nnothing # hide"
+},
+
+{
+    "location": "tutorials/Brachistochrone/main_test.html#Objective-Function-1",
+    "page": "Brachistochrone",
+    "title": "Objective Function",
+    "category": "section",
+    "text": "obj=integrate!(n,n.r.u[:,1];C=0.5,(:variable=>:control),(:integrand=>:squared));\n@NLobjective(n.mdl,Min,n.tf);\nnothing # hide"
+},
+
+{
+    "location": "tutorials/Brachistochrone/main_test.html#Optimize-1",
+    "page": "Brachistochrone",
+    "title": "Optimize",
+    "category": "section",
+    "text": "optimize!(n);\nnothing # hide"
+},
+
+{
+    "location": "tutorials/Brachistochrone/main_test.html#Post-Process-1",
     "page": "Brachistochrone",
     "title": "Post Process",
     "category": "section",
