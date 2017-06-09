@@ -36,7 +36,8 @@ Pages=[
       "tutorials/Brachistochrone/main_test.md",
       "tutorials/HyperSensitive/main.md",
       "tutorials/MoonLander/main.md",
-      "tutorials/KinematicBicycle/main.md"
+      "tutorials/KinematicBicycle/main.md",
+      "tutorials/RobotArm/main.md"
        ]
 Depth=1
 ```

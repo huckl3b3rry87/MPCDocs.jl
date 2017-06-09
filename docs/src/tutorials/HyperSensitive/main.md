@@ -25,15 +25,14 @@ nothing # hide
 ## Define and Configure the Problem:
 ```@example HyperSensitive
 n=define!(;stateEquations=HyperSensitive,numStates=1,numControls=1,X0=[1.5],XF=[1.],XL=[NaN],XU=[NaN],CL=[NaN],CU=[NaN])
-configure!(n,N=100;(:integrationMethod => :tm),(:integrationScheme => :trapezoidal),(:finalTimeDV => false),(:tf => 10000.0))
+configure!(n,Nck=[20,3,3,3,3,3,3,3,3,3,3,20];(:finalTimeDV=>false),(:tf=>10000.0))
 nothing # hide
 ```
 
 ## Objective Function
 ```@example HyperSensitive
-obj1=integrate!(n,n.r.x[:,1];C=0.5,(:variable=>:control),(:integrand=>:squared))
+obj1=integrate!(n,n.r.x[:,1];C=0.5,(:variable=>:state),(:integrand=>:squared))
 obj2=integrate!(n,n.r.u[:,1];C=0.5,(:variable=>:control),(:integrand=>:squared))
-@NLobjective(n.mdl,Min,obj1+obj2);
 ```
 
 ## Optimize

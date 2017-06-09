@@ -1,27 +1,24 @@
 # Documentation: http://docs.travis-ci.com/user/languages/julia/
 language: julia
 sudo: required
+dist: trusty
 os:
   - linux
 julia:
   - 0.5
   - release
-matrix:
-  allow_failures:
-    - julia: nightly
 notifications:
   email: false
 addons:
       apt_packages:
         - gfortran
-#before_install:
-  #- sudo apt-get -qq update
-  #- sudo apt-get install texlive-luatex
-  #- sudo apt-get install -y pdf2svg
-  #- sudo apt-get install -y texlive-latex-base
-  #- sudo apt-get install -y texlive-binaries
-  #- sudo apt-get install -y texlive-pictures
-  #- sudo apt-get install -y texlive-latex-extra
+before_install:
+  - sudo apt-get -qq update
+  - sudo apt-get install -y pdf2svg
+  - sudo apt-get install -y texlive-latex-base
+  - sudo apt-get install -y texlive-binaries
+  - sudo apt-get install -y texlive-pictures
+  - sudo apt-get install -y texlive-latex-extra
 after_success:
 - echo $TRAVIS_JULIA_VERSION
 - if [[ -a .git/shallow ]]; then git fetch --unshallow; fi

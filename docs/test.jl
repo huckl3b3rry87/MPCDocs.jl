@@ -1,46 +1,25 @@
-# Bryson Denham
+using NLOptControl,JuMP,PrettyPlots,Plots;
+pyplot()
+#gr()
 
-using NLOptControl,JuMP,PrettyPlots,Plots;gr()
+function HyperSensitive{T<:Any}(n::NLOpt,x::Array{T,2},u::Array{T,2}) # dynamic constraint equations
+  if n.s.integrationMethod==:tm; L=size(x)[1]; else; L=size(x)[1]-1; end
+  dx=Array(Any,L,n.numStates);
+  dx[:,1]=@NLexpression(n.mdl, [j=1:L], -x[j,1]^3 + u[j,1] );
+  return dx
+end
 
-## Differential Equations
+n=define!(;stateEquations=HyperSensitive,numStates=1,numControls=1,X0=[1.],XF=[1.5],XL=[NaN],XU=[NaN],CL=[NaN],CU=[NaN])
+#configure!(n,N=1000;(:integrationMethod=>:tm),(:integrationScheme=>:trapezoidal),(:finalTimeDV=>false),(:tf=>10000.0))
+#configure!(n,N=10000;(:integrationMethod=>:tm),(:integrationScheme=>:bkwEuler),(:finalTimeDV=>false),(:tf=>10000.0))
 
-@DiffEq(BrysonDenham,[:($(n.r.x)[j,2]*sin($(n.r.u)[j,1]));:($(n.r.u)[j,1])] )
+#configure!(n,Nck=[3,3,3,3,3,3,3,3,3,3];(:finalTimeDV=>false),(:tf=>10000.0))
+#configure!(n,Nck=[20,3,3,3,3,3,3,3,3,3,3,20];(:finalTimeDV=>false),(:tf=>10000.0))
+configure!(n,Nck=[200];(:finalTimeDV=>false),(:tf=>10000.0))
 
-n=define!(;numStates=2,numControls=1,X0=[0.,1],XF=[0.,-1.],XL=[0.,NaN],XU=[1/9,NaN],CL=[NaN],CU=[NaN]);
+obj1=integrate!(n,n.r.x[:,1];C=0.5,(:variable=>:state),(:integrand=>:squared))
+obj2=integrate!(n,n.r.u[:,1];C=0.5,(:variable=>:control),(:integrand=>:squared))
+@NLobjective(n.mdl,Min,obj1+obj2);
 
-#@DiffEq(n,BD,[:($(n.r.x)[j,2]);:($(n.r.u)[j,1])])
-#n.stateEquations=@DiffEq(n,BD,[:($(n.r.x)[j,2]);:($(n.r.u)[j,1])])
-#n.stateEquations=@DiffEq(n,BD,[n.r.x[:,2];n.r.u[:,1] ])
-#dx=[n.r.x[:,2];n.r.u[:,1] ];
-#@DiffEq(n,[:($(n.r.x)[j,2]*sin($(n.r.u)[j,1]));:($(n.r.u)[j,1])] )
-
-configure!(n;(:finalTimeDV=>false),(:tf=>1.0));
-
-dx=Array(Any,n.numStatePoints-1,n.numStates)  #preset this? based off of integrationMethod
-dx[:,1]=:(n.r.x[j,2]);   #TODO think about how to make references -> parameters?
-dx[:,2]=:(n.r.u[j,1]);   #TODO make sure that this was not messed up
-n.stateEquations=@DiffEq(n,BD,dx)
-
-# optimal control problem
-NLOptControl.OCPdef!(n);
-
-obj=integrate!(n,n.r.u[:,1];C=0.5,(:variable=>:control),(:integrand=>:squared));
-@NLobjective(n.mdl,Min,obj);
-
-optimize!(n);
-
+optimize!(n)
 allPlots(n)
-
-
-Then, in order to create a new directory to store the plots in call:
-```@example MoonLander
-resultsDir!(r);
-nothing # hide
-```
-
-
-2) Another option is to define the solver and some optimization settings as:
-```@example MoonLander
-mdl=defineSolver!(n;name=:IPOPT,max_iter=1000,feastol_abs=1.0e-3,infeastol=1.0e-8,opttol_abs=1.0e-3);
-nothing # hide
-```

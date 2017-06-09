@@ -1,8 +1,7 @@
-Pkg.add("Ipopt")
-Pkg.build("Ipopt")
-#Pkg.add("PGFPlots")
+Pkg.add("Ipopt");Pkg.build("Ipopt")
+Pkg.add("PGFPlots");Pkg.build("PGFPlots");
 #Pkg.add("PyPlot");Pkg.build("PyPlot")
-Pkg.add("GR"); Pkg.build("GR")
+Pkg.add("GR");Pkg.build("GR")
 
 using Documenter,MPCDocs,NLOptControl,PrettyPlots,VehicleModels
 
@@ -19,7 +18,8 @@ makedocs(modules=[NLOptControl,PrettyPlots,VehicleModels],
             "tutorials/Brachistochrone/main_test.md",
             "tutorials/HyperSensitive/main.md",
             "tutorials/MoonLander/main.md",
-            "tutorials/KinematicBicycle/main.md"
+            "tutorials/KinematicBicycle/main.md",
+            "tutorials/RobotArm/main.md"
          ],
          "Background Information"=>Any[
              "background/lagrange_poly.md",
@@ -34,6 +34,7 @@ makedocs(modules=[NLOptControl,PrettyPlots,VehicleModels],
          "functions/PrettyPlots.md"
          ]
          ])
+
 deploydocs(
     deps=Deps.pip("mkdocs","python-markdown-math"),
     repo="github.com/JuliaMPC/MPCDocs.jl.git",
