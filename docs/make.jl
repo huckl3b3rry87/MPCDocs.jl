@@ -1,4 +1,4 @@
-Pkg.add("Ipopt");Pkg.build("Ipopt")
+Pkg.add("Ipopt");Pkg.build("Ipopt");
 Pkg.add("PGFPlots");Pkg.build("PGFPlots");
 #Pkg.add("PyPlot");Pkg.build("PyPlot")
 Pkg.add("GR");Pkg.build("GR")

@@ -14,16 +14,12 @@ addons:
         - gfortran
 before_install:
 - sudo apt-get -qq update
-- git clone git@github.com:scottkosty/install-tl-ubuntu.git
-- cd install-tl-ubuntu/
-- sudo ./install-tl-ubuntu
 - sudo apt-get install -y pdf2svg
+- sudo apt-get install -y texlive-latex-base
+- sudo apt-get install -y texlive-binaries
+- sudo apt-get install -y texlive-pictures
+- sudo apt-get install -y texlive-latex-extra
 - sudo apt-get install xzdec
-- . /etc/environment
-#- sudo apt-get install -y texlive-latex-base
-#- sudo apt-get install -y texlive-binaries
-#- sudo apt-get install -y texlive-pictures
-#- sudo apt-get install -y texlive-latex-extra
 after_success:
 - echo $TRAVIS_JULIA_VERSION
 - if [[ -a .git/shallow ]]; then git fetch --unshallow; fi
