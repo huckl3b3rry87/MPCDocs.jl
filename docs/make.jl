@@ -1,6 +1,6 @@
 Pkg.add("Ipopt");Pkg.build("Ipopt");
-Pkg.add("PGFPlots");Pkg.build("PGFPlots");
 #Pkg.add("PyPlot");Pkg.build("PyPlot")
+Pkg.add("PGFPlots");Pkg.build("PGFPlots");
 Pkg.add("GR");Pkg.build("GR")
 
 using Documenter,MPCDocs,NLOptControl,PrettyPlots,VehicleModels
@@ -15,7 +15,6 @@ makedocs(modules=[NLOptControl,PrettyPlots,VehicleModels],
         "Tutorials"=>Any[
             "tutorials/BrysonDenham/main.md",
             "tutorials/Brachistochrone/main.md",
-            "tutorials/Brachistochrone/main_test.md",
             "tutorials/HyperSensitive/main.md",
             "tutorials/MoonLander/main.md",
             "tutorials/KinematicBicycle/main.md",

@@ -1,11 +1,11 @@
 # Documentation: http://docs.travis-ci.com/user/languages/julia/
 language: julia
 sudo: required
-dist: trusty
+#dist: trusty
 os:
   - linux
 julia:
-  - 0.5
+  #- 0.5
   - release
 notifications:
   email: false
@@ -24,6 +24,7 @@ before_install:
 after_success:
 - echo $TRAVIS_JULIA_VERSION
 - if [[ -a .git/shallow ]]; then git fetch --unshallow; fi
+- julia -e ';lualatex -v'
 - julia -e 'Pkg.clone(pwd())'
 - julia -e 'Pkg.clone("https://github.com/JuliaMPC/VehicleModels.jl")'
 - julia -e 'Pkg.clone("https://github.com/JuliaMPC/PrettyPlots.jl")'
