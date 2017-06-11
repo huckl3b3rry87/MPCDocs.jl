@@ -1,7 +1,7 @@
 # Documentation: http://docs.travis-ci.com/user/languages/julia/
 language: julia
 sudo: required
-#dist: trusty
+dist: trusty
 os:
   - linux
 julia:
@@ -20,6 +20,7 @@ before_install:
 - sudo apt-get install -y texlive-pictures
 - sudo apt-get install -y texlive-latex-extra
 - sudo apt-get install xzdec
+- sudo apt-get install luatex
 after_success:
 - echo $TRAVIS_JULIA_VERSION
 - if [[ -a .git/shallow ]]; then git fetch --unshallow; fi
