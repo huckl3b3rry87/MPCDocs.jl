@@ -5,6 +5,8 @@ Pkg.add("GR");Pkg.build("GR")
 
 using Documenter,MPCDocs,NLOptControl,PrettyPlots,VehicleModels
 
+println("\n before make \n")
+
 makedocs(modules=[NLOptControl,PrettyPlots,VehicleModels],
         doctest=false, clean=true,
         format =:html,
@@ -33,6 +35,7 @@ makedocs(modules=[NLOptControl,PrettyPlots,VehicleModels],
          "functions/PrettyPlots.md"
          ]
          ])
+println("\n before deploy \n")
 
 deploydocs(
     deps=Deps.pip("mkdocs","python-markdown-math"),

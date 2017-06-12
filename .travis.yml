@@ -5,7 +5,7 @@ dist: trusty
 os:
   - linux
 julia:
-  #- 0.5
+  - 0.5
   - release
 notifications:
   email: false
