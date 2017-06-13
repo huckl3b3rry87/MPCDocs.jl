@@ -45,7 +45,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Home",
     "title": "Tutorials",
     "category": "section",
-    "text": "For NLOptControl.jl there are several examples provided:Pages=[\n      \"tutorials/BrysonDenham/main.md\",\n      \"tutorials/Brachistochrone/main.md\",\n      \"tutorials/Brachistochrone/main_test.md\",\n      \"tutorials/HyperSensitive/main.md\",\n      \"tutorials/MoonLander/main.md\",\n      \"tutorials/KinematicBicycle/main.md\"\n       ]\nDepth=1"
+    "text": "For NLOptControl.jl there are several examples provided:Pages=[\n      \"tutorials/BrysonDenham/main.md\",\n      \"tutorials/Brachistochrone/main.md\",\n      \"tutorials/HyperSensitive/main.md\",\n      \"tutorials/MoonLander/main.md\",\n      \"tutorials/KinematicBicycle/main.md\",\n      \"tutorials/RobotArm/main.md\"\n       ]\nDepth=1"
 },
 
 {
@@ -101,7 +101,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Bryson Denham",
     "title": "Differential Equations",
     "category": "section",
-    "text": "@DiffEq(BrysonDenham,[x[j,2];u[j,1]])\nnothing # hide"
+    "text": "function BrysonDenham{T<:Any}(n::NLOpt,x::Array{T,2},u::Array{T,2})\n  if n.s.integrationMethod==:tm; L=size(x)[1]; else L=size(x)[1]-1; end\n  dx = Array(Any,L,n.numStates)\n  dx[:,1]=@NLexpression(n.mdl, [j=1:L], x[j,2] );\n  dx[:,2]=@NLexpression(n.mdl, [j=1:L], u[j,1] );\n  return dx\nend\nnothing # hide"
 },
 
 {
@@ -209,78 +209,6 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "tutorials/Brachistochrone/main_test.html#",
-    "page": "Brachistochrone",
-    "title": "Brachistochrone",
-    "category": "page",
-    "text": ""
-},
-
-{
-    "location": "tutorials/Brachistochrone/main_test.html#Brachistochrone-1",
-    "page": "Brachistochrone",
-    "title": "Brachistochrone",
-    "category": "section",
-    "text": "This problem can be found here.This is a test of ODEdef()"
-},
-
-{
-    "location": "tutorials/Brachistochrone/main_test.html#Packages-that-will-be-used-1",
-    "page": "Brachistochrone",
-    "title": "Packages that will be used",
-    "category": "section",
-    "text": "using NLOptControl,JuMP,PrettyPlots,Plots;gr()\nnothing # hide"
-},
-
-{
-    "location": "tutorials/Brachistochrone/main_test.html#Differential-Equations-1",
-    "page": "Brachistochrone",
-    "title": "Differential Equations",
-    "category": "section",
-    "text": "@DiffEq(Brachistochrone,[x[j,3]*sin(u[j,1]);x[j,3]*cos(u[j,1]);9.81*cos(u[j,1])])\nnothing # hide"
-},
-
-{
-    "location": "tutorials/Brachistochrone/main_test.html#Define-and-Configure-the-Problem:-1",
-    "page": "Brachistochrone",
-    "title": "Define and Configure the Problem:",
-    "category": "section",
-    "text": "n=define!(;stateEquations=Brachistochrone,numStates=3,numControls=1,X0=[0.0,0.0,0.0],XF=[2.,2.,NaN],XL=[-NaN,-NaN,-NaN],XU=[NaN,NaN,NaN],CL=[-NaN],CU=[NaN]);\nconfigure!(n,Nck=[100];(:finalTimeDV=>true));\nnothing # hide\n"
-},
-
-{
-    "location": "tutorials/Brachistochrone/main_test.html#Additional-Information-1",
-    "page": "Brachistochrone",
-    "title": "Additional Information",
-    "category": "section",
-    "text": "names=[:x,:y,:v]; descriptions=[\"x(t)\",\"y(t)\",\"v(t)\"];\nstateNames!(n,names,descriptions);\nnames=[:u]; descriptions=[\"u(t)\"];\ncontrolNames!(n,names,descriptions);\nnothing # hide"
-},
-
-{
-    "location": "tutorials/Brachistochrone/main_test.html#Objective-Function-1",
-    "page": "Brachistochrone",
-    "title": "Objective Function",
-    "category": "section",
-    "text": "obj=integrate!(n,n.r.u[:,1];C=0.5,(:variable=>:control),(:integrand=>:squared));\n@NLobjective(n.mdl,Min,n.tf);\nnothing # hide"
-},
-
-{
-    "location": "tutorials/Brachistochrone/main_test.html#Optimize-1",
-    "page": "Brachistochrone",
-    "title": "Optimize",
-    "category": "section",
-    "text": "optimize!(n);\nnothing # hide"
-},
-
-{
-    "location": "tutorials/Brachistochrone/main_test.html#Post-Process-1",
-    "page": "Brachistochrone",
-    "title": "Post Process",
-    "category": "section",
-    "text": "allPlots(n)"
-},
-
-{
     "location": "tutorials/HyperSensitive/main.html#",
     "page": "HyperSensitive",
     "title": "HyperSensitive",
@@ -317,7 +245,7 @@ var documenterSearchIndex = {"docs": [
     "page": "HyperSensitive",
     "title": "Define and Configure the Problem:",
     "category": "section",
-    "text": "n=define!(;stateEquations=HyperSensitive,numStates=1,numControls=1,X0=[1.5],XF=[1.],XL=[NaN],XU=[NaN],CL=[NaN],CU=[NaN])\nconfigure!(n,N=100;(:integrationMethod => :tm),(:integrationScheme => :trapezoidal),(:finalTimeDV => false),(:tf => 10000.0))\nnothing # hide"
+    "text": "n=define!(;stateEquations=HyperSensitive,numStates=1,numControls=1,X0=[1.5],XF=[1.],XL=[NaN],XU=[NaN],CL=[NaN],CU=[NaN])\nconfigure!(n,Nck=[20,3,3,3,3,3,3,3,3,3,3,20];(:finalTimeDV=>false),(:tf=>10000.0))\nnothing # hide"
 },
 
 {
@@ -325,7 +253,7 @@ var documenterSearchIndex = {"docs": [
     "page": "HyperSensitive",
     "title": "Objective Function",
     "category": "section",
-    "text": "obj1=integrate!(n,n.r.x[:,1];C=0.5,(:variable=>:control),(:integrand=>:squared))\nobj2=integrate!(n,n.r.u[:,1];C=0.5,(:variable=>:control),(:integrand=>:squared))\n@NLobjective(n.mdl,Min,obj1+obj2);"
+    "text": "obj1=integrate!(n,n.r.x[:,1];C=0.5,(:variable=>:state),(:integrand=>:squared))\nobj2=integrate!(n,n.r.u[:,1];C=0.5,(:variable=>:control),(:integrand=>:squared))"
 },
 
 {
@@ -451,6 +379,70 @@ var documenterSearchIndex = {"docs": [
 {
     "location": "tutorials/KinematicBicycle/main.html#Post-Process-1",
     "page": "Kinematic Bicycle Model",
+    "title": "Post Process",
+    "category": "section",
+    "text": "allPlots(n)"
+},
+
+{
+    "location": "tutorials/RobotArm/main.html#",
+    "page": "RobotArm",
+    "title": "RobotArm",
+    "category": "page",
+    "text": ""
+},
+
+{
+    "location": "tutorials/RobotArm/main.html#RobotArm-1",
+    "page": "RobotArm",
+    "title": "RobotArm",
+    "category": "section",
+    "text": "This problem can be found here.  although that example is missing initial and final state constraints and limits on x4"
+},
+
+{
+    "location": "tutorials/RobotArm/main.html#Packages-that-will-be-used-1",
+    "page": "RobotArm",
+    "title": "Packages that will be used",
+    "category": "section",
+    "text": "using NLOptControl,JuMP,PrettyPlots,Plots;gr()\nnothing # hide"
+},
+
+{
+    "location": "tutorials/RobotArm/main.html#Differential-Equations-1",
+    "page": "RobotArm",
+    "title": "Differential Equations",
+    "category": "section",
+    "text": "const EP=2*eps()\nfunction RobotArm{T<:Any}(n::NLOpt,x::Array{T,2},u::Array{T,2}) # dynamic constraint equations\n  if n.s.integrationMethod==:tm; L=size(x)[1]; else; L=size(x)[1]-1; end\n  dx=Array(Any,L,n.numStates);\n  Q=5;\n  I_t=@NLexpression(n.mdl, [j=1:L], ((Q-x[j,1])^3+x[j,1]^3)/3*sin(x[j,5])^2 );\n  I_p=@NLexpression(n.mdl, [j=1:L], ((Q-x[j,1])^3+x[j,1]^3)/3 );\n\n  dx[:,1]=@NLexpression(n.mdl, [j=1:L], x[j,2]);\n  dx[:,2]=@NLexpression(n.mdl, [j=1:L], u[j,1]/Q);\n  dx[:,3]=@NLexpression(n.mdl, [j=1:L], x[j,4]);\n  dx[:,4]=@NLexpression(n.mdl, [j=1:L], u[j,2]/(I_t[j]+EP));\n  dx[:,5]=@NLexpression(n.mdl, [j=1:L], x[j,6]);\n  dx[:,6]=@NLexpression(n.mdl, [j=1:L], u[j,3]/(I_p[j]+EP));\n  return dx\nend\nnothing # hide"
+},
+
+{
+    "location": "tutorials/RobotArm/main.html#Define-and-Configure-the-Problem:-1",
+    "page": "RobotArm",
+    "title": "Define and Configure the Problem:",
+    "category": "section",
+    "text": "n=define!(;stateEquations=RobotArm,numStates=6,numControls=3,X0=[9/2,0.0,0.0,0.0,pi/4,0.0],XF=[9/2,0.0,2*pi/3,0.0,pi/4,0.0],XL=[NaN,NaN,NaN,0.0,NaN,NaN],XU=[NaN,NaN,NaN,1.0,NaN,NaN],CL=[-1.,-1.,-1.],CU=[1.,1.,1.])\nconfigure!(n;(:finalTimeDV=>true))\nnothing # hide"
+},
+
+{
+    "location": "tutorials/RobotArm/main.html#Objective-Function-1",
+    "page": "RobotArm",
+    "title": "Objective Function",
+    "category": "section",
+    "text": "@NLobjective(n.mdl,Min,n.tf);\nnothing # hide"
+},
+
+{
+    "location": "tutorials/RobotArm/main.html#Optimize-1",
+    "page": "RobotArm",
+    "title": "Optimize",
+    "category": "section",
+    "text": "optimize!(n);\nnothing # hide"
+},
+
+{
+    "location": "tutorials/RobotArm/main.html#Post-Process-1",
+    "page": "RobotArm",
     "title": "Post Process",
     "category": "section",
     "text": "allPlots(n)"
@@ -657,6 +649,14 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
+    "location": "functions/NLOptControl.html#NLOptControl.DiffEq!-Tuple{NLOptControl.NLOpt,Array{Expr,1}}",
+    "page": "NLOptControl.jl",
+    "title": "NLOptControl.DiffEq!",
+    "category": "Method",
+    "text": "\n\nAuthor: Huckleberry Febbo, Graduate Student, University of Michigan Date Create: 6/11/2017, Last Modified: 6/11/2017 \n\n\n\n\n\n"
+},
+
+{
     "location": "functions/NLOptControl.html#NLOptControl.configure!-Tuple{NLOptControl.NLOpt,Vararg{Any,N}}",
     "page": "NLOptControl.jl",
     "title": "NLOptControl.configure!",
@@ -665,11 +665,19 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
+    "location": "functions/NLOptControl.html#NLOptControl.create_DiffEq-Tuple{NLOptControl.NLOpt,Expr}",
+    "page": "NLOptControl.jl",
+    "title": "NLOptControl.create_DiffEq",
+    "category": "Method",
+    "text": "\n\nAuthor: Huckleberry Febbo, Graduate Student, University of Michigan Date Create: 6/11/2017, Last Modified: 6/11/2017 \n\n\n\n\n\n"
+},
+
+{
     "location": "functions/NLOptControl.html#NLOptControl.define!-Tuple{}",
     "page": "NLOptControl.jl",
     "title": "NLOptControl.define!",
     "category": "Method",
-    "text": "n=define!(;numStates=2,numControls=1,X0=[0.,1],XF=[0.,-1.],XL=[0.,-Inf],XU=[1/9,Inf],CL=[-Inf],CU=[Inf])\n\nAuthor: Huckleberry Febbo, Graduate Student, University of Michigan Date Create: 1/1/2017, Last Modified: 5/29/2017 \n\nCitations: \n\n\n\nInitially Influenced by: S. Hughes.  steven.p.hughes@nasa.gov Source: DecisionVector.m located here ––––––––––––––––––––––––––––––––––––––––––-\n\n\n\n"
+    "text": "n=define!(;numStates=2,numControls=1,X0=[0.,1],XF=[0.,-1.],XL=[0.,-Inf],XU=[1/9,Inf],CL=[-Inf],CU=[Inf])\n\nAuthor: Huckleberry Febbo, Graduate Student, University of Michigan Date Create: 1/1/2017, Last Modified: 6/9/2017 \n\nCitations: \n\n\n\nInitially Influenced by: S. Hughes.  steven.p.hughes@nasa.gov Source: DecisionVector.m located here ––––––––––––––––––––––––––––––––––––––––––-\n\n\n\n"
 },
 
 {
@@ -726,6 +734,14 @@ var documenterSearchIndex = {"docs": [
     "title": "NLOptControl.minDF",
     "category": "Method",
     "text": "maximum(x->maximum(x[:A]), dfs) -> consider\n\nmaximum(x->maximum(filter(y->y !== nothing, x[:A])), dfs)\n\nminimum(x->maximum(filter(y->y !== nothing, x[:t])), dfs)\n\n\n\nAuthor: Huckleberry Febbo, Graduate Student, University of Michigan Date Create: 12/8/2016, Last Modified: 3/29/2017 \n\n\n\n\n\n"
+},
+
+{
+    "location": "functions/NLOptControl.html#NLOptControl.parse_DiffEq-Tuple{NLOptControl.NLOpt,Array{T,2},Array{T,2}}",
+    "page": "NLOptControl.jl",
+    "title": "NLOptControl.parse_DiffEq",
+    "category": "Method",
+    "text": "#TODO consider appending a zero so it is not just a jump variable\n\nAuthor: Huckleberry Febbo, Graduate Student, University of Michigan Date Create: 6/11/2017, Last Modified: 6/11/2017 \n\n\n\n\n\n"
 },
 
 {
