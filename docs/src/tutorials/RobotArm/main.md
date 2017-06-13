@@ -6,7 +6,7 @@ This problem can be found [here](http://www.gpops2.com/Examples/RobotArm.html).
 
 ## Packages that will be used
 ```@example RobotArm
-using NLOptControl,JuMP,PrettyPlots,Plots;pgfplots()
+using NLOptControl,JuMP,PrettyPlots,Plots;gr()
 nothing # hide
 ```
 

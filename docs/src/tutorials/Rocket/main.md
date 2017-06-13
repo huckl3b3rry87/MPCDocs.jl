@@ -5,7 +5,7 @@ This problem can be found [here](https://github.com/JuliaOpt/juliaopt-notebooks/
 
 ## Packages that will be used
 ```@example Rocket
-using NLOptControl,JuMP,PrettyPlots,Plots;pgfplots()
+using NLOptControl,JuMP,PrettyPlots,Plots;gr()
 nothing # hide
 ```
 

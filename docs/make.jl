@@ -1,6 +1,6 @@
 Pkg.add("Ipopt");Pkg.build("Ipopt");
 #Pkg.add("PyPlot");Pkg.build("PyPlot")
-Pkg.add("PGFPlots");Pkg.build("PGFPlots");
+#Pkg.add("PGFPlots");Pkg.build("PGFPlots");
 Pkg.add("GR");Pkg.build("GR")
 
 using Documenter,MPCDocs,NLOptControl,PrettyPlots,VehicleModels

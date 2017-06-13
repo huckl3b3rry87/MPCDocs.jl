@@ -2,7 +2,7 @@
 
 First setup the packages that will be used:
 ```@example MoonLander
-using NLOptControl,JuMP,PrettyPlots,Plots;pgfplots()
+using NLOptControl,JuMP,PrettyPlots,Plots;gr()
 nothing # hide
 ```
 Where, the object `n` is the object for the entire optimal control problem including:
