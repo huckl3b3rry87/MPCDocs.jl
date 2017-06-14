@@ -85,7 +85,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Bryson Denham",
     "title": "Bryson Denham",
     "category": "section",
-    "text": "This problem can be found here.This example is using the @DiffEq() to define the differential equations, but currently this macro is limited to linear odes."
+    "text": "This problem can be found here."
 },
 
 {
@@ -93,7 +93,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Bryson Denham",
     "title": "Packages that will be used",
     "category": "section",
-    "text": "using NLOptControl,JuMP,PrettyPlots,Plots;gr()\nnothing # hide"
+    "text": "using NLOptControl\nnothing # hide"
 },
 
 {
@@ -101,7 +101,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Bryson Denham",
     "title": "Differential Equations",
     "category": "section",
-    "text": "function BrysonDenham{T<:Any}(n::NLOpt,x::Array{T,2},u::Array{T,2})\n  if n.s.integrationMethod==:tm; L=size(x)[1]; else L=size(x)[1]-1; end\n  dx = Array(Any,L,n.numStates)\n  dx[:,1]=@NLexpression(n.mdl, [j=1:L], x[j,2] );\n  dx[:,2]=@NLexpression(n.mdl, [j=1:L], u[j,1] );\n  return dx\nend\nnothing # hide"
+    "text": "de=[:(x2[j]),:(u1[j])]\nnothing # hide"
 },
 
 {
@@ -109,7 +109,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Bryson Denham",
     "title": "Define and Configure the Problem:",
     "category": "section",
-    "text": "n=define!(;stateEquations=BrysonDenham,numStates=2,numControls=1,X0=[0.,1],XF=[0.,-1.],XL=[0.,NaN],XU=[1/9,NaN],CL=[NaN],CU=[NaN]);\nconfigure!(n;(:finalTimeDV=>false),(:tf=>1.0));\nnothing # hide"
+    "text": "n=define!(de;numStates=2,numControls=1,X0=[0.,1],XF=[0.,-1.],XL=[0.,NaN],XU=[1/9,NaN],CL=[NaN],CU=[NaN]);\nconfigure!(n;(:finalTimeDV=>false),(:tf=>1.0));\nnothing # hide"
 },
 
 {
@@ -133,7 +133,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Bryson Denham",
     "title": "Post Process",
     "category": "section",
-    "text": "allPlots(n)"
+    "text": "using PrettyPlots\nallPlots(n)"
 },
 
 {
@@ -157,7 +157,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Brachistochrone",
     "title": "Packages that will be used",
     "category": "section",
-    "text": "using NLOptControl,JuMP,PrettyPlots,Plots;gr()\nnothing # hide"
+    "text": "using NLOptControl\nnothing # hide"
 },
 
 {
@@ -165,7 +165,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Brachistochrone",
     "title": "Differential Equations",
     "category": "section",
-    "text": "function Brachistochrone{T<:Any}(n::NLOpt,x::Array{T,2},u::Array{T,2})\n  if n.s.integrationMethod==:tm; L=size(x)[1]; else L=size(x)[1]-1; end\n  dx = Array(Any,L,n.numStates)\n  dx[:,1]=@NLexpression(n.mdl, [j=1:L], x[j,3]*sin(u[j,1]) );\n  dx[:,2]=@NLexpression(n.mdl, [j=1:L], x[j,3]*cos(u[j,1]) );\n  dx[:,3]=@NLexpression(n.mdl, [j=1:L], 9.81*cos(u[j,1]) );\n  return dx\nend\nnothing # hide"
+    "text": "de=[:(x3[j]*sin(u1[j])),:(x3[j]*cos(u1[j])),:(9.81*cos(u1[j]))]\nnothing # hide"
 },
 
 {
@@ -173,7 +173,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Brachistochrone",
     "title": "Define and Configure the Problem:",
     "category": "section",
-    "text": "n=define!(;stateEquations=Brachistochrone,numStates=3,numControls=1,X0=[0.0,0.0,0.0],XF=[2.,2.,NaN],XL=[-NaN,-NaN,-NaN],XU=[NaN,NaN,NaN],CL=[-NaN],CU=[NaN]);\nconfigure!(n,Nck=[100];(:finalTimeDV=>true));\nnothing # hide\n"
+    "text": "n=define!(de;numStates=3,numControls=1,X0=[0.0,0.0,0.0],XF=[2.,2.,NaN],XL=[-NaN,-NaN,-NaN],XU=[NaN,NaN,NaN],CL=[-NaN],CU=[NaN]);\nconfigure!(n;(:Nck=>[100]),(:finalTimeDV=>true));\nnothing # hide\n"
 },
 
 {
@@ -205,7 +205,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Brachistochrone",
     "title": "Post Process",
     "category": "section",
-    "text": "allPlots(n)"
+    "text": "using PrettyPlots\nallPlots(n)"
 },
 
 {
@@ -229,7 +229,7 @@ var documenterSearchIndex = {"docs": [
     "page": "HyperSensitive",
     "title": "Packages that will be used",
     "category": "section",
-    "text": "using NLOptControl,JuMP,PrettyPlots,Plots;gr()\nnothing # hide"
+    "text": "using NLOptControl\nnothing # hide"
 },
 
 {
@@ -237,7 +237,7 @@ var documenterSearchIndex = {"docs": [
     "page": "HyperSensitive",
     "title": "Differential Equations",
     "category": "section",
-    "text": "function HyperSensitive{T<:Any}(n::NLOpt,x::Array{T,2},u::Array{T,2}) # dynamic constraint equations\n  if n.s.integrationMethod==:tm; L=size(x)[1]; else; L=size(x)[1]-1; end\n  dx=Array(Any,L,n.numStates);\n  dx[:,1]=@NLexpression(n.mdl, [j=1:L], -x[j,1]^3 + u[j,1] );\n  return dx\nend\nnothing # hide"
+    "text": "de=[:(-x1[j]^3+u1[j])]\nnothing # hide"
 },
 
 {
@@ -245,7 +245,7 @@ var documenterSearchIndex = {"docs": [
     "page": "HyperSensitive",
     "title": "Define and Configure the Problem:",
     "category": "section",
-    "text": "n=define!(;stateEquations=HyperSensitive,numStates=1,numControls=1,X0=[1.5],XF=[1.],XL=[NaN],XU=[NaN],CL=[NaN],CU=[NaN])\nconfigure!(n,Nck=[20,3,3,3,3,3,3,3,3,3,3,20];(:finalTimeDV=>false),(:tf=>10000.0))\nnothing # hide"
+    "text": "n=define!(de;numStates=1,numControls=1,X0=[1.5],XF=[1.],XL=[NaN],XU=[NaN],CL=[NaN],CU=[NaN])\nconfigure!(n,Nck=[20,3,3,3,3,3,3,3,3,3,3,20];(:finalTimeDV=>false),(:tf=>10000.0))\nnothing # hide"
 },
 
 {
@@ -261,7 +261,7 @@ var documenterSearchIndex = {"docs": [
     "page": "HyperSensitive",
     "title": "Optimize",
     "category": "section",
-    "text": "optimize!(n)\nnothing # hide"
+    "text": "optimize!(n);\nnothing # hide"
 },
 
 {
@@ -269,7 +269,7 @@ var documenterSearchIndex = {"docs": [
     "page": "HyperSensitive",
     "title": "Post Process",
     "category": "section",
-    "text": "allPlots(n)"
+    "text": "using PrettyPlots\nallPlots(n)"
 },
 
 {
@@ -285,7 +285,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Moon Lander",
     "title": "Moon Lander",
     "category": "section",
-    "text": "First setup the packages that will be used:using NLOptControl,JuMP,PrettyPlots,Plots;gr()\nnothing # hideWhere, the object n is the object for the entire optimal control problem including: |setting               | keys        | descriptions           | | –––––––––– | –––––- | ––––––––––– | |n.s.integrationMethod | :tm         | time marching          |                        | :ps         | pseudospectral methods | n.s for settings n.r for results n.mpc for mpc dataNext define the basic differential equation used to model the system:const g = 1.62519; # m/s^2\nfunction MoonLander{T<:Any}(n::NLOpt,x::Array{T,2},u::Array{T,2}) # dynamic constraint equations\n  if n.s.integrationMethod==:tm; L=size(x)[1]; else L=size(x)[1]-1; end\n  dx = Array(Any,L,n.numStates)\n  dx[:,1] = @NLexpression(n.mdl, [j=1:L], x[j,2] );\n  dx[:,2] = @NLexpression(n.mdl, [j=1:L], u[j,1] - g);\n  return dx\nend\nnothing # hideMost of this code is boiler-plate and should be copied directly. The important things to note are thatu is the control variable matrix and x is the state variable matrix. So, in the above example the only thing that the user needs to modify is the right hand side of the dx[] expressions. The indecies for the number of the state or control variable are in the columns. For instance, x[:,2] represents the entire vector for second state variable.NOTE: eventually most of this code will be pushed to a lower level.  Now that the dynamic constraint equations have been established, the next step is to define the problem:n=define!(;stateEquations=MoonLander,numStates=2,numControls=1,X0=[10.,-2],XF=[0.,0.],XL=[NaN,NaN],XU=[NaN,NaN],CL=[0.],CU=[3.]);\nnothing # hideTo do this the user passes n, and defines the stateEquations to be the dynamic constraint equations defined in MoonLander().Basics: numStates = number of state variables numControls = number of control variables X0 = intial sttae TODO-> mention XL etc.There are several different ways to ensure that the stateEquations are satisfied that are set using the keys :integrationMethod and :integrationScheme. In this example the hp-Gaussian Quadrature Collocation Method is used with Radau Nodes. Finally, the final time may be either fixed and set before hand or it can be a variable. This option is set using the :finalTimeDV key and it is set to true in this example.configure!(n,Ni=4,Nck=[10,10,10,10];(:integrationMethod=>:ps),(:integrationScheme=> :lgrExplicit),(:finalTimeDV=>true));\nnothing # hideThe next parts are optional.Names and descriptions may be added to both the control and state variables as follows:names=[:h,:v]; descriptions = [\"h(t)\",\"v(t)\"]; stateNames!(n,names,descriptions);\nnothing # hideNOTE: The names will show up in the results data and the descriptions will show up in the graphsThe object r stores all of the results as well as both the control and state variables. For instance r.x[:,1] should now be used to access the entire vector for the first state.For generality, integrate!() will also be demonstrated in this example. integrate!() is used to add terms to the cost function that need to be integrated. Currently there are several forms that these integrals can take (more can be added). In this example the first control variable r.u[:,1] and sets up this variable to be integrated over the entire time of the control problem with the following line of code:obj=integrate!(n,n.r.u[:,1];C=1.0,(:variable=>:control),(:integrand=>:default));\nnothing # hideNext the cost function can be defined as:@NLobjective(n.mdl, Min, obj);\nnothing # hideAt this stage, the optimal control problem can be solved with:optimize!(n);\nnothing # hideThen, in order to quickly visualize the problem, functionality is also provided for automated visualization."
+    "text": "First setup the packages that will be used:using NLOptControl\nnothing # hideWhere, the object n is the object for the entire optimal control problem including: |setting               | keys        | descriptions           | | –––––––––– | –––––- | ––––––––––– | |n.s.integrationMethod | :tm         | time marching          |                        | :ps         | pseudospectral methods | n.s for settings n.r for results n.mpc for mpc dataNext define the basic differential equation used to model the system:de=[:(x2[j]),:(u1[j]-1.625)]\nnothing # hideMost of this code is boiler-plate and should be copied directly. The important things to note are thatu is the control variable matrix and x is the state variable matrix. So, in the above example the only thing that the user needs to modify is the right hand side of the dx[] expressions. The indecies for the number of the state or control variable are in the columns. For instance, x[:,2] represents the entire vector for second state variable.NOTE: eventually most of this code will be pushed to a lower level.  Now that the dynamic constraint equations have been established, the next step is to define the problem:n=define!(de;numStates=2,numControls=1,X0=[10.,-2],XF=[0.,0.],XL=[NaN,NaN],XU=[NaN,NaN],CL=[0.],CU=[3.]);\nnothing # hideTo do this the user passes n, and defines the stateEquations to be the dynamic constraint equations defined in MoonLander().Basics: numStates = number of state variables numControls = number of control variables X0 = intial sttae TODO-> mention XL etc.There are several different ways to ensure that the stateEquations are satisfied that are set using the keys :integrationMethod and :integrationScheme. In this example the hp-Gaussian Quadrature Collocation Method is used with Radau Nodes. Finally, the final time may be either fixed and set before hand or it can be a variable. This option is set using the :finalTimeDV key and it is set to true in this example.configure!(n,Ni=4,Nck=[10,10,10,10];(:integrationMethod=>:ps),(:integrationScheme=> :lgrExplicit),(:finalTimeDV=>true));\nnothing # hideThe next parts are optional.Names and descriptions may be added to both the control and state variables as follows:names=[:h,:v]; descriptions = [\"h(t)\",\"v(t)\"]; stateNames!(n,names,descriptions);\nnothing # hideNOTE: The names will show up in the results data and the descriptions will show up in the graphsThe object r stores all of the results as well as both the control and state variables. For instance r.x[:,1] should now be used to access the entire vector for the first state.For generality, integrate!() will also be demonstrated in this example. integrate!() is used to add terms to the cost function that need to be integrated. Currently there are several forms that these integrals can take (more can be added). In this example the first control variable r.u[:,1] and sets up this variable to be integrated over the entire time of the control problem with the following line of code:obj=integrate!(n,n.r.u[:,1];C=1.0,(:variable=>:control),(:integrand=>:default));\nnothing # hideNext the cost function can be defined as:@NLobjective(n.mdl, Min, obj);\nnothing # hideAt this stage, the optimal control problem can be solved with:optimize!(n);\nnothing # hideThen, in order to quickly visualize the problem, functionality is also provided for automated visualization."
 },
 
 {
@@ -293,7 +293,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Moon Lander",
     "title": "The next part is optional:",
     "category": "section",
-    "text": "The plot settings can be modified from the default using the following code:plotSettings(;(:mpc_lines =>[(4.0,:blue,:solid)]),(:size=>(700,700)));\nnothing # hideFinally, in order to plot all of the states and controls call:allPlots(n);"
+    "text": "The plot settings can be modified from the default using the following code:using PrettyPlots\nplotSettings(;(:mpc_lines =>[(4.0,:blue,:solid)]),(:size=>(700,700)));\nnothing # hideFinally, in order to plot all of the states and controls call:allPlots(n);"
 },
 
 {
@@ -317,7 +317,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Kinematic Bicycle Model",
     "title": "Packages that will be used",
     "category": "section",
-    "text": "using NLOptControl,JuMP,Parameters,VehicleModels,PrettyPlots,Plots;gr()\nnothing # hide"
+    "text": "using NLOptControl,Parameters,VehicleModels\nnothing # hide"
 },
 
 {
@@ -333,7 +333,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Kinematic Bicycle Model",
     "title": "Differential Equations",
     "category": "section",
-    "text": "n=define!(;stateEquations=KinematicBicycle,numStates=4,numControls=2,X0=X0,XF=XF,XL=XL,XU=XU,CL=CL,CU=CU);\nnothing # hide"
+    "text": "n=define!(KinematicBicycle;numStates=4,numControls=2,X0=X0,XF=XF,XL=XL,XU=XU,CL=CL,CU=CU);\nnothing # hide"
 },
 
 {
@@ -381,7 +381,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Kinematic Bicycle Model",
     "title": "Post Process",
     "category": "section",
-    "text": "allPlots(n)"
+    "text": "using PrettyPlots\nallPlots(n)"
 },
 
 {
@@ -405,7 +405,7 @@ var documenterSearchIndex = {"docs": [
     "page": "RobotArm",
     "title": "Packages that will be used",
     "category": "section",
-    "text": "using NLOptControl,JuMP,PrettyPlots,Plots;gr()\nnothing # hide"
+    "text": "using NLOptControl\nnothing # hide"
 },
 
 {
@@ -421,7 +421,7 @@ var documenterSearchIndex = {"docs": [
     "page": "RobotArm",
     "title": "Define and Configure the Problem:",
     "category": "section",
-    "text": "n=define!(;stateEquations=RobotArm,numStates=6,numControls=3,X0=[9/2,0.0,0.0,0.0,pi/4,0.0],XF=[9/2,0.0,2*pi/3,0.0,pi/4,0.0],XL=[NaN,NaN,NaN,0.0,NaN,NaN],XU=[NaN,NaN,NaN,1.0,NaN,NaN],CL=[-1.,-1.,-1.],CU=[1.,1.,1.])\nconfigure!(n;(:finalTimeDV=>true))\nnothing # hide"
+    "text": "n=define!(RobotArm;numStates=6,numControls=3,X0=[9/2,0.0,0.0,0.0,pi/4,0.0],XF=[9/2,0.0,2*pi/3,0.0,pi/4,0.0],XL=[NaN,NaN,NaN,0.0,NaN,NaN],XU=[NaN,NaN,NaN,1.0,NaN,NaN],CL=[-1.,-1.,-1.],CU=[1.,1.,1.])\nconfigure!(n;(:finalTimeDV=>true))\nnothing # hide"
 },
 
 {
@@ -445,7 +445,7 @@ var documenterSearchIndex = {"docs": [
     "page": "RobotArm",
     "title": "Post Process",
     "category": "section",
-    "text": "allPlots(n)"
+    "text": "using PrettyPlots\nallPlots(n)"
 },
 
 {
@@ -649,31 +649,15 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "functions/NLOptControl.html#NLOptControl.DiffEq!-Tuple{NLOptControl.NLOpt,Array{Expr,1}}",
-    "page": "NLOptControl.jl",
-    "title": "NLOptControl.DiffEq!",
-    "category": "Method",
-    "text": "\n\nAuthor: Huckleberry Febbo, Graduate Student, University of Michigan Date Create: 6/11/2017, Last Modified: 6/11/2017 \n\n\n\n\n\n"
-},
-
-{
-    "location": "functions/NLOptControl.html#NLOptControl.configure!-Tuple{NLOptControl.NLOpt,Vararg{Any,N}}",
+    "location": "functions/NLOptControl.html#NLOptControl.configure!-Tuple{NLOptControl.NLOpt}",
     "page": "NLOptControl.jl",
     "title": "NLOptControl.configure!",
     "category": "Method",
-    "text": "configure!(n,Ni=4,Nck=[3, 3, 7, 2];(:integrationMethod => :ps),(:integrationScheme => :lgrExplicit),(:finalTimeDV => false),(:tf => 1))\n\nAuthor: Huckleberry Febbo, Graduate Student, University of Michigan Date Create: 1/1/2017, Last Modified: 5/29/2017 \n\n\n\n\n\n"
+    "text": "\n\nAuthor: Huckleberry Febbo, Graduate Student, University of Michigan Date Create: 1/1/2017, Last Modified: 6/14/2017 \n\n\n\n\n\n"
 },
 
 {
-    "location": "functions/NLOptControl.html#NLOptControl.create_DiffEq-Tuple{NLOptControl.NLOpt,Expr}",
-    "page": "NLOptControl.jl",
-    "title": "NLOptControl.create_DiffEq",
-    "category": "Method",
-    "text": "\n\nAuthor: Huckleberry Febbo, Graduate Student, University of Michigan Date Create: 6/11/2017, Last Modified: 6/11/2017 \n\n\n\n\n\n"
-},
-
-{
-    "location": "functions/NLOptControl.html#NLOptControl.define!-Tuple{}",
+    "location": "functions/NLOptControl.html#NLOptControl.define!-Tuple{Any}",
     "page": "NLOptControl.jl",
     "title": "NLOptControl.define!",
     "category": "Method",
@@ -734,14 +718,6 @@ var documenterSearchIndex = {"docs": [
     "title": "NLOptControl.minDF",
     "category": "Method",
     "text": "maximum(x->maximum(x[:A]), dfs) -> consider\n\nmaximum(x->maximum(filter(y->y !== nothing, x[:A])), dfs)\n\nminimum(x->maximum(filter(y->y !== nothing, x[:t])), dfs)\n\n\n\nAuthor: Huckleberry Febbo, Graduate Student, University of Michigan Date Create: 12/8/2016, Last Modified: 3/29/2017 \n\n\n\n\n\n"
-},
-
-{
-    "location": "functions/NLOptControl.html#NLOptControl.parse_DiffEq-Tuple{NLOptControl.NLOpt,Array{T,2},Array{T,2}}",
-    "page": "NLOptControl.jl",
-    "title": "NLOptControl.parse_DiffEq",
-    "category": "Method",
-    "text": "#TODO consider appending a zero so it is not just a jump variable\n\nAuthor: Huckleberry Febbo, Graduate Student, University of Michigan Date Create: 6/11/2017, Last Modified: 6/11/2017 \n\n\n\n\n\n"
 },
 
 {
