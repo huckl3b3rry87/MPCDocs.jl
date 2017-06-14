@@ -35,6 +35,7 @@ makedocs(modules=[NLOptControl,PrettyPlots,VehicleModels],
          "functions/PrettyPlots.md"
          ]
          ])
+
 println("\n before deploy \n")
 
 deploydocs(

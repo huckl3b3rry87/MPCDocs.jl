@@ -6,7 +6,7 @@ This problem can be found [here](http://www.gpops2.com/Examples/RobotArm.html).
 
 ## Packages that will be used
 ```@example RobotArm
-using NLOptControl,JuMP,PrettyPlots,Plots;gr()
+using NLOptControl
 nothing # hide
 ```
 
@@ -33,7 +33,7 @@ nothing # hide
 
 ## Define and Configure the Problem:
 ```@example RobotArm
-n=define!(;stateEquations=RobotArm,numStates=6,numControls=3,X0=[9/2,0.0,0.0,0.0,pi/4,0.0],XF=[9/2,0.0,2*pi/3,0.0,pi/4,0.0],XL=[NaN,NaN,NaN,0.0,NaN,NaN],XU=[NaN,NaN,NaN,1.0,NaN,NaN],CL=[-1.,-1.,-1.],CU=[1.,1.,1.])
+n=define!(RobotArm;numStates=6,numControls=3,X0=[9/2,0.0,0.0,0.0,pi/4,0.0],XF=[9/2,0.0,2*pi/3,0.0,pi/4,0.0],XL=[NaN,NaN,NaN,0.0,NaN,NaN],XU=[NaN,NaN,NaN,1.0,NaN,NaN],CL=[-1.,-1.,-1.],CU=[1.,1.,1.])
 configure!(n;(:finalTimeDV=>true))
 nothing # hide
 ```
@@ -52,5 +52,6 @@ nothing # hide
 
 ## Post Process
 ```@example RobotArm
+using PrettyPlots
 allPlots(n)
 ```

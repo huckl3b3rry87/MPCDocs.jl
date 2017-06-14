@@ -5,7 +5,7 @@ The vehicle model comes from the [BARC-project](https://github.com/MPC-Berkeley/
 ## Packages that will be used
 
 ```@example Bicycle
-using NLOptControl,JuMP,Parameters,VehicleModels,PrettyPlots,Plots;gr()
+using NLOptControl,Parameters,VehicleModels
 nothing # hide
 ```
 
@@ -24,7 +24,7 @@ nothing # hide
 
 ## Differential Equations
 ```@example Bicycle
-n=define!(;stateEquations=KinematicBicycle,numStates=4,numControls=2,X0=X0,XF=XF,XL=XL,XU=XU,CL=CL,CU=CU);
+n=define!(KinematicBicycle;numStates=4,numControls=2,X0=X0,XF=XF,XL=XL,XU=XU,CL=CL,CU=CU);
 nothing # hide
 ```
 ## Add Parameters to the Model
@@ -68,5 +68,6 @@ nothing # hide
 
 ## Post Process
 ```@example Bicycle
+using PrettyPlots
 allPlots(n)
 ```

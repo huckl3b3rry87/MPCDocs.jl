@@ -2,10 +2,9 @@
 
 This problem can be found [here](https://github.com/JuliaOpt/juliaopt-notebooks/blob/master/notebooks/JuMP-Rocket.ipynb).
 
-
 ## Packages that will be used
 ```@example Rocket
-using NLOptControl,JuMP,PrettyPlots,Plots;gr()
+using NLOptControl
 nothing # hide
 ```
 
@@ -52,7 +51,7 @@ nothing # hide
 
 ## Define and Configure the Problem:
 ```@example Rocket
-n=define!(;stateEquations=Rocket,numStates=6,numControls=3,X0=[9/2,0.0,0.0,0.0,pi/4,0.0],XF=[9/2,0.0,2*pi/3,0.0,pi/4,0.0],XL=[NaN,NaN,NaN,0.0,NaN,NaN],XU=[NaN,NaN,NaN,1.0,NaN,NaN],CL=[-1.,-1.,-1.],CU=[1.,1.,1.])
+n=define!(Rocket;numStates=6,numControls=3,X0=[9/2,0.0,0.0,0.0,pi/4,0.0],XF=[9/2,0.0,2*pi/3,0.0,pi/4,0.0],XL=[NaN,NaN,NaN,0.0,NaN,NaN],XU=[NaN,NaN,NaN,1.0,NaN,NaN],CL=[-1.,-1.,-1.],CU=[1.,1.,1.])
 configure!(n;(:finalTimeDV=>true))
 nothing # hide
 ```
@@ -71,5 +70,6 @@ nothing # hide
 
 ## Post Process
 ```@example Rocket
+using PrettyPlots
 allPlots(n)
 ```

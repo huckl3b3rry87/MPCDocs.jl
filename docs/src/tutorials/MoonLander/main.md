@@ -2,7 +2,7 @@
 
 First setup the packages that will be used:
 ```@example MoonLander
-using NLOptControl,JuMP,PrettyPlots,Plots;gr()
+using NLOptControl
 nothing # hide
 ```
 Where, the object `n` is the object for the entire optimal control problem including:
@@ -17,14 +17,7 @@ Where, the object `n` is the object for the entire optimal control problem inclu
 Next define the basic differential equation used to model the system:
 
 ```@example MoonLander
-const g = 1.62519; # m/s^2
-function MoonLander{T<:Any}(n::NLOpt,x::Array{T,2},u::Array{T,2}) # dynamic constraint equations
-  if n.s.integrationMethod==:tm; L=size(x)[1]; else L=size(x)[1]-1; end
-  dx = Array(Any,L,n.numStates)
-  dx[:,1] = @NLexpression(n.mdl, [j=1:L], x[j,2] );
-  dx[:,2] = @NLexpression(n.mdl, [j=1:L], u[j,1] - g);
-  return dx
-end
+de=[:(x2[j]),:(u1[j]-1.625)]
 nothing # hide
 ```
 Most of this code is boiler-plate and should be copied directly. The important things to note are that`u` is the control variable matrix and `x` is the state variable matrix. So, in the above example the only thing that the user needs to modify is the right hand side of the `dx[]` expressions. The indecies for the number of the state or control variable are in the columns. For instance, `x[:,2]` represents the entire vector for second state variable.
@@ -34,7 +27,7 @@ NOTE: eventually most of this code will be pushed to a lower level.
 Now that the dynamic constraint equations have been established, the next step is to define the problem:
 
 ```@example MoonLander
-n=define!(;stateEquations=MoonLander,numStates=2,numControls=1,X0=[10.,-2],XF=[0.,0.],XL=[NaN,NaN],XU=[NaN,NaN],CL=[0.],CU=[3.]);
+n=define!(de;numStates=2,numControls=1,X0=[10.,-2],XF=[0.,0.],XL=[NaN,NaN],XU=[NaN,NaN],CL=[0.],CU=[3.]);
 nothing # hide
 ```
 To do this the user passes `n`, and defines the `stateEquations` to be the dynamic constraint equations defined in `MoonLander()`.
@@ -84,6 +77,7 @@ Then, in order to quickly visualize the problem, functionality is also provided 
 ## The next part is optional:
 The plot settings can be modified from the default using the following code:
 ```@example MoonLander
+using PrettyPlots
 plotSettings(;(:mpc_lines =>[(4.0,:blue,:solid)]),(:size=>(700,700)));
 nothing # hide
 ```
