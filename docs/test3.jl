@@ -1,9 +1,19 @@
-using NLOptControl,JuMP,PrettyPlots,Plots;gr()
 
 
-n=define!(;numStates=3,numControls=1,X0=[0.0,0.0,0.0],XF=[2.,2.,NaN],XL=[-NaN,-NaN,-NaN],XU=[NaN,NaN,NaN],CL=[-NaN],CU=[NaN]);
-#eq=:([x[j,3]*sin(u[j,1]);x[j,3]*cos(u[j,1]);9.81*cos(u[j,1])]);
-#@show typeof(n)
-#@show typeof(eq)
-@DiffEq(n,[x[j,3]*sin(u[j,1]);x[j,3]*cos(u[j,1]);9.81*cos(u[j,1])])
-configure!(n,Nck=[100];(:finalTimeDV=>true));
+using NLOptControl
+
+de=[:(sin(x2[j])),:(u1[j])]
+
+n=define!(de;numStates=2,numControls=1,X0=[NaN,NaN],XF=[NaN,NaN],XL=[-0.05,-1.0],XU=[-0.05,1.0],CL=[NaN],CU=[NaN]);
+configure!(n;(:finalTimeDV=>false),(:tf=>1.0));
+#configure!(n;(:integrationScheme=>:bkwEuler),(:finalTimeDV=>false),(:tf=>1.0));
+
+obj1=integrate!(n,n.r.u[:,1];(:variable=>:control),(:integrand=>:squared));
+obj2=integrate!(n,n.r.x[:,2];C=350.,(:variable=>:state),(:integrand=>:cos));
+@NLobjective(n.mdl,Min,obj1+obj2);
+
+
+optimize!(n);
+
+using PrettyPlots
+allPlots(n)

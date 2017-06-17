@@ -1,6 +1,6 @@
 # Bryson Denham
 
-This problem can be found [here](http://www.gpops2.com/Examples/Brachistochrone.html).
+This problem can be found [here](http://www.gpops2.com/Examples/Bryson-Denham.html).
 
 ## Packages that will be used
 ```@example BrysonDenham

@@ -38,9 +38,9 @@ Basics:
 `X0` = intial sttae
 TODO-> mention XL etc.
 
-There are several different ways to ensure that the `stateEquations` are satisfied that are set using the keys `:integrationMethod` and `:integrationScheme`. In this example the hp-Gaussian Quadrature Collocation Method is used with Radau Nodes. Finally, the final time may be either fixed and set before hand or it can be a variable. This option is set using the `:finalTimeDV` key and it is set to `true` in this example.
+There are several different ways to ensure that the `stateEquations` are satisfied that are set using the key `:integrationScheme`. In this example the hp-Gaussian Quadrature Collocation Method is used with Radau Nodes. Finally, the final time may be either fixed and set before hand or it can be a variable. This option is set using the `:finalTimeDV` key and it is set to `true` in this example.
 ```@example MoonLander
-configure!(n,Ni=4,Nck=[10,10,10,10];(:integrationMethod=>:ps),(:integrationScheme=> :lgrExplicit),(:finalTimeDV=>true));
+configure!(n,Ni=4,Nck=[10,10,10,10];(:integrationScheme=> :lgrExplicit),(:finalTimeDV=>true));
 nothing # hide
 ```
 
