@@ -9,9 +9,9 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "index.html#NLOptControl.jl-Documentation-1",
+    "location": "index.html#NLOptControl.jl-(and-JuliaMPC)-Documentation-1",
     "page": "Home",
-    "title": "NLOptControl.jl Documentation",
+    "title": "NLOptControl.jl (and JuliaMPC) Documentation",
     "category": "section",
     "text": ""
 },
@@ -21,7 +21,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Home",
     "title": "Introduction",
     "category": "section",
-    "text": "..."
+    "text": "This software solves nonlinear control problems at a high-level very quickly.It added to juliaOpt community by:Providing an implementation of of the hp-pseudospectral method written in julia\nIncorporating model predictive control functionality\nAutomatically visualizing the solution"
 },
 
 {
@@ -29,15 +29,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Home",
     "title": "Installation",
     "category": "section",
-    "text": "There are several packages that need to be installed, to do this run:Pkg.clone(\"https://github.com/JuliaMPC/PrettyPlots.jl\")\nPkg.clone(\"https://github.com/JuliaMPC/VehicleModels.jl\")\nPkg.clone(\"https://github.com/JuliaMPC/NLOptControl.jl\")"
-},
-
-{
-    "location": "index.html#Citation-1",
-    "page": "Home",
-    "title": "Citation",
-    "category": "section",
-    "text": "If you find this package useful, please cite this paper:@Conference{Febbo2017,\n  author    = {Huckleberry Febbo, Jiechao Liu, Paramsothy Jayakumar, Jeffrey L. Stein, Tulga Ersal},\n  title     = {Moving Obstacle Avoidance for Large, High-Speed Autonomous Ground Vehicles},\n  year      = {2017},\n  publisher = {IEEE}\n}"
+    "text": "There are several packages that need to be installed, to do this run:Pkg.clone(\"https://github.com/JuliaMPC/PrettyPlots.jl\")\nPkg.clone(\"https://github.com/JuliaMPC/VehicleModels.jl\")\nPkg.clone(\"https://github.com/JuliaMPC/NLOptControl.jl\")Either Ipopt.jl or KNITRO.jl can be used for the nonlinear solver. Since Ipopt is free, all of the examples will use it and it can be added with:Pkg.add(\"Ipopt\");Pkg.build(\"Ipopt\");If you are using Linux make sure that you have gfortran to run Ipopt:sudo apt-get install gfortranAlso, a plotting backend will be required and there are several options:Pkg.add(\"PGFPlots\");Pkg.build(\"PGFPlots\")   # best looking\nPkg.add(\"GR\");Pkg.build(\"GR\");              # most reliable\nPkg.add(\"PyPlot\");Pkg.build(\"PyPlot\")       # also a good option  "
 },
 
 {
@@ -45,7 +37,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Home",
     "title": "Tutorials",
     "category": "section",
-    "text": "For NLOptControl.jl there are several examples provided:Pages=[\n      \"tutorials/BrysonDenham/main.md\",\n      \"tutorials/Brachistochrone/main.md\",\n      \"tutorials/HyperSensitive/main.md\",\n      \"tutorials/MoonLander/main.md\",\n      \"tutorials/KinematicBicycle/main.md\",\n      \"tutorials/RobotArm/main.md\"\n       ]\nDepth=1"
+    "text": "For NLOptControl.jl there are several examples provided:Pages=[\n      \"tutorials/BrysonDenham/main.md\",\n      \"tutorials/Brachistochrone/main.md\",\n      \"tutorials/Beam/main.md\",\n      \"tutorials/HyperSensitive/main.md\",\n      \"tutorials/MoonLander/main.md\",\n      \"tutorials/KinematicBicycle/main.md\",\n      \"tutorials/RobotArm/main.md\"\n       ]\nDepth=1"
 },
 
 {
@@ -57,11 +49,11 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "index.html#Exported-Functions-1",
+    "location": "index.html#Citation-1",
     "page": "Home",
-    "title": "Exported Functions",
+    "title": "Citation",
     "category": "section",
-    "text": "The following link provides documentation all of the exported functions for NLOptControl.jl, VehicleModels.jl, and PrettyPlots.jl.Pages=[\n    \"functions/NLOptControl.md\",\n    \"functions/VehicleModels.md\",\n    \"functions/PrettyPlots.md\"\n    ]\nDepth=1"
+    "text": "If you find NLOptControl.jl useful, please cite it:@software{hadoop,\n  author = {{Huckleberry Febbo}},\n  title = {NLOptControl.jl},\n  url = {https://github.com/JuliaMPC/NLOptControl.jl},\n  version = {0.0.1},\n  date = {2017-06-17},\n}If you find VehicleModels.jl useful, please cite this paper:@Conference{Febbo2017,\n  author    = {Huckleberry Febbo, Jiechao Liu, Paramsothy Jayakumar, Jeffrey L. Stein, Tulga Ersal},\n  title     = {Moving Obstacle Avoidance for Large, High-Speed Autonomous Ground Vehicles},\n  year      = {2017},\n  publisher = {IEEE}\n}"
 },
 
 {
@@ -69,7 +61,15 @@ var documenterSearchIndex = {"docs": [
     "page": "Home",
     "title": "Acknowledgements",
     "category": "section",
-    "text": "Miles Lubin, https://jump.readthedocs.io/en/latest/ Chris Rackauckas, https://github.com/JuliaDiffEq/DifferentialEquations.jl"
+    "text": "JuMP.jl is an important part of this NLOptControl.jl and discussions with Miles Lubin where helpful\nChris Rackauckas is a very helpful member of the julia community and has provided me support and advice multiple times his software DifferentialEquations.jl is also part of NLOptControl.jl"
+},
+
+{
+    "location": "index.html#Exported-Functions-1",
+    "page": "Home",
+    "title": "Exported Functions",
+    "category": "section",
+    "text": "The following link provides documentation all of the exported functions for NLOptControl.jl, VehicleModels.jl, and PrettyPlots.jl.Pages=[\n    \"functions/NLOptControl.md\",\n    \"functions/VehicleModels.md\",\n    \"functions/PrettyPlots.md\"\n    ]\nDepth=1"
 },
 
 {
@@ -209,6 +209,70 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
+    "location": "tutorials/Beam/main.html#",
+    "page": "Beam Problem",
+    "title": "Beam Problem",
+    "category": "page",
+    "text": ""
+},
+
+{
+    "location": "tutorials/Beam/main.html#Beam-Problem-1",
+    "page": "Beam Problem",
+    "title": "Beam Problem",
+    "category": "section",
+    "text": "An optimal control version of the Singly Supported NonLinear BEAM problem.\nThe energy of a beam of length 1 compressed by a force P is to be minimized.  \nThe control variable is the derivative of the deflection angle.This problem can be found here."
+},
+
+{
+    "location": "tutorials/Beam/main.html#Packages-that-will-be-used-1",
+    "page": "Beam Problem",
+    "title": "Packages that will be used",
+    "category": "section",
+    "text": "using NLOptControl\nnothing # hide"
+},
+
+{
+    "location": "tutorials/Beam/main.html#Differential-Equations-1",
+    "page": "Beam Problem",
+    "title": "Differential Equations",
+    "category": "section",
+    "text": "de=[:(sin(x2[j])),:(u1[j])]\nnothing # hide"
+},
+
+{
+    "location": "tutorials/Beam/main.html#Define-and-Configure-the-Problem:-1",
+    "page": "Beam Problem",
+    "title": "Define and Configure the Problem:",
+    "category": "section",
+    "text": "n=define!(de;numStates=2,numControls=1,X0=[NaN,NaN],XF=[NaN,NaN],XL=[-0.05,-1.0],XU=[-0.05,1.0],CL=[NaN],CU=[NaN]);\nconfigure!(n;(:integrationScheme=>:trapezoidal),(:finalTimeDV=>false),(:tf=>1.0));\nnothing # hide"
+},
+
+{
+    "location": "tutorials/Beam/main.html#Objective-Function-1",
+    "page": "Beam Problem",
+    "title": "Objective Function",
+    "category": "section",
+    "text": "obj1=integrate!(n,n.r.u[:,1];(:variable=>:control),(:integrand=>:squared));\nobj2=integrate!(n,n.r.x[:,2];C=350.,(:variable=>:state),(:integrand=>:cos));\n@NLobjective(n.mdl,Min,obj1+obj2);\nnothing # hide"
+},
+
+{
+    "location": "tutorials/Beam/main.html#Optimize-1",
+    "page": "Beam Problem",
+    "title": "Optimize",
+    "category": "section",
+    "text": "optimize!(n);\nnothing # hide"
+},
+
+{
+    "location": "tutorials/Beam/main.html#Post-Process-1",
+    "page": "Beam Problem",
+    "title": "Post Process",
+    "category": "section",
+    "text": "using PrettyPlots\nallPlots(n)"
+},
+
+{
     "location": "tutorials/HyperSensitive/main.html#",
     "page": "HyperSensitive",
     "title": "HyperSensitive",
@@ -285,7 +349,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Moon Lander",
     "title": "Moon Lander",
     "category": "section",
-    "text": "First setup the packages that will be used:using NLOptControl\nnothing # hideWhere, the object n is the object for the entire optimal control problem including: |setting               | keys        | descriptions           | | –––––––––– | –––––- | ––––––––––– | |n.s.integrationMethod | :tm         | time marching          |                        | :ps         | pseudospectral methods | n.s for settings n.r for results n.mpc for mpc dataNext define the basic differential equation used to model the system:de=[:(x2[j]),:(u1[j]-1.625)]\nnothing # hideMost of this code is boiler-plate and should be copied directly. The important things to note are thatu is the control variable matrix and x is the state variable matrix. So, in the above example the only thing that the user needs to modify is the right hand side of the dx[] expressions. The indecies for the number of the state or control variable are in the columns. For instance, x[:,2] represents the entire vector for second state variable.NOTE: eventually most of this code will be pushed to a lower level.  Now that the dynamic constraint equations have been established, the next step is to define the problem:n=define!(de;numStates=2,numControls=1,X0=[10.,-2],XF=[0.,0.],XL=[NaN,NaN],XU=[NaN,NaN],CL=[0.],CU=[3.]);\nnothing # hideTo do this the user passes n, and defines the stateEquations to be the dynamic constraint equations defined in MoonLander().Basics: numStates = number of state variables numControls = number of control variables X0 = intial sttae TODO-> mention XL etc.There are several different ways to ensure that the stateEquations are satisfied that are set using the keys :integrationMethod and :integrationScheme. In this example the hp-Gaussian Quadrature Collocation Method is used with Radau Nodes. Finally, the final time may be either fixed and set before hand or it can be a variable. This option is set using the :finalTimeDV key and it is set to true in this example.configure!(n,Ni=4,Nck=[10,10,10,10];(:integrationMethod=>:ps),(:integrationScheme=> :lgrExplicit),(:finalTimeDV=>true));\nnothing # hideThe next parts are optional.Names and descriptions may be added to both the control and state variables as follows:names=[:h,:v]; descriptions = [\"h(t)\",\"v(t)\"]; stateNames!(n,names,descriptions);\nnothing # hideNOTE: The names will show up in the results data and the descriptions will show up in the graphsThe object r stores all of the results as well as both the control and state variables. For instance r.x[:,1] should now be used to access the entire vector for the first state.For generality, integrate!() will also be demonstrated in this example. integrate!() is used to add terms to the cost function that need to be integrated. Currently there are several forms that these integrals can take (more can be added). In this example the first control variable r.u[:,1] and sets up this variable to be integrated over the entire time of the control problem with the following line of code:obj=integrate!(n,n.r.u[:,1];C=1.0,(:variable=>:control),(:integrand=>:default));\nnothing # hideNext the cost function can be defined as:@NLobjective(n.mdl, Min, obj);\nnothing # hideAt this stage, the optimal control problem can be solved with:optimize!(n);\nnothing # hideThen, in order to quickly visualize the problem, functionality is also provided for automated visualization."
+    "text": "First setup the packages that will be used:using NLOptControl\nnothing # hideWhere, the object n is the object for the entire optimal control problem including: |setting               | keys        | descriptions           | | –––––––––– | –––––- | ––––––––––– | |n.s.integrationMethod | :tm         | time marching          |                        | :ps         | pseudospectral methods | n.s for settings n.r for results n.mpc for mpc dataNext define the basic differential equation used to model the system:de=[:(x2[j]),:(u1[j]-1.625)]\nnothing # hideMost of this code is boiler-plate and should be copied directly. The important things to note are thatu is the control variable matrix and x is the state variable matrix. So, in the above example the only thing that the user needs to modify is the right hand side of the dx[] expressions. The indecies for the number of the state or control variable are in the columns. For instance, x[:,2] represents the entire vector for second state variable.NOTE: eventually most of this code will be pushed to a lower level.  Now that the dynamic constraint equations have been established, the next step is to define the problem:n=define!(de;numStates=2,numControls=1,X0=[10.,-2],XF=[0.,0.],XL=[NaN,NaN],XU=[NaN,NaN],CL=[0.],CU=[3.]);\nnothing # hideTo do this the user passes n, and defines the stateEquations to be the dynamic constraint equations defined in MoonLander().Basics: numStates = number of state variables numControls = number of control variables X0 = intial sttae TODO-> mention XL etc.There are several different ways to ensure that the stateEquations are satisfied that are set using the key :integrationScheme. In this example the hp-Gaussian Quadrature Collocation Method is used with Radau Nodes. Finally, the final time may be either fixed and set before hand or it can be a variable. This option is set using the :finalTimeDV key and it is set to true in this example.configure!(n,Ni=4,Nck=[10,10,10,10];(:integrationScheme=> :lgrExplicit),(:finalTimeDV=>true));\nnothing # hideThe next parts are optional.Names and descriptions may be added to both the control and state variables as follows:names=[:h,:v]; descriptions = [\"h(t)\",\"v(t)\"]; stateNames!(n,names,descriptions);\nnothing # hideNOTE: The names will show up in the results data and the descriptions will show up in the graphsThe object r stores all of the results as well as both the control and state variables. For instance r.x[:,1] should now be used to access the entire vector for the first state.For generality, integrate!() will also be demonstrated in this example. integrate!() is used to add terms to the cost function that need to be integrated. Currently there are several forms that these integrals can take (more can be added). In this example the first control variable r.u[:,1] and sets up this variable to be integrated over the entire time of the control problem with the following line of code:obj=integrate!(n,n.r.u[:,1];C=1.0,(:variable=>:control),(:integrand=>:default));\nnothing # hideNext the cost function can be defined as:@NLobjective(n.mdl, Min, obj);\nnothing # hideAt this stage, the optimal control problem can be solved with:optimize!(n);\nnothing # hideThen, in order to quickly visualize the problem, functionality is also provided for automated visualization."
 },
 
 {
@@ -689,11 +753,11 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "functions/NLOptControl.html#NLOptControl.integrate!-Tuple{NLOptControl.NLOpt,Array{JuMP.Variable,1},Vararg{Any,N}}",
+    "location": "functions/NLOptControl.html#NLOptControl.integrate!-Tuple{NLOptControl.NLOpt,Array{JuMP.Variable,1}}",
     "page": "NLOptControl.jl",
     "title": "NLOptControl.integrate!",
     "category": "Method",
-    "text": "for integrating JuMP variables\n\nExpr=integrate!(n,u;(:mode=>:control)) Expr=integrate!(n,u,idx=1;C=0.5,(:variable=>:control),(:integrand=>:squared)) Expr=integrate!(n,n.r.u[:,1];D=rand(n.numStatePoints),(:variable=>:control),(:integrand=>:squared),(:integrandAlgebra=>:subtract)) #TODO fix D  ::Array{JuMP.NonlinearParameter,1} –––––––––––––––––––––––––––––––––––––––––––\n\nAuthor: Huckleberry Febbo, Graduate Student, University of Michigan Date Create: 1/2/2017, Last Modified: 5/29/2017 \n\n\n\n\n\n"
+    "text": "for integrating JuMP variables\n\nExpr=integrate!(n,n.r.u[:,1];(:mode=>:control)) Expr=integrate!(n,n.r.u[:,1];C=0.5,(:variable=>:control),(:integrand=>:squared)) Expr=integrate!(n,n.r.u[:,1];D=rand(n.numStatePoints),(:variable=>:control),(:integrand=>:squared),(:integrandAlgebra=>:subtract)) #TODO fix D  ::Array{JuMP.NonlinearParameter,1} –––––––––––––––––––––––––––––––––––––––––––\n\nAuthor: Huckleberry Febbo, Graduate Student, University of Michigan Date Create: 1/2/2017, Last Modified: 6/16/2017 \n\n\n\n\n\n"
 },
 
 {
