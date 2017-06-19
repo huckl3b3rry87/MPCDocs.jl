@@ -24,7 +24,7 @@ nothing # hide
 
 ## Differential Equations
 ```@example Bicycle
-n=define!(KinematicBicycle;numStates=4,numControls=2,X0=X0,XF=XF,XL=XL,XU=XU,CL=CL,CU=CU);
+n=define(KinematicBicycle;numStates=4,numControls=2,X0=X0,XF=XF,XL=XL,XU=XU,CL=CL,CU=CU);
 nothing # hide
 ```
 ## Add Parameters to the Model

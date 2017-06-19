@@ -1,27 +1,32 @@
-using NLOptControl,JuMP,PrettyPlots,Plots;
-#pyplot()
-gr()
-const EP=2*eps()
-function arm{T<:Any}(n::NLOpt,x::Array{T,2},u::Array{T,2}) # dynamic constraint equations
-  if n.s.integrationMethod==:tm; L=size(x)[1]; else; L=size(x)[1]-1; end
-  dx=Array(Any,L,n.numStates);
-  Q=5;
-  I_t=@NLexpression(n.mdl, [j=1:L], ((Q-x[j,1])^3+x[j,1]^3)/3*sin(x[j,5])^2 );
-  I_p=@NLexpression(n.mdl, [j=1:L], ((Q-x[j,1])^3+x[j,1]^3)/3 );
+\begin{equation*}
+  \begin{aligned}
+     & \underset{{\boldsymbol{\xi}} ,\;{\boldsymbol{\zeta}} ,\;{1}{\textbf{minimize}}
+     & & {\cal{F}}(1)+{\cal{I}}(\boldsymbol{\xi}(\tau),\boldsymbol{\zeta}(\tau)) \\
+     & \textbf{subject to}
+     & & \dot{\boldsymbol{\xi}}(\tau) = {\color{green}{\frac{T_p-T_0}{2}}}\mathbfcal{V}(\boldsymbol{\xi}(\tau),\boldsymbol{\zeta}(\tau))
+     & \textbf{\color{blue}Dynamic} \\
+     & & & \boldsymbol{\xi}_{min}(\tau) \le \boldsymbol{\xi}(\tau) \le \boldsymbol{\xi}_{max}(\tau)
+     & \textbf{\color{blue}State Limit} \\
+     & & & \boldsymbol{\zeta}_{min}(\tau) \le \boldsymbol{\zeta}(\tau) \le \boldsymbol{\zeta}_{max}(\tau)
+     & \textbf{\color{blue}Control Limit} \\
+     & & &{\mathbfcal{T}}(\boldsymbol{\Xi_0},\boldsymbol{\xi}(-1),{\mathbfcal{G}},\boldsymbol{\xi}(1)) \le 0
+     & \textbf{\color{blue}Initial and Terminal State} \\
+     & & & {\mathbfcal{H}}({\mathbfcal{E}(\tau)},\boldsymbol{\xi}(\tau),\boldsymbol{\zeta}(\tau)) \le 0
+     & \textbf{\color{blue}Additional Constraints}
+  \end{aligned}
+\end{equation*}
 
-  dx[:,1]=@NLexpression(n.mdl, [j=1:L], x[j,2]);
-  dx[:,2]=@NLexpression(n.mdl, [j=1:L], u[j,1]/Q);
-  dx[:,3]=@NLexpression(n.mdl, [j=1:L], x[j,4]);
-  dx[:,4]=@NLexpression(n.mdl, [j=1:L], u[j,2]/(I_t[j]+EP));
-  dx[:,5]=@NLexpression(n.mdl, [j=1:L], x[j,6]);
-  dx[:,6]=@NLexpression(n.mdl, [j=1:L], u[j,3]/(I_p[j]+EP));
-  return dx
-end
-
-n=define!(;stateEquations=arm,numStates=6,numControls=3,X0=[9/2,0.0,0.0,0.0,pi/4,0.0],XF=[9/2,0.0,2*pi/3,0.0,pi/4,0.0],XL=[NaN,NaN,NaN,0.0,NaN,NaN],XU=[NaN,NaN,NaN,1.0,NaN,NaN],CL=[-1.,-1.,-1.],CU=[1.,1.,1.])
-configure!(n;(:finalTimeDV=>true))
-#defineSolver!(n;(:name=>:KNITRO))
-@NLobjective(n.mdl,Min,n.tf);
-optimize!(n)
-allPlots(n)
-#missing intial and final state constraints and limits on x4
+where,
+\begin{center}
+  \begin{tabular}{c c | c c}
+    \hline
+     ${\boldsymbol{\Xi_{0}}}$ & actual intial vehicle state & ${\boldsymbol{\xi}}$ & state vectors \\
+    \hline
+    ${\boldsymbol{\zeta}}$ & control vectors &  $t$ & time  \\
+    \hline
+    $T_{0}$ & constant intial time & $T_{p}$ & variable final time \\
+    \hline
+    ${\mathbfcal{G}}$ & goal info. & ${\mathbfcal{E}}$ & environment info. \\
+    \hline
+  \end{tabular}
+\end{center}

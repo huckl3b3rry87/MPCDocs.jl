@@ -27,7 +27,7 @@ NOTE: eventually most of this code will be pushed to a lower level.
 Now that the dynamic constraint equations have been established, the next step is to define the problem:
 
 ```@example MoonLander
-n=define!(de;numStates=2,numControls=1,X0=[10.,-2],XF=[0.,0.],XL=[NaN,NaN],XU=[NaN,NaN],CL=[0.],CU=[3.]);
+n=define(de;numStates=2,numControls=1,X0=[10.,-2],XF=[0.,0.],XL=[NaN,NaN],XU=[NaN,NaN],CL=[0.],CU=[3.]);
 nothing # hide
 ```
 To do this the user passes `n`, and defines the `stateEquations` to be the dynamic constraint equations defined in `MoonLander()`.
@@ -40,7 +40,7 @@ TODO-> mention XL etc.
 
 There are several different ways to ensure that the `stateEquations` are satisfied that are set using the key `:integrationScheme`. In this example the hp-Gaussian Quadrature Collocation Method is used with Radau Nodes. Finally, the final time may be either fixed and set before hand or it can be a variable. This option is set using the `:finalTimeDV` key and it is set to `true` in this example.
 ```@example MoonLander
-configure!(n,Ni=4,Nck=[10,10,10,10];(:integrationScheme=> :lgrExplicit),(:finalTimeDV=>true));
+configure!(n,Nck=[10,10,10,10];(:finalTimeDV=>true));
 nothing # hide
 ```
 

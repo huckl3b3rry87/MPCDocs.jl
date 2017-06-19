@@ -19,7 +19,7 @@ nothing # hide
 
 ## Define and Configure the Problem:
 ```@example HyperSensitive
-n=define!(de;numStates=1,numControls=1,X0=[1.5],XF=[1.],XL=[NaN],XU=[NaN],CL=[NaN],CU=[NaN])
+n=define(de;numStates=1,numControls=1,X0=[1.5],XF=[1.],XL=[NaN],XU=[NaN],CL=[NaN],CU=[NaN])
 configure!(n,Nck=[20,3,3,3,3,3,3,3,3,3,3,20];(:finalTimeDV=>false),(:tf=>10000.0))
 nothing # hide
 ```

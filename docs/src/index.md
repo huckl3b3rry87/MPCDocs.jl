@@ -36,6 +36,14 @@ Pkg.add("GR");Pkg.build("GR");              # most reliable
 Pkg.add("PyPlot");Pkg.build("PyPlot")       # also a good option  
 ```
 
+## 2017 juliaCon Workshop Notebook
+
+After installation, the notebook can be viewed:
+```julia
+using IJulia
+notebook(dir=Pkg.dir("NLOptControl/examples"))
+```
+
 ## Tutorials
 
 For `NLOptControl.jl` there are several examples provided:
@@ -53,25 +61,10 @@ Pages=[
 Depth=1
 ```
 
-## Background Info
-While detailed information on these approaches to discretizing infinite dimensional (or continuous) optimal control problems can be found (and comes from) [this Ph.D. dissertation](http://etd.fcla.edu/UF/UFE0042778/darby_c.pdf), [this related journal publication](http://vdol.mae.ufl.edu/JournalPublications/TOMS-GPOPS-II-August-2013.pdf) and [this technical report](http://systemdesign.illinois.edu/publications/Her15a.pdf), the Background Information section will cover some basics.
-
-```@contents
-Pages = [
-    "background/lagrange_poly.md",
-    "background/optimal_control.md",
-    "background/ocp.md",
-    "background/time_marching.md",
-    "background/pseudospectral_methods.md",
-    "background/hp-psuedospectral.md"
-    ]
-Depth=1
-```
-
 ## Citation
 If you find [NLOptControl.jl](https://github.com/JuliaMPC/NLOptControl.jl) useful, please cite it:
 ```
-@software{hadoop,
+@software{nlopt,
   author = {{Huckleberry Febbo}},
   title = {NLOptControl.jl},
   url = {https://github.com/JuliaMPC/NLOptControl.jl},

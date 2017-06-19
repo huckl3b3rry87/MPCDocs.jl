@@ -23,13 +23,6 @@ makedocs(modules=[NLOptControl,PrettyPlots,VehicleModels],
             "tutorials/KinematicBicycle/main.md",
             "tutorials/RobotArm/main.md"
          ],
-         "Background Information"=>Any[
-             "background/lagrange_poly.md",
-             "background/ocp.md",
-             "background/time_marching.md",
-             "background/pseudospectral_methods.md",
-             "background/hp_psuedospectral.md"
-             ],
          "Exported Functions"=>Any[
          "functions/NLOptControl.md",
          "functions/VehicleModels.md",
