@@ -1,3 +1,13 @@
+###Bryson Denham
+de=[:(x2[j]),:(u1[j])]
+n=define(de;numStates=2,numControls=1,X0=[0.,1],XF=[0.,-1.],XL=[0.,NaN],XU=[1/9,NaN],CL=[NaN],CU=[NaN]);
+configure!(n;(:finalTimeDV=>false),(:tf=>1.0));
+obj=integrate!(n,n.r.u[:,1];C=0.5,(:variable=>:control),(:integrand=>:squared));
+@NLobjective(n.mdl,Min,obj);
+optimize!(n);
+allPlots(n)
+
+## Rocket
 Drag=:($D_c*x2[j]^2*exp(-$h_c*(x1[j]-$h_0)/$h_0));
 Grav=:($g_0*($h_0/x1[j])^2);
 
