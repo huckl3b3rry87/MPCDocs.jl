@@ -16,7 +16,7 @@ nothing # hide
 
 ## Define and Configure the Problem:
 ```@example BrysonDenham
-n=define(de;numControls=1,X0=[0.,1],XF=[0.,-1.],XL=[0.,NaN],XU=[1/9,NaN],CL=[NaN],CU=[NaN]);
+n=define(de;numStates=2,numControls=1,X0=[0.,1],XF=[0.,-1.],XL=[0.,NaN],XU=[1/9,NaN],CL=[NaN],CU=[NaN]);
 configure!(n;(:finalTimeDV=>false),(:tf=>1.0));
 nothing # hide
 ```

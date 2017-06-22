@@ -50,7 +50,7 @@ But, this does not work when using [Documentor.jl](https://github.com/JuliaDocs/
 
 ## Define and Configure the Problem:
 ```@example Rocket
-n=define(dx;numControls=1,X0=[h_0,v_0,m_0],XF=[NaN,NaN,m_f],XL=[h_0,v_0,m_f],XU=[NaN,NaN,m_0],CL=[0.0],CU=[T_max]);
+n=define(dx;numStates=3,numControls=1,X0=[h_0,v_0,m_0],XF=[NaN,NaN,m_f],XL=[h_0,v_0,m_f],XU=[NaN,NaN,m_0],CL=[0.0],CU=[T_max]);
 configure!(n;(:finalTimeDV=>true));
 nothing # hide
 ```

@@ -16,7 +16,7 @@ nothing # hide
 
 ## Define and Configure the Problem:
 ```@example Brachistochrone
-n=define(de;numControls=1,X0=[0.0,0.0,0.0],XF=[2.,2.,NaN],XL=[-NaN,-NaN,-NaN],XU=[NaN,NaN,NaN],CL=[-NaN],CU=[NaN]);
+n=define(de;numStates=3,numControls=1,X0=[0.0,0.0,0.0],XF=[2.,2.,NaN],XL=[-NaN,-NaN,-NaN],XU=[NaN,NaN,NaN],CL=[-NaN],CU=[NaN]);
 configure!(n;(:Nck=>[100]),(:finalTimeDV=>true));
 nothing # hide
 
