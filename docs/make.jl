@@ -19,7 +19,8 @@ makedocs(modules=[NLOptControl,PrettyPlots],
               "tutorials/HyperSensitive/main.md",
               "tutorials/MoonLander/main.md",
               "tutorials/RobotArm/main.md",
-              "tutorials/Rocket/main.md"
+              "tutorials/Rocket/main.md",
+              "tutorials/KinematicBicycle/main.md"
                ]
         ]
         )
