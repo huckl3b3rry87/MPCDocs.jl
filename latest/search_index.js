@@ -504,4 +504,92 @@ var documenterSearchIndex = {"docs": [
     "text": "using PrettyPlots\nallPlots(n)"
 },
 
+{
+    "location": "tutorials/KinematicBicycle/main.html#",
+    "page": "Kinematic Bicycle Model",
+    "title": "Kinematic Bicycle Model",
+    "category": "page",
+    "text": ""
+},
+
+{
+    "location": "tutorials/KinematicBicycle/main.html#Kinematic-Bicycle-Model-1",
+    "page": "Kinematic Bicycle Model",
+    "title": "Kinematic Bicycle Model",
+    "category": "section",
+    "text": "The vehicle model comes from the BARC-project"
+},
+
+{
+    "location": "tutorials/KinematicBicycle/main.html#Packages-that-will-be-used-1",
+    "page": "Kinematic Bicycle Model",
+    "title": "Packages that will be used",
+    "category": "section",
+    "text": "using NLOptControl,Parameters,VehicleModels\nnothing # hide"
+},
+
+{
+    "location": "tutorials/KinematicBicycle/main.html#Parameters-form-VehicleModels.jl-1",
+    "page": "Kinematic Bicycle Model",
+    "title": "Parameters form VehicleModels.jl",
+    "category": "section",
+    "text": "pa=VparaKB(x0_=0.);  \n@unpack_VparaKB pa # vehicle parameters\nX0=[x0_,y0_,psi0_,u0_];\nXF=[NaN,NaN,NaN,NaN];\nXL=[x_min,y_min,psi_min,u_min];\nXU=[x_max,y_max,psi_max,u_max];\nCL=[sa_min,ax_min];\nCU=[sa_max,ax_max];\nnothing # hide"
+},
+
+{
+    "location": "tutorials/KinematicBicycle/main.html#Differential-Equations-1",
+    "page": "Kinematic Bicycle Model",
+    "title": "Differential Equations",
+    "category": "section",
+    "text": "n=define(KinematicBicycle;numControls=2,X0=X0,XF=XF,XL=XL,XU=XU,CL=CL,CU=CU);\nnothing # hide"
+},
+
+{
+    "location": "tutorials/KinematicBicycle/main.html#Add-Parameters-to-the-Model-1",
+    "page": "Kinematic Bicycle Model",
+    "title": "Add Parameters to the Model",
+    "category": "section",
+    "text": "n.params=[pa];   # vehicle parameters\nnothing # hide"
+},
+
+{
+    "location": "tutorials/KinematicBicycle/main.html#Define-and-Configure-the-Problem:-1",
+    "page": "Kinematic Bicycle Model",
+    "title": "Define and Configure the Problem:",
+    "category": "section",
+    "text": "configure!(n,Nck=[15,10];(:finalTimeDV=>false),(:tf=>4.0));\nnothing # hide"
+},
+
+{
+    "location": "tutorials/KinematicBicycle/main.html#additional-information-1",
+    "page": "Kinematic Bicycle Model",
+    "title": "additional information",
+    "category": "section",
+    "text": "names=[:x,:y,:psi,:ux];\ndescriptions=[\"X (m)\",\"Y (m)\",\"Yaw Angle (rad)\",\"Longitudinal Velocity (m/s)\"];\nstateNames!(n,names,descriptions)\nnames = [:sr,:jx];\ndescriptions=[\"Steering Angle (rad)\",\"Longitudinal Acceleration (m/s^2)\"];\ncontrolNames!(n,names,descriptions);\nnothing # hide#mXL=Any[false,false,false,false];mXU=Any[false,false,false,-1];  # set to false if you don't want to taper that side #linearStateTolerances(n;mXL=mXL,mXU=mXU);"
+},
+
+{
+    "location": "tutorials/KinematicBicycle/main.html#Objective-Function-1",
+    "page": "Kinematic Bicycle Model",
+    "title": "Objective Function",
+    "category": "section",
+    "text": "x_ref = 10; y_ref = 100; # define target\n@NLobjective(n.mdl, Min, (n.r.x[end,1]-x_ref)^2 + (n.r.x[end,2]-y_ref)^2);\nnothing # hide"
+},
+
+{
+    "location": "tutorials/KinematicBicycle/main.html#Optimize-1",
+    "page": "Kinematic Bicycle Model",
+    "title": "Optimize",
+    "category": "section",
+    "text": "optimize!(n);\nnothing # hide"
+},
+
+{
+    "location": "tutorials/KinematicBicycle/main.html#Post-Process-1",
+    "page": "Kinematic Bicycle Model",
+    "title": "Post Process",
+    "category": "section",
+    "text": "using PrettyPlots\nallPlots(n)"
+},
+
 ]}
