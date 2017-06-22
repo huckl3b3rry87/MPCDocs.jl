@@ -44,23 +44,6 @@ using IJulia
 notebook(dir=Pkg.dir("NLOptControl/examples"))
 ```
 
-## Tutorials
-
-For `NLOptControl.jl` there are several examples provided:
-
-```@contents
-Pages=[
-      "tutorials/BrysonDenham/main.md",
-      "tutorials/Brachistochrone/main.md",
-      "tutorials/Beam/main.md",
-      "tutorials/HyperSensitive/main.md",
-      "tutorials/MoonLander/main.md",
-      "tutorials/KinematicBicycle/main.md",
-      "tutorials/RobotArm/main.md"
-       ]
-Depth=1
-```
-
 ## Citation
 If you find [NLOptControl.jl](https://github.com/JuliaMPC/NLOptControl.jl) useful, please cite it:
 ```
@@ -94,7 +77,6 @@ The following link provides documentation all of the exported functions for `NLO
 ```@contents
 Pages=[
     "functions/NLOptControl.md",
-    "functions/VehicleModels.md",
     "functions/PrettyPlots.md"
     ]
 Depth=1

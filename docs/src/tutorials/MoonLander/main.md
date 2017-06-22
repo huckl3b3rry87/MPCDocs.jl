@@ -27,7 +27,7 @@ NOTE: eventually most of this code will be pushed to a lower level.
 Now that the dynamic constraint equations have been established, the next step is to define the problem:
 
 ```@example MoonLander
-n=define(de;numStates=2,numControls=1,X0=[10.,-2],XF=[0.,0.],XL=[NaN,NaN],XU=[NaN,NaN],CL=[0.],CU=[3.]);
+n=define(de;numControls=1,X0=[10.,-2],XF=[0.,0.],XL=[NaN,NaN],XU=[NaN,NaN],CL=[0.],CU=[3.]);
 nothing # hide
 ```
 To do this the user passes `n`, and defines the `stateEquations` to be the dynamic constraint equations defined in `MoonLander()`.

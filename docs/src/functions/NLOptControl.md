@@ -1,6 +1,5 @@
 # NLOptControl.jl
 
-
 The following link provides documentation all of the exported `NLOptControl.jl` functions:
 
 ```@autodocs

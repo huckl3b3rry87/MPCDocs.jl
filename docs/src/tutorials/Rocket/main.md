@@ -30,35 +30,45 @@ m_f   = m_c*m_0            # Final mass
 D_c   = 0.5*v_c*m_0/g_0    # Drag scaling
 T_max = T_c*g_0*m_0        # Maximum thrust
 
-const EP=2*eps()
-function Rocket{T<:Any}(n::NLOpt,x::Array{T,2},u::Array{T,2}) # dynamic constraint equations
-  if n.s.integrationMethod==:tm; L=size(x)[1]; else; L=size(x)[1]-1; end
-  dx=Array(Any,L,n.numStates);
-  Q=5;
-  I_t=@NLexpression(n.mdl, [j=1:L], ((Q-x[j,1])^3+x[j,1]^3)/3*sin(x[j,5])^2 );
-  I_p=@NLexpression(n.mdl, [j=1:L], ((Q-x[j,1])^3+x[j,1]^3)/3 );
-
-  dx[:,1]=@NLexpression(n.mdl, [j=1:L], x[j,2]);
-  dx[:,2]=@NLexpression(n.mdl, [j=1:L], u[j,1]/Q);
-  dx[:,3]=@NLexpression(n.mdl, [j=1:L], x[j,4]);
-  dx[:,4]=@NLexpression(n.mdl, [j=1:L], u[j,2]/(I_t[j]+EP));
-  dx[:,5]=@NLexpression(n.mdl, [j=1:L], x[j,6]);
-  dx[:,6]=@NLexpression(n.mdl, [j=1:L], u[j,3]/(I_p[j]+EP));
-  return dx
-end
+dx=[:(x2[j]);
+:((u1[j]-($D_c*x2[j]^2*exp(-$h_c*(x1[j]-$h_0)/$h_0)))/x3[j]-($g_0*($h_0/x1[j])^2));
+:(-u1[j]/$c)];
 nothing # hide
 ```
 
+# NOTE
+In practice, the differential equations do not have to be written in a giant array of expressions. They can be broken up as:
+```@example Rocket
+Drag=:($D_c*x2[j]^2*exp(-$h_c*(x1[j]-$h_0)/$h_0));
+Grav=:($g_0*($h_0/x1[j])^2);
+de=Array{Expr}(3,);
+de[1]=:(x2[j]);
+de[2]=:((u1[j]-$Drag)/x3[j]-$Grav)
+de[3]=:(-u1[j]/$c);
+```
+But, this does not work when using [Documentor.jl](https://github.com/JuliaDocs/Documenter.jl/issues/521)
+
 ## Define and Configure the Problem:
 ```@example Rocket
-n=define(Rocket;numStates=6,numControls=3,X0=[9/2,0.0,0.0,0.0,pi/4,0.0],XF=[9/2,0.0,2*pi/3,0.0,pi/4,0.0],XL=[NaN,NaN,NaN,0.0,NaN,NaN],XU=[NaN,NaN,NaN,1.0,NaN,NaN],CL=[-1.,-1.,-1.],CU=[1.,1.,1.])
-configure!(n;(:finalTimeDV=>true))
+n=define(dx;numControls=1,X0=[h_0,v_0,m_0],XF=[NaN,NaN,m_f],XL=[h_0,v_0,m_f],XU=[NaN,NaN,m_0],CL=[0.0],CU=[T_max]);
+configure!(n;(:finalTimeDV=>true));
 nothing # hide
+```
+## Optional Plot Labels
+```@example Rocket
+names=[:h,:v,:m]; descriptions=["height (t)","velocity (t)","mass (t)"];
+stateNames!(n,names,descriptions);
+names=[:T]; descriptions=["thrust (t)"];
+controlNames!(n,names,descriptions);
 ```
 
 ## Objective Function
 ```@example Rocket
-@NLobjective(n.mdl,Min,n.tf);
+names=[:h,:v,:m]; descriptions=["height (t)","velocity (t)","mass (t)"];
+stateNames!(n,names,descriptions);
+names=[:T]; descriptions=["thrust (t)"];
+controlNames!(n,names,descriptions);
+@NLobjective(n.mdl,Max,n.r.x[end,1]);
 nothing # hide
 ```
 
