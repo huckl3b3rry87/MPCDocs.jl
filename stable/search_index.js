@@ -9,9 +9,9 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "index.html#NLOptControl.jl-(and-JuliaMPC)-Documentation-1",
+    "location": "index.html#NLOptControl.jl-Documentation-1",
     "page": "Home",
-    "title": "NLOptControl.jl (and JuliaMPC) Documentation",
+    "title": "NLOptControl.jl Documentation",
     "category": "section",
     "text": ""
 },
@@ -37,7 +37,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Home",
     "title": "2017 juliaCon Workshop Notebook",
     "category": "section",
-    "text": "After installation, the notebook can be viewed:using IJulia\nnotebook(dir=Pkg.dir(\"NLOptControl/examples\"))"
+    "text": "Currently the most descriptive explanation for using this software is in a Jupyter notebook.After installation, the notebook can be viewed:using IJulia\nnotebook(dir=Pkg.dir(\"NLOptControl/examples\"))Also, on the left side of this site, there are many tutorials that provide complete examples for using this software."
 },
 
 {
@@ -101,7 +101,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Bryson Denham",
     "title": "Define and Configure the Problem:",
     "category": "section",
-    "text": "n=define(de;numControls=1,X0=[0.,1],XF=[0.,-1.],XL=[0.,NaN],XU=[1/9,NaN],CL=[NaN],CU=[NaN]);\nconfigure!(n;(:finalTimeDV=>false),(:tf=>1.0));\nnothing # hide"
+    "text": "n=define(de;numStates=2,numControls=1,X0=[0.,1],XF=[0.,-1.],XL=[0.,NaN],XU=[1/9,NaN],CL=[NaN],CU=[NaN]);\nconfigure!(n;(:finalTimeDV=>false),(:tf=>1.0));\nnothing # hide"
 },
 
 {
@@ -165,7 +165,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Brachistochrone",
     "title": "Define and Configure the Problem:",
     "category": "section",
-    "text": "n=define(de;numControls=1,X0=[0.0,0.0,0.0],XF=[2.,2.,NaN],XL=[-NaN,-NaN,-NaN],XU=[NaN,NaN,NaN],CL=[-NaN],CU=[NaN]);\nconfigure!(n;(:Nck=>[100]),(:finalTimeDV=>true));\nnothing # hide\n"
+    "text": "n=define(de;numStates=3,numControls=1,X0=[0.0,0.0,0.0],XF=[2.,2.,NaN],XL=[-NaN,-NaN,-NaN],XU=[NaN,NaN,NaN],CL=[-NaN],CU=[NaN]);\nconfigure!(n;(:Nck=>[100]),(:finalTimeDV=>true));\nnothing # hide\n"
 },
 
 {
@@ -237,7 +237,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Beam Problem",
     "title": "Define and Configure the Problem:",
     "category": "section",
-    "text": "n=define(de;numControls=1,X0=[NaN,NaN],XF=[NaN,NaN],XL=[-0.05,-1.0],XU=[-0.05,1.0],CL=[NaN],CU=[NaN]);\nconfigure!(n;(:integrationScheme=>:trapezoidal),(:finalTimeDV=>false),(:tf=>1.0));\nnothing # hide"
+    "text": "n=define(de;numStates=2,numControls=1,X0=[NaN,NaN],XF=[NaN,NaN],XL=[-0.05,-1.0],XU=[-0.05,1.0],CL=[NaN],CU=[NaN]);\nconfigure!(n;(:integrationScheme=>:trapezoidal),(:finalTimeDV=>false),(:tf=>1.0));\nnothing # hide"
 },
 
 {
@@ -301,7 +301,7 @@ var documenterSearchIndex = {"docs": [
     "page": "HyperSensitive",
     "title": "Define and Configure the Problem:",
     "category": "section",
-    "text": "n=define(de;numControls=1,X0=[1.5],XF=[1.],XL=[NaN],XU=[NaN],CL=[NaN],CU=[NaN])\nconfigure!(n,Nck=[20,3,3,3,3,3,3,3,3,3,3,20];(:finalTimeDV=>false),(:tf=>10000.0))\nnothing # hide"
+    "text": "n=define(de;numStates=1,numControls=1,X0=[1.5],XF=[1.],XL=[NaN],XU=[NaN],CL=[NaN],CU=[NaN])\nconfigure!(n,Nck=[20,3,3,3,3,3,3,3,3,3,3,20];(:finalTimeDV=>false),(:tf=>10000.0))\nnothing # hide"
 },
 
 {
@@ -341,15 +341,63 @@ var documenterSearchIndex = {"docs": [
     "page": "Moon Lander",
     "title": "Moon Lander",
     "category": "section",
-    "text": "First setup the packages that will be used:using NLOptControl\nnothing # hideWhere, the object n is the object for the entire optimal control problem including: |setting               | keys        | descriptions           | | –––––––––– | –––––- | ––––––––––– | |n.s.integrationMethod | :tm         | time marching          |                        | :ps         | pseudospectral methods | n.s for settings n.r for results n.mpc for mpc dataNext define the basic differential equation used to model the system:de=[:(x2[j]),:(u1[j]-1.625)]\nnothing # hideMost of this code is boiler-plate and should be copied directly. The important things to note are thatu is the control variable matrix and x is the state variable matrix. So, in the above example the only thing that the user needs to modify is the right hand side of the dx[] expressions. The indecies for the number of the state or control variable are in the columns. For instance, x[:,2] represents the entire vector for second state variable.NOTE: eventually most of this code will be pushed to a lower level.  Now that the dynamic constraint equations have been established, the next step is to define the problem:n=define(de;numControls=1,X0=[10.,-2],XF=[0.,0.],XL=[NaN,NaN],XU=[NaN,NaN],CL=[0.],CU=[3.]);\nnothing # hideTo do this the user passes n, and defines the stateEquations to be the dynamic constraint equations defined in MoonLander().Basics: numStates = number of state variables numControls = number of control variables X0 = intial sttae TODO-> mention XL etc.There are several different ways to ensure that the stateEquations are satisfied that are set using the key :integrationScheme. In this example the hp-Gaussian Quadrature Collocation Method is used with Radau Nodes. Finally, the final time may be either fixed and set before hand or it can be a variable. This option is set using the :finalTimeDV key and it is set to true in this example.configure!(n,Nck=[10,10,10,10];(:finalTimeDV=>true));\nnothing # hideThe next parts are optional.Names and descriptions may be added to both the control and state variables as follows:names=[:h,:v]; descriptions = [\"h(t)\",\"v(t)\"]; stateNames!(n,names,descriptions);\nnothing # hideNOTE: The names will show up in the results data and the descriptions will show up in the graphsThe object r stores all of the results as well as both the control and state variables. For instance r.x[:,1] should now be used to access the entire vector for the first state.For generality, integrate!() will also be demonstrated in this example. integrate!() is used to add terms to the cost function that need to be integrated. Currently there are several forms that these integrals can take (more can be added). In this example the first control variable r.u[:,1] and sets up this variable to be integrated over the entire time of the control problem with the following line of code:obj=integrate!(n,n.r.u[:,1];C=1.0,(:variable=>:control),(:integrand=>:default));\nnothing # hideNext the cost function can be defined as:@NLobjective(n.mdl, Min, obj);\nnothing # hideAt this stage, the optimal control problem can be solved with:optimize!(n);\nnothing # hideThen, in order to quickly visualize the problem, functionality is also provided for automated visualization."
+    "text": "This problem can be found here."
 },
 
 {
-    "location": "tutorials/MoonLander/main.html#The-next-part-is-optional:-1",
+    "location": "tutorials/MoonLander/main.html#Packages-that-will-be-used-1",
     "page": "Moon Lander",
-    "title": "The next part is optional:",
+    "title": "Packages that will be used",
     "category": "section",
-    "text": "The plot settings can be modified from the default using the following code:using PrettyPlots\nplotSettings(;(:mpc_lines =>[(4.0,:blue,:solid)]),(:size=>(700,700)));\nnothing # hideFinally, in order to plot all of the states and controls call:allPlots(n);"
+    "text": "using NLOptControl\nnothing # hide"
+},
+
+{
+    "location": "tutorials/MoonLander/main.html#Differential-Equations-1",
+    "page": "Moon Lander",
+    "title": "Differential Equations",
+    "category": "section",
+    "text": "de=[:(x2[j]),:(u1[j]-1.625)]\nnothing # hide"
+},
+
+{
+    "location": "tutorials/MoonLander/main.html#Define-and-Configure-the-Problem:-1",
+    "page": "Moon Lander",
+    "title": "Define and Configure the Problem:",
+    "category": "section",
+    "text": "n=define(de;numStates=2,numControls=1,X0=[10.,-2],XF=[0.,0.],XL=[NaN,NaN],XU=[NaN,NaN],CL=[0.],CU=[3.]);\nconfigure!(n,Nck=[10,10,10,10];(:finalTimeDV=>true));\nnothing # hide"
+},
+
+{
+    "location": "tutorials/MoonLander/main.html#Additional-information-1",
+    "page": "Moon Lander",
+    "title": "Additional information",
+    "category": "section",
+    "text": "names=[:h,:v]; descriptions = [\"h(t)\",\"v(t)\"]; stateNames!(n,names,descriptions);"
+},
+
+{
+    "location": "tutorials/MoonLander/main.html#Objective-Function-1",
+    "page": "Moon Lander",
+    "title": "Objective Function",
+    "category": "section",
+    "text": "obj=integrate!(n,n.r.u[:,1];C=1.0,(:variable=>:control),(:integrand=>:default));\n@NLobjective(n.mdl, Min, obj);\nnothing # hide"
+},
+
+{
+    "location": "tutorials/MoonLander/main.html#Optimize-1",
+    "page": "Moon Lander",
+    "title": "Optimize",
+    "category": "section",
+    "text": "optimize!(n);\nnothing # hide"
+},
+
+{
+    "location": "tutorials/MoonLander/main.html#Post-Process-1",
+    "page": "Moon Lander",
+    "title": "Post Process",
+    "category": "section",
+    "text": "using PrettyPlots\nallPlots(n)"
 },
 
 {
@@ -397,7 +445,7 @@ var documenterSearchIndex = {"docs": [
     "page": "RobotArm",
     "title": "Define and Configure the Problem:",
     "category": "section",
-    "text": "n=define(dx;numControls=3,X0=[9/2,0.0,0.0,0.0,pi/4,0.0],XF=[9/2,0.0,2*pi/3,0.0,pi/4,0.0],XL=[NaN,NaN,NaN,0.0,NaN,NaN],XU=[NaN,NaN,NaN,1.0,NaN,NaN],CL=[-1.,-1.,-1.],CU=[1.,1.,1.])\nconfigure!(n;(:finalTimeDV=>true))\nnothing # hide"
+    "text": "n=define(dx;numStates=6,numControls=3,X0=[9/2,0.0,0.0,0.0,pi/4,0.0],XF=[9/2,0.0,2*pi/3,0.0,pi/4,0.0],XL=[NaN,NaN,NaN,0.0,NaN,NaN],XU=[NaN,NaN,NaN,1.0,NaN,NaN],CL=[-1.,-1.,-1.],CU=[1.,1.,1.])\nconfigure!(n;(:finalTimeDV=>true))\nnothing # hide"
 },
 
 {
@@ -469,7 +517,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Rocket",
     "title": "Define and Configure the Problem:",
     "category": "section",
-    "text": "n=define(dx;numControls=1,X0=[h_0,v_0,m_0],XF=[NaN,NaN,m_f],XL=[h_0,v_0,m_f],XU=[NaN,NaN,m_0],CL=[0.0],CU=[T_max]);\nconfigure!(n;(:finalTimeDV=>true));\nnothing # hide"
+    "text": "n=define(dx;numStates=3,numControls=1,X0=[h_0,v_0,m_0],XF=[NaN,NaN,m_f],XL=[h_0,v_0,m_f],XU=[NaN,NaN,m_0],CL=[0.0],CU=[T_max]);\nconfigure!(n;(:finalTimeDV=>true));\nnothing # hide"
 },
 
 {
@@ -541,7 +589,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Kinematic Bicycle Model",
     "title": "Differential Equations",
     "category": "section",
-    "text": "n=define(KinematicBicycle;numControls=2,X0=X0,XF=XF,XL=XL,XU=XU,CL=CL,CU=CU);\nnothing # hide"
+    "text": "n=define(KinematicBicycle;numStates=4,numControls=2,X0=X0,XF=XF,XL=XL,XU=XU,CL=CL,CU=CU);\nnothing # hide"
 },
 
 {
