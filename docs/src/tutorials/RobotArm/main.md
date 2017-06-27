@@ -10,12 +10,15 @@ using NLOptControl
 nothing # hide
 ```
 
-## Differential Equations
+## Constants
 ```@example RobotArm
-# constants
 EP=2*eps(); # to avoid divide/0
 Q=5;
+```
 
+# Differential Equations
+
+```@setup RobotArm
 # Diff Eqs
 dx=[:(x2[j]);
     :(u1[j]/$Q);
@@ -25,25 +28,20 @@ dx=[:(x2[j]);
     :(u3[j]/(((($Q-x1[j])^3+x1[j]^3)/3 )+$EP))]
 nothing # hide
 ```
-
-
-# NOTE
-In practice, the differential equations do not have to be written in a giant array of expressions. They can be broken up as:
-```@example RobotArm
+```julia
 # expressions
 I_t= :((($Q-x1[j])^3+x1[j]^3)/3*sin(x5[j])^2);
 I_p= :((($Q-x1[j])^3+x1[j]^3)/3 );
 
 # Diff Eqs
-de=Array{Expr}(6,);
-de[1]=:(x2[j]);
-de[2]=:(u1[j]/$Q);
-de[3]=:(x4[j]);
-de[4]=:(u2[j]/($I_t+$EP));
-de[5]=:(x6[j]);
-de[6]=:(u3[j]/($I_p+$EP));
+dx=Array{Expr}(6,);
+dx[1]=:(x2[j]);
+dx[2]=:(u1[j]/$Q);
+dx[3]=:(x4[j]);
+dx[4]=:(u2[j]/($I_t+$EP));
+dx[5]=:(x6[j]);
+dx[6]=:(u3[j]/($I_p+$EP));
 ```
-But, this does not work when using [Documentor.jl](https://github.com/JuliaDocs/Documenter.jl/issues/521)
 
 
 ## Define and Configure the Problem:

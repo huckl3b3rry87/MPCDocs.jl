@@ -48,8 +48,14 @@ descriptions=["Steering Angle (rad)","Longitudinal Acceleration (m/s^2)"];
 controlNames!(n,names,descriptions);
 nothing # hide
 ```
-#mXL=Any[false,false,false,false];mXU=Any[false,false,false,-1];  # set to false if you don't want to taper that side
-#linearStateTolerances(n;mXL=mXL,mXU=mXU);
+
+## Linear State Tolerances
+```@example Bicycle
+mXL=Any[false,false,false,false];
+mXU=Any[false,false,false,-1];  # set to false if you don't want to taper that side
+linearStateTolerances!(n;mXL=mXL,mXU=mXU);
+nothing # hide
+```
 
 ## Objective Function
 ```@example Bicycle
@@ -69,3 +75,4 @@ nothing # hide
 using PrettyPlots
 allPlots(n)
 ```
+Notice the longitudinal velocity is pushed down to 29 m/s using the `linearStateTolerances!()` function.

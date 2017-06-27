@@ -8,9 +8,8 @@ using NLOptControl
 nothing # hide
 ```
 
-## Differential Equations
+## Constants
 ```@example Rocket
-# Constants
 # Note that all parameters in the model have been normalized
 # to be dimensionless. See the COPS3 paper for more info.
 h_0 = 1    # Initial height
@@ -29,24 +28,25 @@ c     = 0.5*sqrt(g_0*h_0)  # Thrust-to-fuel mass
 m_f   = m_c*m_0            # Final mass
 D_c   = 0.5*v_c*m_0/g_0    # Drag scaling
 T_max = T_c*g_0*m_0        # Maximum thrust
-
-dx=[:(x2[j]);
-:((u1[j]-($D_c*x2[j]^2*exp(-$h_c*(x1[j]-$h_0)/$h_0)))/x3[j]-($g_0*($h_0/x1[j])^2));
-:(-u1[j]/$c)];
 nothing # hide
 ```
 
-# NOTE
-In practice, the differential equations do not have to be written in a giant array of expressions. They can be broken up as:
-```@example Rocket
+## Differential Equations
+```@setup Rocket
+dx=[:(x2[j]);
+:((u1[j]-($D_c*x2[j]^2*exp(-$h_c*(x1[j]-$h_0)/$h_0)))/x3[j]-($g_0*($h_0/x1[j])^2));
+:(-u1[j]/$c)];
+```
+
+```julia
 Drag=:($D_c*x2[j]^2*exp(-$h_c*(x1[j]-$h_0)/$h_0));
 Grav=:($g_0*($h_0/x1[j])^2);
-de=Array{Expr}(3,);
-de[1]=:(x2[j]);
-de[2]=:((u1[j]-$Drag)/x3[j]-$Grav)
-de[3]=:(-u1[j]/$c);
+dx=Array{Expr}(3,);
+dx[1]=:(x2[j]);
+dx[2]=:((u1[j]-$Drag)/x3[j]-$Grav)
+dx[3]=:(-u1[j]/$c);
 ```
-But, this does not work when using [Documentor.jl](https://github.com/JuliaDocs/Documenter.jl/issues/521)
+
 
 ## Define and Configure the Problem:
 ```@example Rocket
