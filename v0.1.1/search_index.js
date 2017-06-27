@@ -425,19 +425,19 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
+    "location": "tutorials/RobotArm/main.html#Constants-1",
+    "page": "RobotArm",
+    "title": "Constants",
+    "category": "section",
+    "text": "EP=2*eps(); # to avoid divide/0\nQ=5;"
+},
+
+{
     "location": "tutorials/RobotArm/main.html#Differential-Equations-1",
     "page": "RobotArm",
     "title": "Differential Equations",
     "category": "section",
-    "text": "# constants\nEP=2*eps(); # to avoid divide/0\nQ=5;\n\n# Diff Eqs\ndx=[:(x2[j]);\n    :(u1[j]/$Q);\n    :(x4[j]);\n    :(u2[j]/(((($Q-x1[j])^3+x1[j]^3)/3*sin(x5[j])^2)+$EP));\n    :(x6[j]);\n    :(u3[j]/(((($Q-x1[j])^3+x1[j]^3)/3 )+$EP))]\nnothing # hide"
-},
-
-{
-    "location": "tutorials/RobotArm/main.html#NOTE-1",
-    "page": "RobotArm",
-    "title": "NOTE",
-    "category": "section",
-    "text": "In practice, the differential equations do not have to be written in a giant array of expressions. They can be broken up as:# expressions\nI_t= :((($Q-x1[j])^3+x1[j]^3)/3*sin(x5[j])^2);\nI_p= :((($Q-x1[j])^3+x1[j]^3)/3 );\n\n# Diff Eqs\nde=Array{Expr}(6,);\nde[1]=:(x2[j]);\nde[2]=:(u1[j]/$Q);\nde[3]=:(x4[j]);\nde[4]=:(u2[j]/($I_t+$EP));\nde[5]=:(x6[j]);\nde[6]=:(u3[j]/($I_p+$EP));But, this does not work when using Documentor.jl"
+    "text": "# Diff Eqs\ndx=[:(x2[j]);\n    :(u1[j]/$Q);\n    :(x4[j]);\n    :(u2[j]/(((($Q-x1[j])^3+x1[j]^3)/3*sin(x5[j])^2)+$EP));\n    :(x6[j]);\n    :(u3[j]/(((($Q-x1[j])^3+x1[j]^3)/3 )+$EP))]\nnothing # hide# expressions\nI_t= :((($Q-x1[j])^3+x1[j]^3)/3*sin(x5[j])^2);\nI_p= :((($Q-x1[j])^3+x1[j]^3)/3 );\n\n# Diff Eqs\ndx=Array{Expr}(6,);\ndx[1]=:(x2[j]);\ndx[2]=:(u1[j]/$Q);\ndx[3]=:(x4[j]);\ndx[4]=:(u2[j]/($I_t+$EP));\ndx[5]=:(x6[j]);\ndx[6]=:(u3[j]/($I_p+$EP));"
 },
 
 {
@@ -497,19 +497,19 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
+    "location": "tutorials/Rocket/main.html#Constants-1",
+    "page": "Rocket",
+    "title": "Constants",
+    "category": "section",
+    "text": "# Note that all parameters in the model have been normalized\n# to be dimensionless. See the COPS3 paper for more info.\nh_0 = 1    # Initial height\nv_0 = 0    # Initial velocity\nm_0 = 1    # Initial mass\ng_0 = 1    # Gravity at the surface\n\n# Parameters\nT_c = 3.5  # Used for thrust\nh_c = 500  # Used for drag\nv_c = 620  # Used for drag\nm_c = 0.6  # Fraction of initial mass left at end\n\n# Derived parameters\nc     = 0.5*sqrt(g_0*h_0)  # Thrust-to-fuel mass\nm_f   = m_c*m_0            # Final mass\nD_c   = 0.5*v_c*m_0/g_0    # Drag scaling\nT_max = T_c*g_0*m_0        # Maximum thrust\nnothing # hide"
+},
+
+{
     "location": "tutorials/Rocket/main.html#Differential-Equations-1",
     "page": "Rocket",
     "title": "Differential Equations",
     "category": "section",
-    "text": "# Constants\n# Note that all parameters in the model have been normalized\n# to be dimensionless. See the COPS3 paper for more info.\nh_0 = 1    # Initial height\nv_0 = 0    # Initial velocity\nm_0 = 1    # Initial mass\ng_0 = 1    # Gravity at the surface\n\n# Parameters\nT_c = 3.5  # Used for thrust\nh_c = 500  # Used for drag\nv_c = 620  # Used for drag\nm_c = 0.6  # Fraction of initial mass left at end\n\n# Derived parameters\nc     = 0.5*sqrt(g_0*h_0)  # Thrust-to-fuel mass\nm_f   = m_c*m_0            # Final mass\nD_c   = 0.5*v_c*m_0/g_0    # Drag scaling\nT_max = T_c*g_0*m_0        # Maximum thrust\n\ndx=[:(x2[j]);\n:((u1[j]-($D_c*x2[j]^2*exp(-$h_c*(x1[j]-$h_0)/$h_0)))/x3[j]-($g_0*($h_0/x1[j])^2));\n:(-u1[j]/$c)];\nnothing # hide"
-},
-
-{
-    "location": "tutorials/Rocket/main.html#NOTE-1",
-    "page": "Rocket",
-    "title": "NOTE",
-    "category": "section",
-    "text": "In practice, the differential equations do not have to be written in a giant array of expressions. They can be broken up as:Drag=:($D_c*x2[j]^2*exp(-$h_c*(x1[j]-$h_0)/$h_0));\nGrav=:($g_0*($h_0/x1[j])^2);\nde=Array{Expr}(3,);\nde[1]=:(x2[j]);\nde[2]=:((u1[j]-$Drag)/x3[j]-$Grav)\nde[3]=:(-u1[j]/$c);But, this does not work when using Documentor.jl"
+    "text": "dx=[:(x2[j]);\n:((u1[j]-($D_c*x2[j]^2*exp(-$h_c*(x1[j]-$h_0)/$h_0)))/x3[j]-($g_0*($h_0/x1[j])^2));\n:(-u1[j]/$c)];Drag=:($D_c*x2[j]^2*exp(-$h_c*(x1[j]-$h_0)/$h_0));\nGrav=:($g_0*($h_0/x1[j])^2);\ndx=Array{Expr}(3,);\ndx[1]=:(x2[j]);\ndx[2]=:((u1[j]-$Drag)/x3[j]-$Grav)\ndx[3]=:(-u1[j]/$c);"
 },
 
 {
@@ -613,7 +613,15 @@ var documenterSearchIndex = {"docs": [
     "page": "Kinematic Bicycle Model",
     "title": "additional information",
     "category": "section",
-    "text": "names=[:x,:y,:psi,:ux];\ndescriptions=[\"X (m)\",\"Y (m)\",\"Yaw Angle (rad)\",\"Longitudinal Velocity (m/s)\"];\nstateNames!(n,names,descriptions)\nnames = [:sr,:jx];\ndescriptions=[\"Steering Angle (rad)\",\"Longitudinal Acceleration (m/s^2)\"];\ncontrolNames!(n,names,descriptions);\nnothing # hide#mXL=Any[false,false,false,false];mXU=Any[false,false,false,-1];  # set to false if you don't want to taper that side #linearStateTolerances(n;mXL=mXL,mXU=mXU);"
+    "text": "names=[:x,:y,:psi,:ux];\ndescriptions=[\"X (m)\",\"Y (m)\",\"Yaw Angle (rad)\",\"Longitudinal Velocity (m/s)\"];\nstateNames!(n,names,descriptions)\nnames = [:sr,:jx];\ndescriptions=[\"Steering Angle (rad)\",\"Longitudinal Acceleration (m/s^2)\"];\ncontrolNames!(n,names,descriptions);\nnothing # hide"
+},
+
+{
+    "location": "tutorials/KinematicBicycle/main.html#Linear-State-Tolerances-1",
+    "page": "Kinematic Bicycle Model",
+    "title": "Linear State Tolerances",
+    "category": "section",
+    "text": "mXL=Any[false,false,false,false];\nmXU=Any[false,false,false,-1];  # set to false if you don't want to taper that side\nlinearStateTolerances!(n;mXL=mXL,mXU=mXU);\nnothing # hide"
 },
 
 {
@@ -637,7 +645,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Kinematic Bicycle Model",
     "title": "Post Process",
     "category": "section",
-    "text": "using PrettyPlots\nallPlots(n)"
+    "text": "using PrettyPlots\nallPlots(n)Notice the longitudinal velocity is pushed down to 29 m/s using the linearStateTolerances!() function."
 },
 
 ]}
