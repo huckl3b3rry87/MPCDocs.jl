@@ -32,7 +32,7 @@ nothing # hide
 names=[:x,:y,:psi,:ux];
 descriptions=["X (m)","Y (m)","Yaw Angle (rad)","Longitudinal Velocity (m/s)"];
 states!(n,names,descriptions=descriptions)
-names = [:sr,:jx];
+names = [:sa,:ax];
 descriptions=["Steering Angle (rad)","Longitudinal Acceleration (m/s^2)"];
 controls!(n,names,descriptions=descriptions);
 nothing # hide
@@ -40,13 +40,7 @@ nothing # hide
 
 ## Differential Equations
 ```@example Bicycle
-dynamics!(n,KinematicBicycle)
-nothing # hide
-```
-
-## Add Parameters to the Model
-```@example Bicycle
-n.params=[pa];   # vehicle parameters
+dynamics!(n,KinematicBicycle(pa))
 nothing # hide
 ```
 
@@ -83,3 +77,8 @@ using PrettyPlots
 allPlots(n)
 ```
 Notice the longitudinal velocity is pushed down to 29 m/s using the `linearStateTolerances!()` function.
+
+The state limits can be turned off in the plots with:
+```@example Bicycle
+statePlot(n,1,1,2;(:lims=>false))
+```

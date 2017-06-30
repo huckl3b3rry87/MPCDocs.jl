@@ -1,4 +1,4 @@
-# Quick Example 1: Brachistochrone
+# Quick Ex#1: Brachistochrone
 #### Solved by: John and Bernoulli, Newton and L'Hospital
 ### Given:
 #### A particle sliding without friction along an unknown track in a gravitational field

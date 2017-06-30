@@ -20,6 +20,7 @@ nothing # hide
 ```@example RobotArm
 EP=2*eps(); # to avoid divide/0
 Q=5;
+nothing # hide
 ```
 
 # Differential Equations

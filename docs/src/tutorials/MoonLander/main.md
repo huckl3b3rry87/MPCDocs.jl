@@ -1,4 +1,4 @@
-## Quick Example 2: Moon Lander
+# Quick Ex#2: Moon Lander
 
 ### Given:
 #### A space-ship landing on the moon
@@ -8,11 +8,11 @@ $$\dot{x}_2(t)=u(t)-g$$
 
 #### Boundary Conditions
 $${x}_1(0)=10 \qquad {x}_1(t_f)=0$$
-$${x}_2(0)=-2\qquad {x}_2(t_f)=0$$
+$${x}_2(0)=-2 \qquad {x}_2(t_f)=0$$
 
 #### Control Limits
-$${u}_{1_{min}}=0 $$
-$${u}_{1_{max}}=3 $$
+$${u}_{1_{min}}=0$$
+$${u}_{1_{max}}=3$$
 
 ### Find:
 #### The track that minimizes time
