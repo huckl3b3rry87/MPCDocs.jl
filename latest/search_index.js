@@ -66,23 +66,23 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "tutorials/Brachistochrone/main.html#",
-    "page": "Quick Example 1: Brachistochrone",
-    "title": "Quick Example 1: Brachistochrone",
+    "page": "Quick Ex#1: Brachistochrone",
+    "title": "Quick Ex#1: Brachistochrone",
     "category": "page",
     "text": ""
 },
 
 {
-    "location": "tutorials/Brachistochrone/main.html#Quick-Example-1:-Brachistochrone-1",
-    "page": "Quick Example 1: Brachistochrone",
-    "title": "Quick Example 1: Brachistochrone",
+    "location": "tutorials/Brachistochrone/main.html#Quick-Ex#1:-Brachistochrone-1",
+    "page": "Quick Ex#1: Brachistochrone",
+    "title": "Quick Ex#1: Brachistochrone",
     "category": "section",
     "text": ""
 },
 
 {
     "location": "tutorials/Brachistochrone/main.html#Solved-by:-John-and-Bernoulli,-Newton-and-L'Hospital-1",
-    "page": "Quick Example 1: Brachistochrone",
+    "page": "Quick Ex#1: Brachistochrone",
     "title": "Solved by: John and Bernoulli, Newton and L'Hospital",
     "category": "section",
     "text": ""
@@ -90,7 +90,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "tutorials/Brachistochrone/main.html#Given:-1",
-    "page": "Quick Example 1: Brachistochrone",
+    "page": "Quick Ex#1: Brachistochrone",
     "title": "Given:",
     "category": "section",
     "text": ""
@@ -98,7 +98,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "tutorials/Brachistochrone/main.html#A-particle-sliding-without-friction-along-an-unknown-track-in-a-gravitational-field-1",
-    "page": "Quick Example 1: Brachistochrone",
+    "page": "Quick Ex#1: Brachistochrone",
     "title": "A particle sliding without friction along an unknown track in a gravitational field",
     "category": "section",
     "text": ""
@@ -106,7 +106,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "tutorials/Brachistochrone/main.html#Dynamic-Constraints-1",
-    "page": "Quick Example 1: Brachistochrone",
+    "page": "Quick Ex#1: Brachistochrone",
     "title": "Dynamic Constraints",
     "category": "section",
     "text": "dotx_1(t)=x_3(t)sin(u_1(t))dotx_2(t)=-x_3(t)cos(u_1(t))dotx_3(t)=gcos(u_1(t))"
@@ -114,7 +114,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "tutorials/Brachistochrone/main.html#Boundary-Conditions-1",
-    "page": "Quick Example 1: Brachistochrone",
+    "page": "Quick Ex#1: Brachistochrone",
     "title": "Boundary Conditions",
     "category": "section",
     "text": "x_1(0)=0 qquad x_1(t_f)=2x_2(0)=0qquad x_2(t_f)=-2x_3(0)=0qquad x_3(t_f)=free"
@@ -122,7 +122,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "tutorials/Brachistochrone/main.html#Find:-1",
-    "page": "Quick Example 1: Brachistochrone",
+    "page": "Quick Ex#1: Brachistochrone",
     "title": "Find:",
     "category": "section",
     "text": ""
@@ -130,7 +130,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "tutorials/Brachistochrone/main.html#The-track-that-minimizes-time-1",
-    "page": "Quick Example 1: Brachistochrone",
+    "page": "Quick Ex#1: Brachistochrone",
     "title": "The track that minimizes time",
     "category": "section",
     "text": "J=t_f"
@@ -138,7 +138,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "tutorials/Brachistochrone/main.html#Solution:-1",
-    "page": "Quick Example 1: Brachistochrone",
+    "page": "Quick Ex#1: Brachistochrone",
     "title": "Solution:",
     "category": "section",
     "text": "This problem can be found here."
@@ -146,7 +146,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "tutorials/Brachistochrone/main.html#Packages-that-will-be-used-1",
-    "page": "Quick Example 1: Brachistochrone",
+    "page": "Quick Ex#1: Brachistochrone",
     "title": "Packages that will be used",
     "category": "section",
     "text": "using NLOptControl\nnothing # hide"
@@ -154,7 +154,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "tutorials/Brachistochrone/main.html#Define-the-Problem-1",
-    "page": "Quick Example 1: Brachistochrone",
+    "page": "Quick Ex#1: Brachistochrone",
     "title": "Define the Problem",
     "category": "section",
     "text": "Next let's write down the boundary conditions into an array:X0=[0.0,0.0,0.0]\nXF=[2.,-2.,NaN]\nnothing # hide"
@@ -162,7 +162,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "tutorials/Brachistochrone/main.html#Notice:-1",
-    "page": "Quick Example 1: Brachistochrone",
+    "page": "Quick Ex#1: Brachistochrone",
     "title": "Notice:",
     "category": "section",
     "text": "The numbers that where put into the expression are Float64; For now this is required!\nThe NaN is put into the boundary constraint for the third state; If any of the state bounds are free then pass a NaNNow that we have the basic problem written down, we can call the define() function as:n=define(numStates=3,numControls=1,X0=X0,XF=XF);\nnothing # hide"
@@ -170,7 +170,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "tutorials/Brachistochrone/main.html#Basics-1",
-    "page": "Quick Example 1: Brachistochrone",
+    "page": "Quick Ex#1: Brachistochrone",
     "title": "Basics",
     "category": "section",
     "text": "Variable Description\nn object that holds the entire optimal control problem\nde array of differential equation expressions\nnumStates the number of states\nnumControls the number of controls\nX0 intial state constraint\nXF final state constraintAlso, not in this problem, butVariable Description\nXL lower state bound\nXU upper state bound\nCL lower state bound\nCU upper control boundThe above bounds can be set in the same fashion as the initial and final state constraints. i.e. in an Array."
@@ -178,7 +178,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "tutorials/Brachistochrone/main.html#State-and-Control-Names-1",
-    "page": "Quick Example 1: Brachistochrone",
+    "page": "Quick Ex#1: Brachistochrone",
     "title": "State and Control Names",
     "category": "section",
     "text": "states!(n,[:x,:y,:v],descriptions=[\"x(t)\",\"y(t)\",\"v(t)\"]);\ncontrols!(n,[:u],descriptions=[\"u(t)\"]);\nnothing # hide"
@@ -186,7 +186,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "tutorials/Brachistochrone/main.html#Differential-Equations-1",
-    "page": "Quick Example 1: Brachistochrone",
+    "page": "Quick Ex#1: Brachistochrone",
     "title": "Differential Equations",
     "category": "section",
     "text": "Now we need to write all of the given information out. Let's start with the differential equation, that is written as an array of expressions:dx=[:(v[j]*sin(u[j])),:(-v[j]*cos(u[j])),:(9.81*cos(u[j]))]\ndynamics!(n,dx)\nnothing # hide"
@@ -194,7 +194,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "tutorials/Brachistochrone/main.html#Configure-the-Problem-1",
-    "page": "Quick Example 1: Brachistochrone",
+    "page": "Quick Ex#1: Brachistochrone",
     "title": "Configure the Problem",
     "category": "section",
     "text": "Now that the basic optimal control problem has been defined, the next step is to configure!() with additional options.configure!(n;(:Nck=>[100]),(:finalTimeDV=>true));\nnothing # hide"
@@ -202,7 +202,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "tutorials/Brachistochrone/main.html#Settings:-1",
-    "page": "Quick Example 1: Brachistochrone",
+    "page": "Quick Ex#1: Brachistochrone",
     "title": "Settings:",
     "category": "section",
     "text": "Key Description\n:Nck array of that holds the number of points within each interval\n:finalTimeDV bool to indicate if time is a design variable"
@@ -210,7 +210,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "tutorials/Brachistochrone/main.html#Notice:-2",
-    "page": "Quick Example 1: Brachistochrone",
+    "page": "Quick Ex#1: Brachistochrone",
     "title": "Notice:",
     "category": "section",
     "text": "Final time is a design variable; we are trying to minimize it\nWe defined this as a single interval problem with 100 points"
@@ -218,7 +218,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "tutorials/Brachistochrone/main.html#Objective-Function-1",
-    "page": "Quick Example 1: Brachistochrone",
+    "page": "Quick Ex#1: Brachistochrone",
     "title": "Objective Function",
     "category": "section",
     "text": "Finally, the objective function needs to be defined. For this, we use the JuMP macro NLOptControl() directly as:@NLobjective(n.mdl,Min,n.tf);\nnothing # hidewith,Variable Description\nn.mdl object that holds them JuMP model\nMin for a minimization problem\nn.tf a reference to the final time"
@@ -226,7 +226,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "tutorials/Brachistochrone/main.html#Optimize-1",
-    "page": "Quick Example 1: Brachistochrone",
+    "page": "Quick Ex#1: Brachistochrone",
     "title": "Optimize",
     "category": "section",
     "text": "Now that the entire optimal control problem has been defined we can optimize!() it as:optimize!(n);\nnothing # hide"
@@ -234,7 +234,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "tutorials/Brachistochrone/main.html#Post-Process-1",
-    "page": "Quick Example 1: Brachistochrone",
+    "page": "Quick Ex#1: Brachistochrone",
     "title": "Post Process",
     "category": "section",
     "text": "Make sure that you are not running the code in a folder where you have an important folder named results, because it will be deleted! Now that the problem has been optimized, we can quickly visualize the solution using allPlots() as:using PrettyPlots\nallPlots(n)"
@@ -242,7 +242,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "tutorials/Brachistochrone/main.html#Optional-plot-settings-1",
-    "page": "Quick Example 1: Brachistochrone",
+    "page": "Quick Ex#1: Brachistochrone",
     "title": "Optional plot settings",
     "category": "section",
     "text": "Many of the plot settings can be modified using the plotSettings() function. For instance;plotSettings(;(:mpc_lines =>[(4.0,:red,:solid)]),(:size=>(700,700)));allPlots() automatically plots the solution to all of the state and control variables. In this problem, we may be interested in comparing two states against one another which can be done using the statePlot() function as:statePlot(n,1,1,2)For this case, there are four things that need to be passed to statePlots():Argument Name Description\n1 n object that holds the entire optimal control problem\n2 idx reference to solution number used when we start solving mpc problems\n3 st1 state number for xaxis\n4 st2 state number for yaxis"
@@ -250,7 +250,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "tutorials/Brachistochrone/main.html#Data-Orginization-1",
-    "page": "Quick Example 1: Brachistochrone",
+    "page": "Quick Ex#1: Brachistochrone",
     "title": "Data Orginization",
     "category": "section",
     "text": "All of the states, control variables and time vectors are stored in an array of Dataframes called n.r.dfsn.r.dfsIt is an array because the problem is designed to be solved multiple times in a receding time horizon. The variables can be accessed like this:n.r.dfs[1][:x][1:4]"
@@ -258,7 +258,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "tutorials/Brachistochrone/main.html#Optimization-Data-1",
-    "page": "Quick Example 1: Brachistochrone",
+    "page": "Quick Ex#1: Brachistochrone",
     "title": "Optimization Data",
     "category": "section",
     "text": "n.r.dfs_optThe sailent optimization data is stored in the table aboveVariable Description\nt_solve cpu time for optimization problem\nobj_val objective function value\niter_num a variable for a higher-level algorithm, often these problems are nestedOne thing that may be noticed is the long time that it takes to solve the problem. This is typical for the first optimization, but after that even if the problem is modified the optimization time is greatly reduced."
@@ -266,7 +266,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "tutorials/Brachistochrone/main.html#For-instance,-let's-re-run-the-optimization:-1",
-    "page": "Quick Example 1: Brachistochrone",
+    "page": "Quick Ex#1: Brachistochrone",
     "title": "For instance, let's re-run the optimization:",
     "category": "section",
     "text": "optimize!(n);\nn.r.dfs_opt[2][:t_solve]"
@@ -274,23 +274,23 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "tutorials/MoonLander/main.html#",
-    "page": "-",
-    "title": "-",
+    "page": "Quick Ex#2: Moon Lander",
+    "title": "Quick Ex#2: Moon Lander",
     "category": "page",
     "text": ""
 },
 
 {
-    "location": "tutorials/MoonLander/main.html#Quick-Example-2:-Moon-Lander-1",
-    "page": "-",
-    "title": "Quick Example 2: Moon Lander",
+    "location": "tutorials/MoonLander/main.html#Quick-Ex#2:-Moon-Lander-1",
+    "page": "Quick Ex#2: Moon Lander",
+    "title": "Quick Ex#2: Moon Lander",
     "category": "section",
     "text": ""
 },
 
 {
     "location": "tutorials/MoonLander/main.html#Given:-1",
-    "page": "-",
+    "page": "Quick Ex#2: Moon Lander",
     "title": "Given:",
     "category": "section",
     "text": ""
@@ -298,7 +298,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "tutorials/MoonLander/main.html#A-space-ship-landing-on-the-moon-1",
-    "page": "-",
+    "page": "Quick Ex#2: Moon Lander",
     "title": "A space-ship landing on the moon",
     "category": "section",
     "text": ""
@@ -306,7 +306,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "tutorials/MoonLander/main.html#Dynamic-Constraints-1",
-    "page": "-",
+    "page": "Quick Ex#2: Moon Lander",
     "title": "Dynamic Constraints",
     "category": "section",
     "text": "dotx_1(t)=x_2(t)dotx_2(t)=u(t)-g"
@@ -314,23 +314,39 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "tutorials/MoonLander/main.html#Boundary-Conditions-1",
-    "page": "-",
+    "page": "Quick Ex#2: Moon Lander",
     "title": "Boundary Conditions",
     "category": "section",
-    "text": "x_1(0)=10 qquad x_1(t_f)=0x_2(0)=-2qquad x_2(t_f)=0"
+    "text": "x_1(0)=10 qquad x_1(t_f)=0x_2(0)=-2 qquad x_2(t_f)=0"
 },
 
 {
     "location": "tutorials/MoonLander/main.html#Control-Limits-1",
-    "page": "-",
+    "page": "Quick Ex#2: Moon Lander",
     "title": "Control Limits",
     "category": "section",
-    "text": "u_1_min=0 \nu_1_max=3 \n\n Find\n The track that minimizes time\nJ=int_0^tf u(t) dt"
+    "text": "u_1_min=0u_1_max=3"
+},
+
+{
+    "location": "tutorials/MoonLander/main.html#Find:-1",
+    "page": "Quick Ex#2: Moon Lander",
+    "title": "Find:",
+    "category": "section",
+    "text": ""
+},
+
+{
+    "location": "tutorials/MoonLander/main.html#The-track-that-minimizes-time-1",
+    "page": "Quick Ex#2: Moon Lander",
+    "title": "The track that minimizes time",
+    "category": "section",
+    "text": "J=int_0^tf u(t) dt"
 },
 
 {
     "location": "tutorials/MoonLander/main.html#Solution:-1",
-    "page": "-",
+    "page": "Quick Ex#2: Moon Lander",
     "title": "Solution:",
     "category": "section",
     "text": "In this problem, we put the bounds directly into define(). Also, now we have constant limits on the control variables and those can be added as shown below This problem can be found here."
@@ -338,7 +354,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "tutorials/MoonLander/main.html#Packages-that-will-be-used-1",
-    "page": "-",
+    "page": "Quick Ex#2: Moon Lander",
     "title": "Packages that will be used",
     "category": "section",
     "text": "using NLOptControl\nnothing # hide"
@@ -346,7 +362,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "tutorials/MoonLander/main.html#Define-the-Problem:-1",
-    "page": "-",
+    "page": "Quick Ex#2: Moon Lander",
     "title": "Define the Problem:",
     "category": "section",
     "text": "In this problem, we put the bounds directly into define(). Also, now we have constant limits on the control variables and those can be added as shown belown=define(numStates=2,numControls=1,X0=[10.,-2],XF=[0.,0.],CL=[0.],CU=[3.]);\nnothing # hide"
@@ -354,7 +370,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "tutorials/MoonLander/main.html#State-and-Control-Names-1",
-    "page": "-",
+    "page": "Quick Ex#2: Moon Lander",
     "title": "State and Control Names",
     "category": "section",
     "text": "The state and control variables are by default, x1x2 and u1u2, but they can be changed with the following commands:states!(n,[:h,:v];descriptions=[\"h(t)\",\"v(t)\"]);\ncontrols!(n,[:T];descriptions=[\"T(t)\"]);Next, now that the problem is configured, all of the state and control variables are stored in JuMP Arrays, n.r.x[:,:] and n.r.u[:,:], respectively. For instance;typeof(n.r.x)"
@@ -362,7 +378,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "tutorials/MoonLander/main.html#Differential-Equations-1",
-    "page": "-",
+    "page": "Quick Ex#2: Moon Lander",
     "title": "Differential Equations",
     "category": "section",
     "text": "dx=[:(v[j]),:(T[j]-1.625)]\ndynamics!(n,dx)\nnothing # hide"
@@ -370,7 +386,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "tutorials/MoonLander/main.html#Configure-the-Problem:-1",
-    "page": "-",
+    "page": "Quick Ex#2: Moon Lander",
     "title": "Configure the Problem:",
     "category": "section",
     "text": "configure!(n;(:finalTimeDV=>true));\nnothing # hide"
@@ -378,7 +394,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "tutorials/MoonLander/main.html#Integral-Terms-in-the-Cost-Function-1",
-    "page": "-",
+    "page": "Quick Ex#2: Moon Lander",
     "title": "Integral Terms in the Cost Function",
     "category": "section",
     "text": "integrate!() is used to make terms that can be added to the cost function that need to be integrated. When calling this function an expression must be passed:In this example the first control variable Tneeds to be integrated, it must be passed in an expression :() with the index [j]. To do this, integrate!() can be used as:obj=integrate!(n,:(T[j]));\n# Now this term can be added as the objective function and the problem can be solved\n@NLobjective(n.mdl, Min, obj);\nnothing # hide"
@@ -386,7 +402,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "tutorials/MoonLander/main.html#Optimize-1",
-    "page": "-",
+    "page": "Quick Ex#2: Moon Lander",
     "title": "Optimize",
     "category": "section",
     "text": "optimize!(n);\nnothing # hide"
@@ -394,7 +410,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "tutorials/MoonLander/main.html#Post-Process-1",
-    "page": "-",
+    "page": "Quick Ex#2: Moon Lander",
     "title": "Post Process",
     "category": "section",
     "text": "using PrettyPlots\nallPlots(n)"
@@ -402,7 +418,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "tutorials/MoonLander/main.html#Other-Dynamic-Constraint-Methods-1",
-    "page": "-",
+    "page": "Quick Ex#2: Moon Lander",
     "title": "Other Dynamic Constraint Methods",
     "category": "section",
     "text": "Currently there are three different methods to ensure that the dyanamic constraints are satisfied and they are set when configure!() is called using the :integrationScheme key. They are listed below::integrateScheme Description\n:lgrExplicit default scheme; implementation derivative constraints in hp-pseudospecral method\n:lgrImplicit implementation of integral constraints in hp-pseudospecral method\n:bkwEuler approximate using backward euler method\n:trapezoidal approximate using trapezoidal methodThe later two are time-marching methods and default number of points is 100, but that can be changed by setting N. So, the above problem can be solved using one of the time-marching schemes as:n=define(numStates=2,numControls=1,X0=[10.,-2],XF=[0.,0.],CL=[0.],CU=[3.]);\nstates!(n,[:h,:v];descriptions=[\"h(t)\",\"v(t)\"]);\ncontrols!(n,[:T];descriptions=[\"T(t)\"]);\ndx=[:(v[j]),:(T[j]-1.625)]\ndynamics!(n,dx)\nconfigure!(n,N=200;(:integrationScheme=>:trapezoidal),(:finalTimeDV=>true));\nobj=integrate!(n,:(T[j]));\n@NLobjective(n.mdl, Min, obj);\noptimize!(n);\nallPlots(n)"
@@ -410,7 +426,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "tutorials/MoonLander/main.html#Constraints-1",
-    "page": "-",
+    "page": "Quick Ex#2: Moon Lander",
     "title": "Constraints",
     "category": "section",
     "text": "Often when building a model and using it to solve an optimal control problem, their are issues associated with infeasibility. NLOptControl has functionality to help deal with these issues. For instance, the dual infeasibility values can stored and quickly viewed. They are stored in an array of DataFrames which can be referenced with n.r.dfs_con as:n.r.dfs_conIt is empty, because by default this data is not calculated and stored. This option can be turned on by modifying the settings for the problem:n.s.evalConstraintsn.s.evalConstraints=true;\noptimize!(n);\nn.r.dfs_conevalMaxDualInf(n)The last function called, searches through all of the dual infeasibilities to find the largest value. As, this problem is, it is feasible and optimal. But if there was an issue, often looking for high values in these DataFrame structures is the quickest way to figure out the constraints that are giving the solver trouble."
@@ -418,7 +434,7 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "tutorials/MoonLander/main.html#Tolerances-1",
-    "page": "-",
+    "page": "Quick Ex#2: Moon Lander",
     "title": "Tolerances",
     "category": "section",
     "text": "If there was an example where the dual infeasibility value for one or more of the variables was very high, but the actual constraint is only being violated slightly (by some reasonable amount) then the tolerances on the initial and terminal states can be adjusted. This will also improve the solve time, so it is good practice to set these to reasonable values. For instance, in the Moon Lander example, we can set them as:n=define(numStates=2,numControls=1,X0=[10.,-2],XF=[0.,0.],CL=[0.],CU=[3.]);\nstates!(n,[:h,:v];descriptions=[\"h(t)\",\"v(t)\"]);\ncontrols!(n,[:T];descriptions=[\"T(t)\"]);\ndx=[:(v[j]),:(T[j]-1.625)]\ndynamics!(n,dx)\nXF_tol=[2.0,0.5];\nX0_tol=[0.05,0.05];\ndefineTolerances!(n;X0_tol=X0_tol,XF_tol=XF_tol);\nconfigure!(n,N=50;(:integrationScheme=>:bkwEuler),(:finalTimeDV=>true));\nobj=integrate!(n,:(T[j]));\n@NLobjective(n.mdl, Min, obj);\noptimize!(n);\nallPlots(n)"
@@ -677,7 +693,7 @@ var documenterSearchIndex = {"docs": [
     "page": "RobotArm",
     "title": "Constants",
     "category": "section",
-    "text": "EP=2*eps(); # to avoid divide/0\nQ=5;"
+    "text": "EP=2*eps(); # to avoid divide/0\nQ=5;\nnothing # hide"
 },
 
 {
@@ -853,7 +869,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Kinematic Bicycle Model",
     "title": "State and Control Names",
     "category": "section",
-    "text": "names=[:x,:y,:psi,:ux];\ndescriptions=[\"X (m)\",\"Y (m)\",\"Yaw Angle (rad)\",\"Longitudinal Velocity (m/s)\"];\nstates!(n,names,descriptions=descriptions)\nnames = [:sr,:jx];\ndescriptions=[\"Steering Angle (rad)\",\"Longitudinal Acceleration (m/s^2)\"];\ncontrols!(n,names,descriptions=descriptions);\nnothing # hide"
+    "text": "names=[:x,:y,:psi,:ux];\ndescriptions=[\"X (m)\",\"Y (m)\",\"Yaw Angle (rad)\",\"Longitudinal Velocity (m/s)\"];\nstates!(n,names,descriptions=descriptions)\nnames = [:sa,:ax];\ndescriptions=[\"Steering Angle (rad)\",\"Longitudinal Acceleration (m/s^2)\"];\ncontrols!(n,names,descriptions=descriptions);\nnothing # hide"
 },
 
 {
@@ -861,15 +877,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Kinematic Bicycle Model",
     "title": "Differential Equations",
     "category": "section",
-    "text": "dynamics!(n,KinematicBicycle)\nnothing # hide"
-},
-
-{
-    "location": "tutorials/KinematicBicycle/main.html#Add-Parameters-to-the-Model-1",
-    "page": "Kinematic Bicycle Model",
-    "title": "Add Parameters to the Model",
-    "category": "section",
-    "text": "n.params=[pa];   # vehicle parameters\nnothing # hide"
+    "text": "dynamics!(n,KinematicBicycle(pa))\nnothing # hide"
 },
 
 {
@@ -909,7 +917,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Kinematic Bicycle Model",
     "title": "Post Process",
     "category": "section",
-    "text": "using PrettyPlots\nallPlots(n)Notice the longitudinal velocity is pushed down to 29 m/s using the linearStateTolerances!() function."
+    "text": "using PrettyPlots\nallPlots(n)Notice the longitudinal velocity is pushed down to 29 m/s using the linearStateTolerances!() function.The state limits can be turned off in the plots with:statePlot(n,1,1,2;(:lims=>false))"
 },
 
 ]}
