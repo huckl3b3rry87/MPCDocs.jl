@@ -21,11 +21,29 @@ CU=[sa_max,ax_max];
 nothing # hide
 ```
 
-## Differential Equations
+## Define the Problem
 ```@example Bicycle
-n=define(KinematicBicycle;numStates=4,numControls=2,X0=X0,XF=XF,XL=XL,XU=XU,CL=CL,CU=CU);
+n=define(numStates=4,numControls=2,X0=X0,XF=XF,XL=XL,XU=XU,CL=CL,CU=CU);
 nothing # hide
 ```
+
+## State and Control Names
+```@example Bicycle
+names=[:x,:y,:psi,:ux];
+descriptions=["X (m)","Y (m)","Yaw Angle (rad)","Longitudinal Velocity (m/s)"];
+states!(n,names,descriptions=descriptions)
+names = [:sr,:jx];
+descriptions=["Steering Angle (rad)","Longitudinal Acceleration (m/s^2)"];
+controls!(n,names,descriptions=descriptions);
+nothing # hide
+```
+
+## Differential Equations
+```@example Bicycle
+dynamics!(n,KinematicBicycle)
+nothing # hide
+```
+
 ## Add Parameters to the Model
 ```@example Bicycle
 n.params=[pa];   # vehicle parameters
@@ -35,17 +53,6 @@ nothing # hide
 ## Define and Configure the Problem:
 ```@example Bicycle
 configure!(n,Nck=[15,10];(:finalTimeDV=>false),(:tf=>4.0));
-nothing # hide
-```
-
-## additional information
-```@example Bicycle
-names=[:x,:y,:psi,:ux];
-descriptions=["X (m)","Y (m)","Yaw Angle (rad)","Longitudinal Velocity (m/s)"];
-stateNames!(n,names,descriptions)
-names = [:sr,:jx];
-descriptions=["Steering Angle (rad)","Longitudinal Acceleration (m/s^2)"];
-controlNames!(n,names,descriptions);
 nothing # hide
 ```
 

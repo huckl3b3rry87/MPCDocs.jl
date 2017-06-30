@@ -31,43 +31,46 @@ T_max = T_c*g_0*m_0        # Maximum thrust
 nothing # hide
 ```
 
+## Define the Problem:
+```@example Rocket
+n=define(numStates=3,numControls=1,X0=[h_0,v_0,m_0],XF=[NaN,NaN,m_f],XL=[h_0,v_0,m_f],XU=[NaN,NaN,m_0],CL=[0.0],CU=[T_max]);
+nothing # hide
+```
+
+## State and Control Names
+```@example Rocket
+states!(n,[:h,:v,:m],descriptions=["height (t)","velocity (t)","mass (t)"]);
+controls!(n,[:T],descriptions=["thrust (t)"]);
+```
+
 ## Differential Equations
 ```@setup Rocket
-dx=[:(x2[j]);
-:((u1[j]-($D_c*x2[j]^2*exp(-$h_c*(x1[j]-$h_0)/$h_0)))/x3[j]-($g_0*($h_0/x1[j])^2));
-:(-u1[j]/$c)];
+dx=[:(v[j]);
+:((T[j]-($D_c*v[j]^2*exp(-$h_c*(h[j]-$h_0)/$h_0)))/m[j]-($g_0*($h_0/h[j])^2));
+:(-T[j]/$c)];
 ```
 
 ```julia
-Drag=:($D_c*x2[j]^2*exp(-$h_c*(x1[j]-$h_0)/$h_0));
-Grav=:($g_0*($h_0/x1[j])^2);
+Drag=:($D_c*v[j]^2*exp(-$h_c*(h[j]-$h_0)/$h_0));
+Grav=:($g_0*($h_0/h[j])^2);
 dx=Array{Expr}(3,);
-dx[1]=:(x2[j]);
-dx[2]=:((u1[j]-$Drag)/x3[j]-$Grav)
-dx[3]=:(-u1[j]/$c);
+dx[1]=:(v[j]);
+dx[2]=:((T[j]-$Drag)/m[j]-$Grav)
+dx[3]=:(-T[j]/$c);
+```
+Then add the differential equations to the model:
+```@example Rocket
+dynamics!(n,dx)
 ```
 
-
-## Define and Configure the Problem:
+## Configure the Problem:
 ```@example Rocket
-n=define(dx;numStates=3,numControls=1,X0=[h_0,v_0,m_0],XF=[NaN,NaN,m_f],XL=[h_0,v_0,m_f],XU=[NaN,NaN,m_0],CL=[0.0],CU=[T_max]);
 configure!(n;(:finalTimeDV=>true));
 nothing # hide
-```
-## Optional Plot Labels
-```@example Rocket
-names=[:h,:v,:m]; descriptions=["height (t)","velocity (t)","mass (t)"];
-stateNames!(n,names,descriptions);
-names=[:T]; descriptions=["thrust (t)"];
-controlNames!(n,names,descriptions);
 ```
 
 ## Objective Function
 ```@example Rocket
-names=[:h,:v,:m]; descriptions=["height (t)","velocity (t)","mass (t)"];
-stateNames!(n,names,descriptions);
-names=[:T]; descriptions=["thrust (t)"];
-controlNames!(n,names,descriptions);
 @NLobjective(n.mdl,Max,n.r.x[end,1]);
 nothing # hide
 ```

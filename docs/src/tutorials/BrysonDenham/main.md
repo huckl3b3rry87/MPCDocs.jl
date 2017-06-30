@@ -8,22 +8,28 @@ using NLOptControl
 nothing # hide
 ```
 
-## Differential Equations
+## Define the Problem:
 ```@example BrysonDenham
-de=[:(x2[j]),:(u1[j])]
+n=define(numStates=2,numControls=1,X0=[0.,1],XF=[0.,-1.],XL=[0.,NaN],XU=[1/9,NaN]);
 nothing # hide
 ```
 
-## Define and Configure the Problem:
+## Differential Equations
 ```@example BrysonDenham
-n=define(de;numStates=2,numControls=1,X0=[0.,1],XF=[0.,-1.],XL=[0.,NaN],XU=[1/9,NaN],CL=[NaN],CU=[NaN]);
-configure!(n;(:finalTimeDV=>false),(:tf=>1.0));
+dx=[:(x2[j]),:(u1[j])]
+dynamics!(n,dx)
+nothing # hide
+```
+
+## Configure the Problem
+```@example BrysonDenham
+configure!(n;(:Nck=>[100]),(:finalTimeDV=>true));
 nothing # hide
 ```
 
 ## Objective Function
 ```@example BrysonDenham
-obj=integrate!(n,n.r.u[:,1];C=0.5,(:variable=>:control),(:integrand=>:squared));
+obj=integrate!(n,:(0.5*u1[j]^2));
 @NLobjective(n.mdl,Min,obj);
 nothing # hide
 ```

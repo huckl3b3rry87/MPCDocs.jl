@@ -12,24 +12,28 @@ using NLOptControl
 nothing # hide
 ```
 
-## Differential Equations
+## Define and Configure the Problem:
 ```@example Beam
-de=[:(sin(x2[j])),:(u1[j])]
+n=define(numStates=2,numControls=1,XL=[-0.05,-1.0],XU=[-0.05,1.0]);
 nothing # hide
 ```
 
-## Define and Configure the Problem:
+## Differential Equations
 ```@example Beam
-n=define(de;numStates=2,numControls=1,X0=[NaN,NaN],XF=[NaN,NaN],XL=[-0.05,-1.0],XU=[-0.05,1.0],CL=[NaN],CU=[NaN]);
+dx=[:(sin(x2[j])),:(u1[j])]
+dynamics!(n,dx)
+nothing # hide
+```
+
+## Configure the Problem
+```@example Beam
 configure!(n;(:integrationScheme=>:trapezoidal),(:finalTimeDV=>false),(:tf=>1.0));
 nothing # hide
 ```
-
 ## Objective Function
 ```@example Beam
-obj1=integrate!(n,n.r.u[:,1];(:variable=>:control),(:integrand=>:squared));
-obj2=integrate!(n,n.r.x[:,2];C=350.,(:variable=>:state),(:integrand=>:cos));
-@NLobjective(n.mdl,Min,obj1+obj2);
+obj=integrate!(n,:( u1[j]^2 + 350*cos(x2[j]) ) )
+@NLobjective(n.mdl,Min,obj);
 nothing # hide
 ```
 ## Optimize

@@ -13,11 +13,11 @@ makedocs(modules=[NLOptControl,PrettyPlots],
         pages = Any[
         "Home" => "index.md",
         "Tutorials"=>Any[
-              "tutorials/BrysonDenham/main.md",
               "tutorials/Brachistochrone/main.md",
+              "tutorials/MoonLander/main.md",
+              "tutorials/BrysonDenham/main.md",
               "tutorials/Beam/main.md",
               "tutorials/HyperSensitive/main.md",
-              "tutorials/MoonLander/main.md",
               "tutorials/RobotArm/main.md",
               "tutorials/Rocket/main.md",
               "tutorials/KinematicBicycle/main.md"

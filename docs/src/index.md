@@ -36,8 +36,7 @@ Pkg.add("GR");Pkg.build("GR");              # most reliable
 Pkg.add("PyPlot");Pkg.build("PyPlot")       # also a good option  
 ```
 
-## 2017 juliaCon Workshop Notebook
-Currently the most descriptive explanation for using this software is in a Jupyter notebook.
+## 2017 juliaCon Workshop Notebook (OUT OF DATE!)
 
 After installation, the notebook can be viewed:
 ```julia
@@ -45,7 +44,7 @@ using IJulia
 notebook(dir=Pkg.dir("NLOptControl/examples"))
 ```
 
-Also, on the left side of this site, there are many tutorials that provide complete examples for using this software.
+Also, on the left side of this site, there are many tutorials that provide complete examples for using this software. Please look at these for information on how to use this tool.
 
 ## Citation
 If you find [NLOptControl.jl](https://github.com/JuliaMPC/NLOptControl.jl) useful, please cite it:
