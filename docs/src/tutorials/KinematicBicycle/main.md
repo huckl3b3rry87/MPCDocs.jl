@@ -27,6 +27,48 @@ n=define(numStates=4,numControls=2,X0=X0,XF=XF,XL=XL,XU=XU,CL=CL,CU=CU);
 nothing # hide
 ```
 
+## Define Case
+```@example Bicycle
+## Goal
+type Goal
+    name
+    x_ref
+    y_ref
+end
+function Goal()
+       Goal(:test,
+             0.,
+            100.);
+end
+
+# Obstacle
+type Obs
+  A
+  B
+  s_x
+  s_y
+  X0
+  Y0
+end
+function Obs()
+  Obs([5.],
+      [5.],
+      [0.0],
+      [0.0],
+      [0.],
+      [50.]);
+end
+
+abstract type AbstractCase end
+type Case <: AbstractCase
+ g::Goal        # goal data
+ o::Obs         # obstacle data
+end
+
+c=Case(Goal(),Obs())
+
+nothing # hide
+```
 ## State and Control Names
 ```@example Bicycle
 names=[:x,:y,:psi,:ux];
@@ -46,7 +88,16 @@ nothing # hide
 
 ## Define and Configure the Problem:
 ```@example Bicycle
-configure!(n,Nck=[15,10];(:finalTimeDV=>false),(:tf=>4.0));
+configure!(n,Nck=[12,10,8];(:finalTimeDV=>true));
+nothing # hide
+```
+
+## Nonlinear Obstacle Avoidance Constraints
+```@example Bicycle
+sm = 2;
+x=n.r.x[:,1];y=n.r.x[:,2]; # pointers to JuMP variables
+obs_con=@NLconstraint(n.mdl, [i=1:n.numStatePoints-1], 1 <= ((x[(i+1)]-c.o.X0[1])^2)/((c.o.A[1]+sm)^2) + ((y[(i+1)]-c.o.Y0[1])^2)/((c.o.B[1]+sm)^2));
+newConstraint!(n,obs_con,:obs_con);
 nothing # hide
 ```
 
@@ -60,8 +111,7 @@ nothing # hide
 
 ## Objective Function
 ```@example Bicycle
-x_ref = 10; y_ref = 100; # define target
-@NLobjective(n.mdl, Min, (n.r.x[end,1]-x_ref)^2 + (n.r.x[end,2]-y_ref)^2);
+@NLobjective(n.mdl, Min, n.tf + (n.r.x[end,1]-c.g.x_ref)^2 + (n.r.x[end,2]-c.g.y_ref)^2);
 nothing # hide
 ```
 
@@ -74,11 +124,20 @@ nothing # hide
 ## Post Process
 ```@example Bicycle
 using PrettyPlots
+plotSettings(;(:mpc_lines =>[(4.0,:red,:solid)]),(:size=>(700,700)));
 allPlots(n)
 ```
 Notice the longitudinal velocity is pushed down to 29 m/s using the `linearStateTolerances!()` function.
 
-The state limits can be turned off in the plots with:
+
+The state limits can be turned off in the plots with `(:lims=>false)` and the obstacle plot handle can be passed to `statePlot()` in the 5th argument and by using `(:append=>true)`.
+
+
 ```@example Bicycle
-statePlot(n,1,1,2;(:lims=>false))
+plotSettings(;(:mpc_lines =>[(4.0,:black,:solid)]),(:size=>(400,400)));
+obs=obstaclePlot(n,c)
+statePlot(n,1,1,2,obs;(:append=>true),(:lims=>false))
+using Plots
+xlims!(-45,55);
+ylims!(0,110);
 ```

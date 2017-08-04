@@ -4,7 +4,6 @@ Pkg.add("Ipopt");Pkg.build("Ipopt");
 Pkg.add("GR");Pkg.build("GR")
 
 using Documenter,MPCDocs,NLOptControl,PrettyPlots
-
 makedocs(modules=[NLOptControl,PrettyPlots],
         doctest=false, clean=true,
         format =:html,
@@ -22,8 +21,8 @@ makedocs(modules=[NLOptControl,PrettyPlots],
               "tutorials/Rocket/main.md",
               "tutorials/KinematicBicycle/main.md"
                ]
-        ]
-        )
+               ]
+               )
 
 deploydocs(
     deps=Deps.pip("mkdocs","python-markdown-math"),
