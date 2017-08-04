@@ -137,7 +137,6 @@ The state limits can be turned off in the plots with `(:lims=>false)` and the ob
 plotSettings(;(:mpc_lines =>[(4.0,:black,:solid)]),(:size=>(400,400)));
 obs=obstaclePlot(n,c)
 statePlot(n,1,1,2,obs;(:append=>true),(:lims=>false))
-using Plots
 xlims!(-45,55);
 ylims!(0,110);
 ```
