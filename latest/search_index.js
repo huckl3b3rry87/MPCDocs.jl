@@ -865,6 +865,14 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
+    "location": "tutorials/KinematicBicycle/main.html#Define-Case-1",
+    "page": "Kinematic Bicycle Model",
+    "title": "Define Case",
+    "category": "section",
+    "text": "## Goal\ntype Goal\n    name\n    x_ref\n    y_ref\nend\nfunction Goal()\n       Goal(:test,\n             0.,\n            100.);\nend\n\n# Obstacle\ntype Obs\n  A\n  B\n  s_x\n  s_y\n  X0\n  Y0\nend\nfunction Obs()\n  Obs([5.],\n      [5.],\n      [0.0],\n      [0.0],\n      [0.],\n      [50.]);\nend\n\nabstract type AbstractCase end\ntype Case <: AbstractCase\n g::Goal        # goal data\n o::Obs         # obstacle data\nend\n\nc=Case(Goal(),Obs())\n\nnothing # hide"
+},
+
+{
     "location": "tutorials/KinematicBicycle/main.html#State-and-Control-Names-1",
     "page": "Kinematic Bicycle Model",
     "title": "State and Control Names",
@@ -885,7 +893,15 @@ var documenterSearchIndex = {"docs": [
     "page": "Kinematic Bicycle Model",
     "title": "Define and Configure the Problem:",
     "category": "section",
-    "text": "configure!(n,Nck=[15,10];(:finalTimeDV=>false),(:tf=>4.0));\nnothing # hide"
+    "text": "configure!(n,Nck=[12,10,8];(:finalTimeDV=>true));\nnothing # hide"
+},
+
+{
+    "location": "tutorials/KinematicBicycle/main.html#Nonlinear-Obstacle-Avoidance-Constraints-1",
+    "page": "Kinematic Bicycle Model",
+    "title": "Nonlinear Obstacle Avoidance Constraints",
+    "category": "section",
+    "text": "sm = 2;\nx=n.r.x[:,1];y=n.r.x[:,2]; # pointers to JuMP variables\nobs_con=@NLconstraint(n.mdl, [i=1:n.numStatePoints-1], 1 <= ((x[(i+1)]-c.o.X0[1])^2)/((c.o.A[1]+sm)^2) + ((y[(i+1)]-c.o.Y0[1])^2)/((c.o.B[1]+sm)^2));\nnewConstraint!(n,obs_con,:obs_con);\nnothing # hide"
 },
 
 {
@@ -901,7 +917,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Kinematic Bicycle Model",
     "title": "Objective Function",
     "category": "section",
-    "text": "x_ref = 10; y_ref = 100; # define target\n@NLobjective(n.mdl, Min, (n.r.x[end,1]-x_ref)^2 + (n.r.x[end,2]-y_ref)^2);\nnothing # hide"
+    "text": "@NLobjective(n.mdl, Min, n.tf + (n.r.x[end,1]-c.g.x_ref)^2 + (n.r.x[end,2]-c.g.y_ref)^2);\nnothing # hide"
 },
 
 {
@@ -917,7 +933,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Kinematic Bicycle Model",
     "title": "Post Process",
     "category": "section",
-    "text": "using PrettyPlots\nallPlots(n)Notice the longitudinal velocity is pushed down to 29 m/s using the linearStateTolerances!() function.The state limits can be turned off in the plots with:statePlot(n,1,1,2;(:lims=>false))"
+    "text": "using PrettyPlots\nplotSettings(;(:mpc_lines =>[(4.0,:red,:solid)]),(:size=>(700,700)));\nallPlots(n)Notice the longitudinal velocity is pushed down to 29 m/s using the linearStateTolerances!() function.The state limits can be turned off in the plots with (:lims=>false) and the obstacle plot handle can be passed to statePlot() in the 5th argument and by using (:append=>true).plotSettings(;(:mpc_lines =>[(4.0,:black,:solid)]),(:size=>(400,400)));\nobs=obstaclePlot(n,c)\nstatePlot(n,1,1,2,obs;(:append=>true),(:lims=>false))\nusing Plots\nxlims!(-45,55);\nylims!(0,110);"
 },
 
 ]}
