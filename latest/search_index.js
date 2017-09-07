@@ -825,6 +825,150 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
+    "location": "tutorials/Unicycle/main.html#",
+    "page": "Unicycle Model",
+    "title": "Unicycle Model",
+    "category": "page",
+    "text": ""
+},
+
+{
+    "location": "tutorials/Unicycle/main.html#Unicycle-Model-1",
+    "page": "Unicycle Model",
+    "title": "Unicycle Model",
+    "category": "section",
+    "text": ""
+},
+
+{
+    "location": "tutorials/Unicycle/main.html#Given:-1",
+    "page": "Unicycle Model",
+    "title": "Given:",
+    "category": "section",
+    "text": ""
+},
+
+{
+    "location": "tutorials/Unicycle/main.html#A-unicycle-trying-to-get-to-the-goal-1",
+    "page": "Unicycle Model",
+    "title": "A unicycle trying to get to the goal",
+    "category": "section",
+    "text": ""
+},
+
+{
+    "location": "tutorials/Unicycle/main.html#Dynamic-Constraints-1",
+    "page": "Unicycle Model",
+    "title": "Dynamic Constraints",
+    "category": "section",
+    "text": "dotx_1(t)=x_4(t)cos(u_1(t))dotx_2(t)=x_4(t)sin(u_1(t))dotx_3(t)=u_1(t)dotx_4(t)=u_2(t)"
+},
+
+{
+    "location": "tutorials/Unicycle/main.html#Boundary-Conditions-1",
+    "page": "Unicycle Model",
+    "title": "Boundary Conditions",
+    "category": "section",
+    "text": "x_1(0)=0 qquad x_1(t_f)=freex_2(0)=pi2qquad x_2(t_f)=freex_3(0)=05qquad x_3(t_f)=free"
+},
+
+{
+    "location": "tutorials/Unicycle/main.html#Find:-1",
+    "page": "Unicycle Model",
+    "title": "Find:",
+    "category": "section",
+    "text": ""
+},
+
+{
+    "location": "tutorials/Unicycle/main.html#The-control-signals-that-minimize-distance-to-goal-(x_g,y_g)-within-tplan-1.0-1",
+    "page": "Unicycle Model",
+    "title": "The control signals that minimize distance to goal (x_gy_g) within tplan = 10",
+    "category": "section",
+    "text": "J=(x_1(t_f)-x_g)^2 + (x_2(t_f)-y_g)^2)"
+},
+
+{
+    "location": "tutorials/Unicycle/main.html#Solution:-1",
+    "page": "Unicycle Model",
+    "title": "Solution:",
+    "category": "section",
+    "text": ""
+},
+
+{
+    "location": "tutorials/Unicycle/main.html#Packages-that-will-be-used-1",
+    "page": "Unicycle Model",
+    "title": "Packages that will be used",
+    "category": "section",
+    "text": "using NLOptControl\nnothing # hide"
+},
+
+{
+    "location": "tutorials/Unicycle/main.html#Define-the-Problem-1",
+    "page": "Unicycle Model",
+    "title": "Define the Problem",
+    "category": "section",
+    "text": "Next let's write down the boundary conditions into an array:X0=[0,0,pi/2,0]\nXL=[-10,-10,-pi,0]\nXU=[10,10,pi,1]\nCL=[-1,-3]\nCU=[1,3]\nnothing # hide"
+},
+
+{
+    "location": "tutorials/Unicycle/main.html#Define-the-Problem-2",
+    "page": "Unicycle Model",
+    "title": "Define the Problem",
+    "category": "section",
+    "text": "n = define(numStates=4,numControls=2,X0=X0,XL=XL,XU=XU,CL=CL,CU=CU)\nnothing # hide"
+},
+
+{
+    "location": "tutorials/Unicycle/main.html#State-and-Control-Names-1",
+    "page": "Unicycle Model",
+    "title": "State and Control Names",
+    "category": "section",
+    "text": "names=[:x,:y,:psi,:ux]\ndescriptions=[\"X (m)\",\"Y (m)\",\"Yaw Angle (rad)\",\"Longitudinal Velocity (m/s)\"]\nstates!(n,names,descriptions=descriptions)\nnames = [:r,:ax]\ndescriptions=[\"Yaw Rate (rad/s)\",\"Longitudinal Acceleration (m/s^2)\"];\ncontrols!(n,names,descriptions=descriptions)\nnothing # hide"
+},
+
+{
+    "location": "tutorials/Unicycle/main.html#Differential-Equations-1",
+    "page": "Unicycle Model",
+    "title": "Differential Equations",
+    "category": "section",
+    "text": "dx = [:(ux[j]*cos(psi[j])),:(ux[j]*sin(psi[j])),:(r[j]),:(ax[j])]\ndynamics!(n,dx)\nnothing # hide"
+},
+
+{
+    "location": "tutorials/Unicycle/main.html#Define-and-Configure-the-Problem:-1",
+    "page": "Unicycle Model",
+    "title": "Define and Configure the Problem:",
+    "category": "section",
+    "text": "tplan = 7.0\nconfigure!(n;Nck=[50],(:finalTimeDV=>false), (:tf=>tplan))\nnothing # hide"
+},
+
+{
+    "location": "tutorials/Unicycle/main.html#Objective-Function-1",
+    "page": "Unicycle Model",
+    "title": "Objective Function",
+    "category": "section",
+    "text": "x = n.r.x[:,1]; y = n.r.x[:,2]; # pointers to JuMP variables\nxg = -2; yg = 4;\n@NLobjective(n.mdl, Min, (x[end]-xg)^2 + (y[end]-yg)^2)\nnothing # hide"
+},
+
+{
+    "location": "tutorials/Unicycle/main.html#Optimize-1",
+    "page": "Unicycle Model",
+    "title": "Optimize",
+    "category": "section",
+    "text": "optimize!(n)\nnothing # hide"
+},
+
+{
+    "location": "tutorials/Unicycle/main.html#Post-Process-1",
+    "page": "Unicycle Model",
+    "title": "Post Process",
+    "category": "section",
+    "text": "using PrettyPlots\nplotSettings(;(:mpc_lines =>[(4.0,:red,:solid)]),(:size=>(700,700)))\nallPlots(n)Taking a closer look at the position:plotSettings(;(:mpc_lines =>[(4.0,:black,:solid)]),(:size=>(400,400)));\nstatePlot(n,1,1,2;(:lims=>false))\nxlims!(-3,2);\nylims!(0,5);"
+},
+
+{
     "location": "tutorials/KinematicBicycle/main.html#",
     "page": "Kinematic Bicycle Model",
     "title": "Kinematic Bicycle Model",
