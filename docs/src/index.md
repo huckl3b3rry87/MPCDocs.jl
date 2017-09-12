@@ -14,7 +14,7 @@ It added to [juliaOpt](http://www.juliaopt.org/) community by:
 
 There are several packages that need to be installed, to do this run:
 ```julia
-Pkg.clone("https://github.com/JuliaMPC/PrettyPlots.jl")
+Pkg.add("PrettyPlots")
 Pkg.add("VehicleModels")
 Pkg.add("NLOptControl")
 ```

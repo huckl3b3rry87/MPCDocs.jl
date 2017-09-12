@@ -12,8 +12,10 @@ $$\dot{x}_4(t)=u_2(t)$$
 $${x}_1(0)=0 \qquad {x}_1(t_f)=free$$
 $${x}_2(0)=pi/2\qquad {x}_2(t_f)=free$$
 $${x}_3(0)=0.5\qquad {x}_3(t_f)=free$$
+$${x}_4(0)=0\qquad {x}_4(t_f)=free$$
+
 ## Find:
-#### The control signals that minimize distance to goal $(x_g,y_g)$ within $tplan = 1.0$
+#### The control signals that minimize distance to goal $(x_g,y_g)$ within $tplan$
 $$J=({x}_1(t_f)-x_g)^2 + ({x}_2(t_f)-y_g)^2)$$
 
 ## Solution:
