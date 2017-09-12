@@ -29,7 +29,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Home",
     "title": "Installation",
     "category": "section",
-    "text": "There are several packages that need to be installed, to do this run:Pkg.clone(\"https://github.com/JuliaMPC/PrettyPlots.jl\")\nPkg.add(\"VehicleModels\")\nPkg.add(\"NLOptControl\")Either Ipopt.jl or KNITRO.jl can be used for the nonlinear solver. Since Ipopt is free, all of the examples will use it and it can be added with:Pkg.add(\"Ipopt\");Pkg.build(\"Ipopt\");If you are using Linux make sure that you have gfortran to run Ipopt:sudo apt-get install gfortranAlso, a plotting backend will be required and there are several options:Pkg.add(\"PGFPlots\");Pkg.build(\"PGFPlots\")   # best looking\nPkg.add(\"GR\");Pkg.build(\"GR\");              # most reliable\nPkg.add(\"PyPlot\");Pkg.build(\"PyPlot\")       # also a good option  "
+    "text": "There are several packages that need to be installed, to do this run:Pkg.add(\"PrettyPlots\")\nPkg.add(\"VehicleModels\")\nPkg.add(\"NLOptControl\")Either Ipopt.jl or KNITRO.jl can be used for the nonlinear solver. Since Ipopt is free, all of the examples will use it and it can be added with:Pkg.add(\"Ipopt\");Pkg.build(\"Ipopt\");If you are using Linux make sure that you have gfortran to run Ipopt:sudo apt-get install gfortranAlso, a plotting backend will be required and there are several options:Pkg.add(\"PGFPlots\");Pkg.build(\"PGFPlots\")   # best looking\nPkg.add(\"GR\");Pkg.build(\"GR\");              # most reliable\nPkg.add(\"PyPlot\");Pkg.build(\"PyPlot\")       # also a good option  "
 },
 
 {
@@ -869,7 +869,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Unicycle Model",
     "title": "Boundary Conditions",
     "category": "section",
-    "text": "x_1(0)=0 qquad x_1(t_f)=freex_2(0)=pi2qquad x_2(t_f)=freex_3(0)=05qquad x_3(t_f)=free"
+    "text": "x_1(0)=0 qquad x_1(t_f)=freex_2(0)=pi2qquad x_2(t_f)=freex_3(0)=05qquad x_3(t_f)=freex_4(0)=0qquad x_4(t_f)=free"
 },
 
 {
@@ -881,9 +881,9 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "tutorials/Unicycle/main.html#The-control-signals-that-minimize-distance-to-goal-(x_g,y_g)-within-tplan-1.0-1",
+    "location": "tutorials/Unicycle/main.html#The-control-signals-that-minimize-distance-to-goal-(x_g,y_g)-within-tplan-1",
     "page": "Unicycle Model",
-    "title": "The control signals that minimize distance to goal (x_gy_g) within tplan = 10",
+    "title": "The control signals that minimize distance to goal (x_gy_g) within tplan",
     "category": "section",
     "text": "J=(x_1(t_f)-x_g)^2 + (x_2(t_f)-y_g)^2)"
 },
