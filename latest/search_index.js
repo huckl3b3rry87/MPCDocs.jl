@@ -245,7 +245,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Quick Ex#1: Brachistochrone",
     "title": "Optional plot settings",
     "category": "section",
-    "text": "Many of the plot settings can be modified using the plotSettings() function. For instance;plotSettings(;(:mpc_lines =>[(4.0,:red,:solid)]),(:size=>(700,700)));allPlots() automatically plots the solution to all of the state and control variables. In this problem, we may be interested in comparing two states against one another which can be done using the statePlot() function as:statePlot(n,1,1,2)For this case, there are four things that need to be passed to statePlots():Argument Name Description\n1 n object that holds the entire optimal control problem\n2 idx reference to solution number used when we start solving mpc problems\n3 st1 state number for xaxis\n4 st2 state number for yaxis"
+    "text": "Many of the plot settings can be modified using the plotSettings() function. For instance;plotSettings(;(:size=>(700,700)));allPlots() automatically plots the solution to all of the state and control variables. In this problem, we may be interested in comparing two states against one another which can be done using the statePlot() function as:statePlot(n,1,1,2)For this case, there are four things that need to be passed to statePlots():Argument Name Description\n1 n object that holds the entire optimal control problem\n2 idx reference to solution number used when we start solving mpc problems\n3 st1 state number for xaxis\n4 st2 state number for yaxis"
 },
 
 {
@@ -629,7 +629,7 @@ var documenterSearchIndex = {"docs": [
     "page": "HyperSensitive",
     "title": "Configure the Problem:",
     "category": "section",
-    "text": "configure!(n,Nck=[20,3,3,3,3,3,3,3,3,3,3,20];(:finalTimeDV=>false),(:tf=>10000.0))\nnothing # hide"
+    "text": "configure!(n,Nck=[3,3,3,3,3,3,3,3,3,3,3,3];(:finalTimeDV=>false),(:tf=>10000.0))\nnothing # hide"
 },
 
 {
@@ -653,7 +653,7 @@ var documenterSearchIndex = {"docs": [
     "page": "HyperSensitive",
     "title": "Post Process",
     "category": "section",
-    "text": "using PrettyPlots\nallPlots(n)"
+    "text": "using PrettyPlots\nplotSettings(;(:size=>(1200,1200)));\nallPlots(n)"
 },
 
 {
@@ -965,7 +965,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Unicycle Model",
     "title": "Post Process",
     "category": "section",
-    "text": "using PrettyPlots\nplotSettings(;(:mpc_lines =>[(4.0,:red,:solid)]),(:size=>(700,700)))\nallPlots(n)Taking a closer look at the position:plotSettings(;(:mpc_lines =>[(4.0,:black,:solid)]),(:size=>(400,400)));\nstatePlot(n,1,1,2;(:lims=>false))\nxlims!(-3,2);\nylims!(0,5);"
+    "text": "using PrettyPlots\nplotSettings(;(:size=>(700,700)))\nallPlots(n)Taking a closer look at the position:plotSettings(;(:size=>(400,400)));\nstatePlot(n,1,1,2;(:lims=>false))\nxlims!(-3,2);\nylims!(0,5);"
 },
 
 {
@@ -1077,7 +1077,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Kinematic Bicycle Model",
     "title": "Post Process",
     "category": "section",
-    "text": "using PrettyPlots\nplotSettings(;(:mpc_lines =>[(4.0,:red,:solid)]),(:size=>(700,700)));\nallPlots(n)Notice the longitudinal velocity is pushed down to 29 m/s using the linearStateTolerances!() function.The state limits can be turned off in the plots with (:lims=>false) and the obstacle plot handle can be passed to statePlot() in the 5th argument and by using (:append=>true).plotSettings(;(:mpc_lines =>[(4.0,:black,:solid)]),(:size=>(400,400)));\nobs=obstaclePlot(n,c)\nstatePlot(n,1,1,2,obs;(:append=>true),(:lims=>false))\nxlims!(-45,55);\nylims!(0,110);"
+    "text": "using PrettyPlots\nplotSettings(;(:size=>(700,700)));\nallPlots(n)Notice the longitudinal velocity is pushed down to 29 m/s using the linearStateTolerances!() function.The state limits can be turned off in the plots with (:lims=>false) and the obstacle plot handle can be passed to statePlot() in the 5th argument and by using (:append=>true).plotSettings(;(:size=>(400,400)));\nobs=obstaclePlot(n,c)\nstatePlot(n,1,1,2,obs;(:append=>true),(:lims=>false))\nxlims!(-45,55);\nylims!(0,110);"
 },
 
 ]}
