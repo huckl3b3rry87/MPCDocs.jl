@@ -21,16 +21,18 @@ addons:
 #- sudo apt-get install xzdec
 #- sudo apt-get install luatex
 #sudo apt-get update
-install:
-  - sudo apt-get update
-  - wget https://repo.continuum.io/miniconda/Miniconda2-latest-Linux-x86_64.sh -O miniconda.sh
-  - bash miniconda.sh -b -p $HOME/miniconda
-  - export PATH="$HOME/miniconda/bin:$PATH"
-  - hash -r
-  - conda config --set always_yes yes --set changeps1 no
-  - conda update -q conda
-  - conda install -c conda-forge matplotlib
+#install:
+#  - sudo apt-get update
+#  - wget https://repo.continuum.io/miniconda/Miniconda2-latest-Linux-x86_64.sh -O miniconda.sh
+#  - bash miniconda.sh -b -p $HOME/miniconda
+#  - export PATH="$HOME/miniconda/bin:$PATH"
+#  - hash -r
+#  - conda config --set always_yes yes --set changeps1 no
+#  - conda update -q conda
+#  - conda install -c conda-forge matplotlib
 #sudo apt-get install python-matplotlib  # for pyplot
+install:
+  - sudo apt-get install python-matplotlib
 after_success:
 - echo $TRAVIS_JULIA_VERSION
 - if [[ -a .git/shallow ]]; then git fetch --unshallow; fi
