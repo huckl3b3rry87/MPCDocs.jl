@@ -124,7 +124,7 @@ nothing # hide
 ## Post Process
 ```@example Bicycle
 using PrettyPlots
-plotSettings(;(:mpc_lines =>[(4.0,:red,:solid)]),(:size=>(700,700)));
+plotSettings(;(:size=>(700,700)));
 allPlots(n)
 ```
 Notice the longitudinal velocity is pushed down to 29 m/s using the `linearStateTolerances!()` function.
@@ -134,7 +134,7 @@ The state limits can be turned off in the plots with `(:lims=>false)` and the ob
 
 
 ```@example Bicycle
-plotSettings(;(:mpc_lines =>[(4.0,:black,:solid)]),(:size=>(400,400)));
+plotSettings(;(:size=>(400,400)));
 obs=obstaclePlot(n,c)
 statePlot(n,1,1,2,obs;(:append=>true),(:lims=>false))
 xlims!(-45,55);

@@ -1,7 +1,7 @@
 Pkg.add("Ipopt");Pkg.build("Ipopt")
-#Pkg.add("PyPlot");Pkg.build("PyPlot")
+Pkg.add("PyPlot");Pkg.build("PyPlot")
 #Pkg.add("PGFPlots");Pkg.build("PGFPlots")
-Pkg.add("GR");Pkg.build("GR")
+#Pkg.add("GR");Pkg.build("GR")
 
 using Documenter,MPCDocs,NLOptControl,PrettyPlots
 makedocs(modules=[NLOptControl,PrettyPlots],

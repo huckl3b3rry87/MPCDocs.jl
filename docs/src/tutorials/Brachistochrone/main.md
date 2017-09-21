@@ -123,7 +123,7 @@ allPlots(n)
 #### Optional plot settings
 Many of the plot settings can be modified using the `plotSettings()` function. For instance;
 ```@example Brachistochrone
-plotSettings(;(:mpc_lines =>[(4.0,:red,:solid)]),(:size=>(700,700)));
+plotSettings(;(:size=>(700,700)));
 ```
 
 `allPlots()` automatically plots the solution to all of the state and control variables. In this problem, we may be interested in comparing two states against one another which can be done using the `statePlot()` function as:

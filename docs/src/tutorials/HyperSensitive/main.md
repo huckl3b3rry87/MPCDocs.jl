@@ -23,7 +23,7 @@ nothing # hide
 
 ## Configure the Problem:
 ```@example HyperSensitive
-configure!(n,Nck=[20,3,3,3,3,3,3,3,3,3,3,20];(:finalTimeDV=>false),(:tf=>10000.0))
+configure!(n,Nck=[3,3,3,3,3,3,3,3,3,3,3,3];(:finalTimeDV=>false),(:tf=>10000.0))
 nothing # hide
 ```
 
@@ -41,5 +41,6 @@ nothing # hide
 ## Post Process
 ```@example HyperSensitive
 using PrettyPlots
+plotSettings(;(:size=>(1200,1200)));
 allPlots(n)
 ```

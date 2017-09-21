@@ -84,13 +84,13 @@ nothing # hide
 ## Post Process
 ```@example Unicycle
 using PrettyPlots
-plotSettings(;(:mpc_lines =>[(4.0,:red,:solid)]),(:size=>(700,700)))
+plotSettings(;(:size=>(700,700)))
 allPlots(n)
 ```
 
 Taking a closer look at the position:
 ```@example Unicycle
-plotSettings(;(:mpc_lines =>[(4.0,:black,:solid)]),(:size=>(400,400)));
+plotSettings(;(:size=>(400,400)));
 statePlot(n,1,1,2;(:lims=>false))
 xlims!(-3,2);
 ylims!(0,5);
