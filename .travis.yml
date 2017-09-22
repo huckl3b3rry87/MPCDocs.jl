@@ -1,11 +1,11 @@
 # Documentation: http://docs.travis-ci.com/user/languages/julia/
 language: julia
-sudo: required
-dist: zesty
-os:
-  - linux
-julia:
-  - 0.6
+matrix:
+  include:
+    - os: linux
+      dist: zesty
+      sudo: required
+      julia: 0.6
 notifications:
   email: false
 addons:
