@@ -1,9 +1,595 @@
 <!DOCTYPE html>
-<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>Quick Ex#1: Brachistochrone · NLOptControl.jl</title><link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/4.2.0/normalize.min.css" rel="stylesheet" type="text/css"/><link href="https://fonts.googleapis.com/css?family=Lato|Roboto+Mono" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL="../.."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.2.0/require.min.js" data-main="../../assets/documenter.js"></script><script src="../../siteinfo.js"></script><script src="../../../versions.js"></script><link href="../../assets/documenter.css" rel="stylesheet" type="text/css"/></head><body><nav class="toc"><h1>NLOptControl.jl</h1><select id="version-selector" onChange="window.location.href=this.value" style="visibility: hidden"></select><form class="search" action="../../search.html"><input id="search-query" name="q" type="text" placeholder="Search docs"/></form><ul><li><a class="toctext" href="../../index.html">Home</a></li><li><span class="toctext">Tutorials</span><ul><li class="current"><a class="toctext" href="main.html">Quick Ex#1: Brachistochrone</a><ul class="internal"><li><a class="toctext" href="#Find:-1">Find:</a></li><li><a class="toctext" href="#Solution:-1">Solution:</a></li><li><a class="toctext" href="#Packages-that-will-be-used-1">Packages that will be used</a></li><li><a class="toctext" href="#Define-the-Problem-1">Define the Problem</a></li><li><a class="toctext" href="#State-and-Control-Names-1">State and Control Names</a></li><li><a class="toctext" href="#Differential-Equations-1">Differential Equations</a></li><li><a class="toctext" href="#Configure-the-Problem-1">Configure the Problem</a></li><li><a class="toctext" href="#Objective-Function-1">Objective Function</a></li><li><a class="toctext" href="#Optimize-1">Optimize</a></li><li><a class="toctext" href="#Post-Process-1">Post Process</a></li></ul></li><li><a class="toctext" href="../MoonLander/main.html">Quick Ex#2: Moon Lander</a></li><li><a class="toctext" href="../BrysonDenham/main.html">Bryson Denham</a></li><li><a class="toctext" href="../Beam/main.html">Beam Problem</a></li><li><a class="toctext" href="../HyperSensitive/main.html">HyperSensitive</a></li><li><a class="toctext" href="../RobotArm/main.html">RobotArm</a></li><li><a class="toctext" href="../Rocket/main.html">Rocket</a></li><li><a class="toctext" href="../Unicycle/main.html">Unicycle Model</a></li><li><a class="toctext" href="../KinematicBicycle/main.html">Kinematic Bicycle Model</a></li></ul></li></ul></nav><article id="docs"><header><nav><ul><li>Tutorials</li><li><a href="main.html">Quick Ex#1: Brachistochrone</a></li></ul><a class="edit-page" href="https://github.com/JuliaMPC/MPCDocs.jl/tree/e35ec44edf129ad0f1ee1f676186b8617712000a/docs/src/tutorials/Brachistochrone/main.md"><span class="fa"></span> Edit on GitHub</a></nav><hr/><div id="topbar"><span>Quick Ex#1: Brachistochrone</span><a class="fa fa-bars" href="#"></a></div></header><h1><a class="nav-anchor" id="Quick-Ex#1:-Brachistochrone-1" href="#Quick-Ex#1:-Brachistochrone-1">Quick Ex#1: Brachistochrone</a></h1><h4><a class="nav-anchor" id="Solved-by:-John-and-Bernoulli,-Newton-and-L&#39;Hospital-1" href="#Solved-by:-John-and-Bernoulli,-Newton-and-L&#39;Hospital-1">Solved by: John and Bernoulli, Newton and L&#39;Hospital</a></h4><h3><a class="nav-anchor" id="Given:-1" href="#Given:-1">Given:</a></h3><h4><a class="nav-anchor" id="A-particle-sliding-without-friction-along-an-unknown-track-in-a-gravitational-field-1" href="#A-particle-sliding-without-friction-along-an-unknown-track-in-a-gravitational-field-1">A particle sliding without friction along an unknown track in a gravitational field</a></h4><h4><a class="nav-anchor" id="Dynamic-Constraints-1" href="#Dynamic-Constraints-1">Dynamic Constraints</a></h4><div>\[\dot{x}_1(t)=x_3(t)sin(u_1(t))\]</div><div>\[\dot{x}_2(t)=-x_3(t)cos(u_1(t))\]</div><div>\[\dot{x}_3(t)=gcos(u_1(t))\]</div><h4><a class="nav-anchor" id="Boundary-Conditions-1" href="#Boundary-Conditions-1">Boundary Conditions</a></h4><div>\[{x}_1(0)=0 \qquad {x}_1(t_f)=2\]</div><div>\[{x}_2(0)=0\qquad {x}_2(t_f)=-2\]</div><div>\[{x}_3(0)=0\qquad {x}_3(t_f)=free\]</div><h2><a class="nav-anchor" id="Find:-1" href="#Find:-1">Find:</a></h2><h4><a class="nav-anchor" id="The-track-that-minimizes-time-1" href="#The-track-that-minimizes-time-1">The track that minimizes time</a></h4><div>\[J=t_f\]</div><h2><a class="nav-anchor" id="Solution:-1" href="#Solution:-1">Solution:</a></h2><p>This problem can be found <a href="http://www.gpops2.com/Examples/Brachistochrone.html">here</a>.</p><h2><a class="nav-anchor" id="Packages-that-will-be-used-1" href="#Packages-that-will-be-used-1">Packages that will be used</a></h2><div><pre><code class="language-julia">using NLOptControl</code></pre></div><h2><a class="nav-anchor" id="Define-the-Problem-1" href="#Define-the-Problem-1">Define the Problem</a></h2><p>Next let&#39;s write down the boundary conditions into an array:</p><div><pre><code class="language-julia">X0=[0.0,0.0,0.0]
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>Quick Ex#1: Brachistochrone · NLOptControl.jl</title><link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/4.2.0/normalize.min.css" rel="stylesheet" type="text/css"/><link href="https://fonts.googleapis.com/css?family=Lato|Roboto+Mono" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL="../.."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.2.0/require.min.js" data-main="../../assets/documenter.js"></script><script src="../../siteinfo.js"></script><script src="../../../versions.js"></script><link href="../../assets/documenter.css" rel="stylesheet" type="text/css"/></head><body><nav class="toc"><h1>NLOptControl.jl</h1><select id="version-selector" onChange="window.location.href=this.value" style="visibility: hidden"></select><form class="search" action="../../search.html"><input id="search-query" name="q" type="text" placeholder="Search docs"/></form><ul><li><a class="toctext" href="../../index.html">Home</a></li><li><span class="toctext">Tutorials</span><ul><li class="current"><a class="toctext" href="main.html">Quick Ex#1: Brachistochrone</a><ul class="internal"><li><a class="toctext" href="#Find:-1">Find:</a></li><li><a class="toctext" href="#Solution:-1">Solution:</a></li><li><a class="toctext" href="#Packages-that-will-be-used-1">Packages that will be used</a></li><li><a class="toctext" href="#Define-the-Problem-1">Define the Problem</a></li><li><a class="toctext" href="#State-and-Control-Names-1">State and Control Names</a></li><li><a class="toctext" href="#Differential-Equations-1">Differential Equations</a></li><li><a class="toctext" href="#Configure-the-Problem-1">Configure the Problem</a></li><li><a class="toctext" href="#Objective-Function-1">Objective Function</a></li><li><a class="toctext" href="#Optimize-1">Optimize</a></li><li><a class="toctext" href="#Post-Process-1">Post Process</a></li></ul></li><li><a class="toctext" href="../MoonLander/main.html">Quick Ex#2: Moon Lander</a></li><li><a class="toctext" href="../BrysonDenham/main.html">Bryson Denham</a></li><li><a class="toctext" href="../Beam/main.html">Beam Problem</a></li><li><a class="toctext" href="../HyperSensitive/main.html">HyperSensitive</a></li><li><a class="toctext" href="../RobotArm/main.html">RobotArm</a></li><li><a class="toctext" href="../Rocket/main.html">Rocket</a></li><li><a class="toctext" href="../Unicycle/main.html">Unicycle Model</a></li><li><a class="toctext" href="../KinematicBicycle/main.html">Kinematic Bicycle Model</a></li></ul></li></ul></nav><article id="docs"><header><nav><ul><li>Tutorials</li><li><a href="main.html">Quick Ex#1: Brachistochrone</a></li></ul><a class="edit-page" href="https://github.com/JuliaMPC/MPCDocs.jl/tree/1e676557e4dc5eb0988dd0e8875822a541dcfad5/docs/src/tutorials/Brachistochrone/main.md"><span class="fa"></span> Edit on GitHub</a></nav><hr/><div id="topbar"><span>Quick Ex#1: Brachistochrone</span><a class="fa fa-bars" href="#"></a></div></header><h1><a class="nav-anchor" id="Quick-Ex#1:-Brachistochrone-1" href="#Quick-Ex#1:-Brachistochrone-1">Quick Ex#1: Brachistochrone</a></h1><h4><a class="nav-anchor" id="Solved-by:-John-and-Bernoulli,-Newton-and-L&#39;Hospital-1" href="#Solved-by:-John-and-Bernoulli,-Newton-and-L&#39;Hospital-1">Solved by: John and Bernoulli, Newton and L&#39;Hospital</a></h4><h3><a class="nav-anchor" id="Given:-1" href="#Given:-1">Given:</a></h3><h4><a class="nav-anchor" id="A-particle-sliding-without-friction-along-an-unknown-track-in-a-gravitational-field-1" href="#A-particle-sliding-without-friction-along-an-unknown-track-in-a-gravitational-field-1">A particle sliding without friction along an unknown track in a gravitational field</a></h4><h4><a class="nav-anchor" id="Dynamic-Constraints-1" href="#Dynamic-Constraints-1">Dynamic Constraints</a></h4><div>\[\dot{x}_1(t)=x_3(t)sin(u_1(t))\]</div><div>\[\dot{x}_2(t)=-x_3(t)cos(u_1(t))\]</div><div>\[\dot{x}_3(t)=gcos(u_1(t))\]</div><h4><a class="nav-anchor" id="Boundary-Conditions-1" href="#Boundary-Conditions-1">Boundary Conditions</a></h4><div>\[{x}_1(0)=0 \qquad {x}_1(t_f)=2\]</div><div>\[{x}_2(0)=0\qquad {x}_2(t_f)=-2\]</div><div>\[{x}_3(0)=0\qquad {x}_3(t_f)=free\]</div><h2><a class="nav-anchor" id="Find:-1" href="#Find:-1">Find:</a></h2><h4><a class="nav-anchor" id="The-track-that-minimizes-time-1" href="#The-track-that-minimizes-time-1">The track that minimizes time</a></h4><div>\[J=t_f\]</div><h2><a class="nav-anchor" id="Solution:-1" href="#Solution:-1">Solution:</a></h2><p>This problem can be found <a href="http://www.gpops2.com/Examples/Brachistochrone.html">here</a>.</p><h2><a class="nav-anchor" id="Packages-that-will-be-used-1" href="#Packages-that-will-be-used-1">Packages that will be used</a></h2><div><pre><code class="language-julia">using NLOptControl</code></pre></div><h2><a class="nav-anchor" id="Define-the-Problem-1" href="#Define-the-Problem-1">Define the Problem</a></h2><p>Next let&#39;s write down the boundary conditions into an array:</p><div><pre><code class="language-julia">X0=[0.0,0.0,0.0]
 XF=[2.,-2.,NaN]</code></pre></div><h4><a class="nav-anchor" id="Notice:-1" href="#Notice:-1">Notice:</a></h4><ol><li><p>The numbers that where put into the expression are <code>Float64</code>; For now this is required!</p></li><li><p>The <code>NaN</code> is put into the boundary constraint for the third state; If any of the state bounds are free then pass a <code>NaN</code></p></li></ol><p>Now that we have the basic problem written down, we can call the <code>define()</code> function as:</p><div><pre><code class="language-julia">n=define(numStates=3,numControls=1,X0=X0,XF=XF);</code></pre></div><h4><a class="nav-anchor" id="Basics-1" href="#Basics-1">Basics</a></h4><table><tr><th>Variable</th><th>Description</th></tr><tr><td><code>n</code></td><td>object that holds the entire optimal control problem</td></tr><tr><td><code>de</code></td><td>array of differential equation expressions</td></tr><tr><td><code>numStates</code></td><td>the number of states</td></tr><tr><td><code>numControls</code></td><td>the number of controls</td></tr><tr><td><code>X0</code></td><td>intial state constraint</td></tr><tr><td><code>XF</code></td><td>final state constraint</td></tr></table><p>Also, not in this problem, but</p><table><tr><th>Variable</th><th>Description</th></tr><tr><td><code>XL</code></td><td>lower state bound</td></tr><tr><td><code>XU</code></td><td>upper state bound</td></tr><tr><td><code>CL</code></td><td>lower state bound</td></tr><tr><td><code>CU</code></td><td>upper control bound</td></tr></table><p>The above bounds can be set in the same fashion as the initial and final state constraints. i.e. in an Array.</p><h2><a class="nav-anchor" id="State-and-Control-Names-1" href="#State-and-Control-Names-1">State and Control Names</a></h2><div><pre><code class="language-julia">states!(n,[:x,:y,:v],descriptions=[&quot;x(t)&quot;,&quot;y(t)&quot;,&quot;v(t)&quot;]);
 controls!(n,[:u],descriptions=[&quot;u(t)&quot;]);</code></pre></div><h2><a class="nav-anchor" id="Differential-Equations-1" href="#Differential-Equations-1">Differential Equations</a></h2><p>Now we need to write all of the given information out. Let&#39;s start with the differential equation, that is written as an array of expressions:</p><div><pre><code class="language-julia">dx=[:(v[j]*sin(u[j])),:(-v[j]*cos(u[j])),:(9.81*cos(u[j]))]
 dynamics!(n,dx)</code></pre></div><h2><a class="nav-anchor" id="Configure-the-Problem-1" href="#Configure-the-Problem-1">Configure the Problem</a></h2><p>Now that the basic optimal control problem has been defined, the next step is to <code>configure!()</code> with additional options.</p><div><pre><code class="language-julia">configure!(n;(:Nck=&gt;[100]),(:finalTimeDV=&gt;true));</code></pre></div><h4><a class="nav-anchor" id="Settings:-1" href="#Settings:-1">Settings:</a></h4><table><tr><th>Key</th><th>Description</th></tr><tr><td><code>:Nck</code></td><td>array of that holds the number of points within each interval</td></tr><tr><td><code>:finalTimeDV</code></td><td>bool to indicate if time is a design variable</td></tr></table><h4><a class="nav-anchor" id="Notice:-2" href="#Notice:-2">Notice:</a></h4><ol><li><p>Final time is a design variable; we are trying to minimize it</p></li><li><p>We defined this as a single interval problem with <span>$100$</span> points</p></li></ol><h2><a class="nav-anchor" id="Objective-Function-1" href="#Objective-Function-1">Objective Function</a></h2><p>Finally, the objective function needs to be defined. For this, we use the <span>$JuMP$</span> macro <span>$@NLOptControl()$</span> directly as:</p><div><pre><code class="language-julia">@NLobjective(n.mdl,Min,n.tf);</code></pre></div><p>with,</p><table><tr><th>Variable</th><th>Description</th></tr><tr><td><code>n.mdl</code></td><td>object that holds them JuMP model</td></tr><tr><td><code>Min</code></td><td>for a minimization problem</td></tr><tr><td><code>n.tf</code></td><td>a reference to the final time</td></tr></table><h2><a class="nav-anchor" id="Optimize-1" href="#Optimize-1">Optimize</a></h2><p>Now that the entire optimal control problem has been defined we can <code>optimize!()</code> it as:</p><div><pre><code class="language-julia">optimize!(n);</code></pre></div><h2><a class="nav-anchor" id="Post-Process-1" href="#Post-Process-1">Post Process</a></h2><p><strong>Make sure that you are not running the code in a folder where you have an important folder named <code>results</code>, because it will be deleted!</strong> Now that the problem has been optimized, we can quickly visualize the solution using <span>$allPlots()$</span> as:</p><pre><code class="language-">using PrettyPlots
-allPlots(n)</code></pre><h4><a class="nav-anchor" id="Optional-plot-settings-1" href="#Optional-plot-settings-1">Optional plot settings</a></h4><p>Many of the plot settings can be modified using the <code>plotSettings()</code> function. For instance;</p><div><pre><code class="language-julia">plotSettings(;(:size=&gt;(700,700)));</code></pre></div><p><code>allPlots()</code> automatically plots the solution to all of the state and control variables. In this problem, we may be interested in comparing two states against one another which can be done using the <code>statePlot()</code> function as:</p><pre><code class="language-">statePlot(n,1,1,2)</code></pre><p>For this case, there are four things that need to be passed to <code>statePlots()</code>:</p><table><tr><th>Argument</th><th>Name</th><th>Description</th></tr><tr><td>1</td><td><code>n</code></td><td>object that holds the entire optimal control problem</td></tr><tr><td>2</td><td><code>idx</code></td><td>reference to solution number used when we start solving <code>mpc</code> problems</td></tr><tr><td>3</td><td><code>st1</code></td><td>state number for <code>xaxis</code></td></tr><tr><td>4</td><td><code>st2</code></td><td>state number for <code>yaxis</code></td></tr></table><h4><a class="nav-anchor" id="Data-Orginization-1" href="#Data-Orginization-1">Data Orginization</a></h4><p>All of the states, control variables and time vectors are stored in an array of Dataframes called <code>n.r.dfs</code></p><div><pre><code class="language-julia">n.r.dfs</code></pre><pre><code class="language-none">1-element Array{Any,1}:
+allPlots(n)</code></pre><h4><a class="nav-anchor" id="Optional-plot-settings-1" href="#Optional-plot-settings-1">Optional plot settings</a></h4><p>Many of the plot settings can be modified using the <code>plotSettings()</code> function. For instance;</p><div><pre><code class="language-julia">plotSettings(;(:size=&gt;(700,700)));</code></pre></div><p><code>allPlots()</code> automatically plots the solution to all of the state and control variables. In this problem, we may be interested in comparing two states against one another which can be done using the <code>statePlot()</code> function as:</p><div><pre><code class="language-julia">statePlot(n,1,1,2)</code></pre><?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Created with matplotlib (http://matplotlib.org/) -->
+<svg height="504pt" version="1.1" viewBox="0 0 504 504" width="504pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+ <defs>
+  <style type="text/css">
+*{stroke-linecap:butt;stroke-linejoin:round;}
+  </style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 504 
+L 504 504 
+L 504 0 
+L 0 0 
+z
+" style="fill:#ffffff;"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 30.124646 474.685354 
+L 501.165354 474.685354 
+L 501.165354 3.194646 
+L 30.124646 3.194646 
+z
+" style="fill:#ffffff;"/>
+   </g>
+   <g id="matplotlib.axis_1">
+    <g id="xtick_1">
+     <g id="line2d_1">
+      <path clip-path="url(#pf0f048420a)" d="M 30.124646 474.685354 
+L 30.124646 3.194646 
+" style="fill:none;opacity:0.1;stroke:#000000;stroke-linecap:square;stroke-width:0.5;"/>
+     </g>
+     <g id="line2d_2">
+      <defs>
+       <path d="M 0 0 
+L 0 3.5 
+" id="m2b64943d5e" style="stroke:#000000;stroke-width:0.8;"/>
+      </defs>
+      <g>
+       <use style="stroke:#000000;stroke-width:0.8;" x="30.124646" xlink:href="#m2b64943d5e" y="474.685354"/>
+      </g>
+     </g>
+     <g id="text_1">
+      <!-- -1 -->
+      <defs>
+       <path d="M 4.890625 31.390625 
+L 31.203125 31.390625 
+L 31.203125 23.390625 
+L 4.890625 23.390625 
+z
+" id="DejaVuSans-2d"/>
+       <path d="M 12.40625 8.296875 
+L 28.515625 8.296875 
+L 28.515625 63.921875 
+L 10.984375 60.40625 
+L 10.984375 69.390625 
+L 28.421875 72.90625 
+L 38.28125 72.90625 
+L 38.28125 8.296875 
+L 54.390625 8.296875 
+L 54.390625 0 
+L 12.40625 0 
+z
+" id="DejaVuSans-31"/>
+      </defs>
+      <g transform="translate(26.136521 487.764104)scale(0.08 -0.08)">
+       <use xlink:href="#DejaVuSans-2d"/>
+       <use x="36.083984" xlink:href="#DejaVuSans-31"/>
+      </g>
+     </g>
+    </g>
+    <g id="xtick_2">
+     <g id="line2d_3">
+      <path clip-path="url(#pf0f048420a)" d="M 182.073261 474.685354 
+L 182.073261 3.194646 
+" style="fill:none;opacity:0.1;stroke:#000000;stroke-linecap:square;stroke-width:0.5;"/>
+     </g>
+     <g id="line2d_4">
+      <g>
+       <use style="stroke:#000000;stroke-width:0.8;" x="182.073261" xlink:href="#m2b64943d5e" y="474.685354"/>
+      </g>
+     </g>
+     <g id="text_2">
+      <!-- 0 -->
+      <defs>
+       <path d="M 31.78125 66.40625 
+Q 24.171875 66.40625 20.328125 58.90625 
+Q 16.5 51.421875 16.5 36.375 
+Q 16.5 21.390625 20.328125 13.890625 
+Q 24.171875 6.390625 31.78125 6.390625 
+Q 39.453125 6.390625 43.28125 13.890625 
+Q 47.125 21.390625 47.125 36.375 
+Q 47.125 51.421875 43.28125 58.90625 
+Q 39.453125 66.40625 31.78125 66.40625 
+z
+M 31.78125 74.21875 
+Q 44.046875 74.21875 50.515625 64.515625 
+Q 56.984375 54.828125 56.984375 36.375 
+Q 56.984375 17.96875 50.515625 8.265625 
+Q 44.046875 -1.421875 31.78125 -1.421875 
+Q 19.53125 -1.421875 13.0625 8.265625 
+Q 6.59375 17.96875 6.59375 36.375 
+Q 6.59375 54.828125 13.0625 64.515625 
+Q 19.53125 74.21875 31.78125 74.21875 
+z
+" id="DejaVuSans-30"/>
+      </defs>
+      <g transform="translate(179.528261 487.764104)scale(0.08 -0.08)">
+       <use xlink:href="#DejaVuSans-30"/>
+      </g>
+     </g>
+    </g>
+    <g id="xtick_3">
+     <g id="line2d_5">
+      <path clip-path="url(#pf0f048420a)" d="M 334.021877 474.685354 
+L 334.021877 3.194646 
+" style="fill:none;opacity:0.1;stroke:#000000;stroke-linecap:square;stroke-width:0.5;"/>
+     </g>
+     <g id="line2d_6">
+      <g>
+       <use style="stroke:#000000;stroke-width:0.8;" x="334.021877" xlink:href="#m2b64943d5e" y="474.685354"/>
+      </g>
+     </g>
+     <g id="text_3">
+      <!-- 1 -->
+      <g transform="translate(331.476877 487.764104)scale(0.08 -0.08)">
+       <use xlink:href="#DejaVuSans-31"/>
+      </g>
+     </g>
+    </g>
+    <g id="xtick_4">
+     <g id="line2d_7">
+      <path clip-path="url(#pf0f048420a)" d="M 485.970493 474.685354 
+L 485.970493 3.194646 
+" style="fill:none;opacity:0.1;stroke:#000000;stroke-linecap:square;stroke-width:0.5;"/>
+     </g>
+     <g id="line2d_8">
+      <g>
+       <use style="stroke:#000000;stroke-width:0.8;" x="485.970493" xlink:href="#m2b64943d5e" y="474.685354"/>
+      </g>
+     </g>
+     <g id="text_4">
+      <!-- 2 -->
+      <defs>
+       <path d="M 19.1875 8.296875 
+L 53.609375 8.296875 
+L 53.609375 0 
+L 7.328125 0 
+L 7.328125 8.296875 
+Q 12.9375 14.109375 22.625 23.890625 
+Q 32.328125 33.6875 34.8125 36.53125 
+Q 39.546875 41.84375 41.421875 45.53125 
+Q 43.3125 49.21875 43.3125 52.78125 
+Q 43.3125 58.59375 39.234375 62.25 
+Q 35.15625 65.921875 28.609375 65.921875 
+Q 23.96875 65.921875 18.8125 64.3125 
+Q 13.671875 62.703125 7.8125 59.421875 
+L 7.8125 69.390625 
+Q 13.765625 71.78125 18.9375 73 
+Q 24.125 74.21875 28.421875 74.21875 
+Q 39.75 74.21875 46.484375 68.546875 
+Q 53.21875 62.890625 53.21875 53.421875 
+Q 53.21875 48.921875 51.53125 44.890625 
+Q 49.859375 40.875 45.40625 35.40625 
+Q 44.1875 33.984375 37.640625 27.21875 
+Q 31.109375 20.453125 19.1875 8.296875 
+z
+" id="DejaVuSans-32"/>
+      </defs>
+      <g transform="translate(483.425493 487.764104)scale(0.08 -0.08)">
+       <use xlink:href="#DejaVuSans-32"/>
+      </g>
+     </g>
+    </g>
+    <g id="text_5">
+     <!-- x(t) -->
+     <defs>
+      <path d="M 54.890625 54.6875 
+L 35.109375 28.078125 
+L 55.90625 0 
+L 45.3125 0 
+L 29.390625 21.484375 
+L 13.484375 0 
+L 2.875 0 
+L 24.125 28.609375 
+L 4.6875 54.6875 
+L 15.28125 54.6875 
+L 29.78125 35.203125 
+L 44.28125 54.6875 
+z
+" id="DejaVuSans-78"/>
+      <path d="M 31 75.875 
+Q 24.46875 64.65625 21.28125 53.65625 
+Q 18.109375 42.671875 18.109375 31.390625 
+Q 18.109375 20.125 21.3125 9.0625 
+Q 24.515625 -2 31 -13.1875 
+L 23.1875 -13.1875 
+Q 15.875 -1.703125 12.234375 9.375 
+Q 8.59375 20.453125 8.59375 31.390625 
+Q 8.59375 42.28125 12.203125 53.3125 
+Q 15.828125 64.359375 23.1875 75.875 
+z
+" id="DejaVuSans-28"/>
+      <path d="M 18.3125 70.21875 
+L 18.3125 54.6875 
+L 36.8125 54.6875 
+L 36.8125 47.703125 
+L 18.3125 47.703125 
+L 18.3125 18.015625 
+Q 18.3125 11.328125 20.140625 9.421875 
+Q 21.96875 7.515625 27.59375 7.515625 
+L 36.8125 7.515625 
+L 36.8125 0 
+L 27.59375 0 
+Q 17.1875 0 13.234375 3.875 
+Q 9.28125 7.765625 9.28125 18.015625 
+L 9.28125 47.703125 
+L 2.6875 47.703125 
+L 2.6875 54.6875 
+L 9.28125 54.6875 
+L 9.28125 70.21875 
+z
+" id="DejaVuSans-74"/>
+      <path d="M 8.015625 75.875 
+L 15.828125 75.875 
+Q 23.140625 64.359375 26.78125 53.3125 
+Q 30.421875 42.28125 30.421875 31.390625 
+Q 30.421875 20.453125 26.78125 9.375 
+Q 23.140625 -1.703125 15.828125 -13.1875 
+L 8.015625 -13.1875 
+Q 14.5 -2 17.703125 9.0625 
+Q 20.90625 20.125 20.90625 31.390625 
+Q 20.90625 42.671875 17.703125 53.65625 
+Q 14.5 64.65625 8.015625 75.875 
+z
+" id="DejaVuSans-29"/>
+     </defs>
+     <g transform="translate(255.941797 501.786136)scale(0.11 -0.11)">
+      <use xlink:href="#DejaVuSans-78"/>
+      <use x="59.179688" xlink:href="#DejaVuSans-28"/>
+      <use x="98.193359" xlink:href="#DejaVuSans-74"/>
+      <use x="137.402344" xlink:href="#DejaVuSans-29"/>
+     </g>
+    </g>
+   </g>
+   <g id="matplotlib.axis_2">
+    <g id="ytick_1">
+     <g id="line2d_9">
+      <path clip-path="url(#pf0f048420a)" d="M 30.124646 459.475977 
+L 501.165354 459.475977 
+" style="fill:none;opacity:0.1;stroke:#000000;stroke-linecap:square;stroke-width:0.5;"/>
+     </g>
+     <g id="line2d_10">
+      <defs>
+       <path d="M 0 0 
+L -3.5 0 
+" id="m295df9a776" style="stroke:#000000;stroke-width:0.8;"/>
+      </defs>
+      <g>
+       <use style="stroke:#000000;stroke-width:0.8;" x="30.124646" xlink:href="#m295df9a776" y="459.475977"/>
+      </g>
+     </g>
+     <g id="text_6">
+      <!-- -2 -->
+      <g transform="translate(15.148396 462.515352)scale(0.08 -0.08)">
+       <use xlink:href="#DejaVuSans-2d"/>
+       <use x="36.083984" xlink:href="#DejaVuSans-32"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_2">
+     <g id="line2d_11">
+      <path clip-path="url(#pf0f048420a)" d="M 30.124646 307.3822 
+L 501.165354 307.3822 
+" style="fill:none;opacity:0.1;stroke:#000000;stroke-linecap:square;stroke-width:0.5;"/>
+     </g>
+     <g id="line2d_12">
+      <g>
+       <use style="stroke:#000000;stroke-width:0.8;" x="30.124646" xlink:href="#m295df9a776" y="307.3822"/>
+      </g>
+     </g>
+     <g id="text_7">
+      <!-- -1 -->
+      <g transform="translate(15.148396 310.421575)scale(0.08 -0.08)">
+       <use xlink:href="#DejaVuSans-2d"/>
+       <use x="36.083984" xlink:href="#DejaVuSans-31"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_3">
+     <g id="line2d_13">
+      <path clip-path="url(#pf0f048420a)" d="M 30.124646 155.288423 
+L 501.165354 155.288423 
+" style="fill:none;opacity:0.1;stroke:#000000;stroke-linecap:square;stroke-width:0.5;"/>
+     </g>
+     <g id="line2d_14">
+      <g>
+       <use style="stroke:#000000;stroke-width:0.8;" x="30.124646" xlink:href="#m295df9a776" y="155.288423"/>
+      </g>
+     </g>
+     <g id="text_8">
+      <!-- 0 -->
+      <g transform="translate(18.034646 158.327798)scale(0.08 -0.08)">
+       <use xlink:href="#DejaVuSans-30"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_4">
+     <g id="line2d_15">
+      <path clip-path="url(#pf0f048420a)" d="M 30.124646 3.194646 
+L 501.165354 3.194646 
+" style="fill:none;opacity:0.1;stroke:#000000;stroke-linecap:square;stroke-width:0.5;"/>
+     </g>
+     <g id="line2d_16">
+      <g>
+       <use style="stroke:#000000;stroke-width:0.8;" x="30.124646" xlink:href="#m295df9a776" y="3.194646"/>
+      </g>
+     </g>
+     <g id="text_9">
+      <!-- 1 -->
+      <g transform="translate(18.034646 6.234021)scale(0.08 -0.08)">
+       <use xlink:href="#DejaVuSans-31"/>
+      </g>
+     </g>
+    </g>
+    <g id="text_10">
+     <!-- y(t) -->
+     <defs>
+      <path d="M 32.171875 -5.078125 
+Q 28.375 -14.84375 24.75 -17.8125 
+Q 21.140625 -20.796875 15.09375 -20.796875 
+L 7.90625 -20.796875 
+L 7.90625 -13.28125 
+L 13.1875 -13.28125 
+Q 16.890625 -13.28125 18.9375 -11.515625 
+Q 21 -9.765625 23.484375 -3.21875 
+L 25.09375 0.875 
+L 2.984375 54.6875 
+L 12.5 54.6875 
+L 29.59375 11.921875 
+L 46.6875 54.6875 
+L 56.203125 54.6875 
+z
+" id="DejaVuSans-79"/>
+     </defs>
+     <g transform="translate(8.860739 248.643203)rotate(-90)scale(0.11 -0.11)">
+      <use xlink:href="#DejaVuSans-79"/>
+      <use x="59.179688" xlink:href="#DejaVuSans-28"/>
+      <use x="98.193359" xlink:href="#DejaVuSans-74"/>
+      <use x="137.402344" xlink:href="#DejaVuSans-29"/>
+     </g>
+    </g>
+   </g>
+   <g id="line2d_17">
+    <path clip-path="url(#pf0f048420a)" d="M 182.073261 155.288423 
+L 182.073261 155.288491 
+L 182.073262 155.28919 
+L 182.073268 155.291811 
+L 182.073297 155.298378 
+L 182.073388 155.311634 
+L 182.07362 155.335031 
+L 182.074134 155.372708 
+L 182.075151 155.429471 
+L 182.077002 155.510771 
+L 182.080157 155.622666 
+L 182.085255 155.771797 
+L 182.093142 155.965341 
+L 182.104898 156.210974 
+L 182.121883 156.516822 
+L 182.145765 156.891408 
+L 182.178556 157.3436 
+L 182.222651 157.882549 
+L 182.280856 158.517624 
+L 182.356418 159.258345 
+L 182.45305 160.114313 
+L 182.574959 161.09513 
+L 182.726856 162.210326 
+L 182.913972 163.469278 
+L 183.142066 164.881122 
+L 183.417419 166.454678 
+L 183.746834 168.198356 
+L 184.137616 170.120081 
+L 184.597552 172.227201 
+L 185.134881 174.526412 
+L 185.758255 177.023675 
+L 186.476696 179.724144 
+L 187.299538 182.632089 
+L 188.236369 185.750838 
+L 189.296962 189.082714 
+L 190.4912 192.628981 
+L 191.828994 196.389804 
+L 193.320196 200.364213 
+L 194.974512 204.550076 
+L 196.801404 208.944082 
+L 198.809994 213.541741 
+L 201.008968 218.337385 
+L 203.406478 223.324183 
+L 206.010043 228.494177 
+L 208.826454 233.838309 
+L 211.861686 239.346482 
+L 215.120811 245.007609 
+L 218.607915 250.809689 
+L 222.326028 256.739883 
+L 226.277054 262.784601 
+L 230.46172 268.929595 
+L 234.879526 275.160059 
+L 239.528707 281.460732 
+L 244.406211 287.816011 
+L 249.507681 294.210058 
+L 254.827452 300.626914 
+L 260.358562 307.050611 
+L 266.092769 313.465282 
+L 272.02058 319.855269 
+L 278.131296 326.205229 
+L 284.413059 332.500231 
+L 290.852915 338.725847 
+L 297.43688 344.868242 
+L 304.150019 350.91425 
+L 310.976528 356.851441 
+L 317.899822 362.668182 
+L 324.902628 368.353691 
+L 331.967081 373.89807 
+L 339.074826 379.292341 
+L 346.207112 384.528465 
+L 353.344898 389.599348 
+L 360.46895 394.498848 
+L 367.559935 399.221761 
+L 374.598522 403.763803 
+L 381.565469 408.121586 
+L 388.441714 412.292583 
+L 395.208453 416.275088 
+L 401.847221 420.068166 
+L 408.339964 423.671601 
+L 414.669104 427.08584 
+L 420.817598 430.311932 
+L 426.768998 433.351461 
+L 432.507491 436.206482 
+L 438.01795 438.87945 
+L 443.285965 441.373154 
+L 448.297876 443.69065 
+L 453.040802 445.835189 
+L 457.502659 447.810152 
+L 461.67218 449.618987 
+L 465.538927 451.265145 
+L 469.093303 452.752025 
+L 472.326559 454.082911 
+L 475.230796 455.26093 
+L 477.798972 456.288995 
+L 480.024902 457.16977 
+L 481.903254 457.905625 
+L 483.429558 458.498607 
+L 484.600199 458.950412 
+L 485.412433 459.262366 
+L 485.864526 459.43546 
+L 485.970493 459.475977 
+" style="fill:none;stroke:#0000ff;stroke-linecap:round;stroke-width:2.7;"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 30.124646 474.685354 
+L 30.124646 3.194646 
+" style="fill:none;stroke:#000000;stroke-linecap:square;stroke-linejoin:miter;stroke-width:0.8;"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 30.124646 474.685354 
+L 501.165354 474.685354 
+" style="fill:none;stroke:#000000;stroke-linecap:square;stroke-linejoin:miter;stroke-width:0.8;"/>
+   </g>
+   <g id="legend_1">
+    <g id="patch_5">
+     <path d="M 452.695354 21.337146 
+L 495.565354 21.337146 
+Q 497.165354 21.337146 497.165354 19.737146 
+L 497.165354 8.794646 
+Q 497.165354 7.194646 495.565354 7.194646 
+L 452.695354 7.194646 
+Q 451.095354 7.194646 451.095354 8.794646 
+L 451.095354 19.737146 
+Q 451.095354 21.337146 452.695354 21.337146 
+z
+" style="fill:#ffffff;opacity:0.8;stroke:#000000;stroke-linejoin:miter;"/>
+    </g>
+    <g id="line2d_18">
+     <path d="M 454.295354 13.673396 
+L 470.295354 13.673396 
+" style="fill:none;stroke:#0000ff;stroke-linecap:round;stroke-width:2.7;"/>
+    </g>
+    <g id="line2d_19"/>
+    <g id="text_11">
+     <!-- mpc -->
+     <defs>
+      <path d="M 52 44.1875 
+Q 55.375 50.25 60.0625 53.125 
+Q 64.75 56 71.09375 56 
+Q 79.640625 56 84.28125 50.015625 
+Q 88.921875 44.046875 88.921875 33.015625 
+L 88.921875 0 
+L 79.890625 0 
+L 79.890625 32.71875 
+Q 79.890625 40.578125 77.09375 44.375 
+Q 74.3125 48.1875 68.609375 48.1875 
+Q 61.625 48.1875 57.5625 43.546875 
+Q 53.515625 38.921875 53.515625 30.90625 
+L 53.515625 0 
+L 44.484375 0 
+L 44.484375 32.71875 
+Q 44.484375 40.625 41.703125 44.40625 
+Q 38.921875 48.1875 33.109375 48.1875 
+Q 26.21875 48.1875 22.15625 43.53125 
+Q 18.109375 38.875 18.109375 30.90625 
+L 18.109375 0 
+L 9.078125 0 
+L 9.078125 54.6875 
+L 18.109375 54.6875 
+L 18.109375 46.1875 
+Q 21.1875 51.21875 25.484375 53.609375 
+Q 29.78125 56 35.6875 56 
+Q 41.65625 56 45.828125 52.96875 
+Q 50 49.953125 52 44.1875 
+z
+" id="DejaVuSans-6d"/>
+      <path d="M 18.109375 8.203125 
+L 18.109375 -20.796875 
+L 9.078125 -20.796875 
+L 9.078125 54.6875 
+L 18.109375 54.6875 
+L 18.109375 46.390625 
+Q 20.953125 51.265625 25.265625 53.625 
+Q 29.59375 56 35.59375 56 
+Q 45.5625 56 51.78125 48.09375 
+Q 58.015625 40.1875 58.015625 27.296875 
+Q 58.015625 14.40625 51.78125 6.484375 
+Q 45.5625 -1.421875 35.59375 -1.421875 
+Q 29.59375 -1.421875 25.265625 0.953125 
+Q 20.953125 3.328125 18.109375 8.203125 
+z
+M 48.6875 27.296875 
+Q 48.6875 37.203125 44.609375 42.84375 
+Q 40.53125 48.484375 33.40625 48.484375 
+Q 26.265625 48.484375 22.1875 42.84375 
+Q 18.109375 37.203125 18.109375 27.296875 
+Q 18.109375 17.390625 22.1875 11.75 
+Q 26.265625 6.109375 33.40625 6.109375 
+Q 40.53125 6.109375 44.609375 11.75 
+Q 48.6875 17.390625 48.6875 27.296875 
+z
+" id="DejaVuSans-70"/>
+      <path d="M 48.78125 52.59375 
+L 48.78125 44.1875 
+Q 44.96875 46.296875 41.140625 47.34375 
+Q 37.3125 48.390625 33.40625 48.390625 
+Q 24.65625 48.390625 19.8125 42.84375 
+Q 14.984375 37.3125 14.984375 27.296875 
+Q 14.984375 17.28125 19.8125 11.734375 
+Q 24.65625 6.203125 33.40625 6.203125 
+Q 37.3125 6.203125 41.140625 7.25 
+Q 44.96875 8.296875 48.78125 10.40625 
+L 48.78125 2.09375 
+Q 45.015625 0.34375 40.984375 -0.53125 
+Q 36.96875 -1.421875 32.421875 -1.421875 
+Q 20.0625 -1.421875 12.78125 6.34375 
+Q 5.515625 14.109375 5.515625 27.296875 
+Q 5.515625 40.671875 12.859375 48.328125 
+Q 20.21875 56 33.015625 56 
+Q 37.15625 56 41.109375 55.140625 
+Q 45.0625 54.296875 48.78125 52.59375 
+z
+" id="DejaVuSans-63"/>
+     </defs>
+     <g transform="translate(476.695354 16.473396)scale(0.08 -0.08)">
+      <use xlink:href="#DejaVuSans-6d"/>
+      <use x="97.412109" xlink:href="#DejaVuSans-70"/>
+      <use x="160.888672" xlink:href="#DejaVuSans-63"/>
+     </g>
+    </g>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="pf0f048420a">
+   <rect height="471.490709" width="471.040709" x="30.124646" y="3.194646"/>
+  </clipPath>
+ </defs>
+</svg>
+</div><p>For this case, there are four things that need to be passed to <code>statePlots()</code>:</p><table><tr><th>Argument</th><th>Name</th><th>Description</th></tr><tr><td>1</td><td><code>n</code></td><td>object that holds the entire optimal control problem</td></tr><tr><td>2</td><td><code>idx</code></td><td>reference to solution number used when we start solving <code>mpc</code> problems</td></tr><tr><td>3</td><td><code>st1</code></td><td>state number for <code>xaxis</code></td></tr><tr><td>4</td><td><code>st2</code></td><td>state number for <code>yaxis</code></td></tr></table><h4><a class="nav-anchor" id="Data-Orginization-1" href="#Data-Orginization-1">Data Orginization</a></h4><p>All of the states, control variables and time vectors are stored in an array of Dataframes called <code>n.r.dfs</code></p><div><pre><code class="language-julia">n.r.dfs</code></pre><pre><code class="language-none">1-element Array{Any,1}:
  101×5 DataFrames.DataFrame
 │ Row │ t           │ x           │ y            │ v          │ u           │
 ├─────┼─────────────┼─────────────┼──────────────┼────────────┼─────────────┤
@@ -32,6 +618,6 @@ allPlots(n)</code></pre><h4><a class="nav-anchor" id="Optional-plot-settings-1" 
  1×4 DataFrames.DataFrame
 │ Row │ t_solve │ obj_val  │ status  │ iter_num │
 ├─────┼─────────┼──────────┼─────────┼──────────┤
-│ 1   │ 3.21292 │ 0.824339 │ Optimal │ 0        │</code></pre></div><p>The sailent optimization data is stored in the table above</p><table><tr><th>Variable</th><th>Description</th></tr><tr><td><code>t_solve</code></td><td>cpu time for optimization problem</td></tr><tr><td><code>obj_val</code></td><td>objective function value</td></tr><tr><td><code>iter_num</code></td><td>a variable for a higher-level algorithm, often these problems are nested</td></tr></table><p>One thing that may be noticed is the long time that it takes to solve the problem. This is typical for the first optimization, but after that even if the problem is modified the optimization time is greatly reduced.</p><h4><a class="nav-anchor" id="For-instance,-let&#39;s-re-run-the-optimization:-1" href="#For-instance,-let&#39;s-re-run-the-optimization:-1">For instance, let&#39;s re-run the optimization:</a></h4><div><pre><code class="language-julia">optimize!(n);
+│ 1   │ 4.32234 │ 0.824339 │ Optimal │ 0        │</code></pre></div><p>The sailent optimization data is stored in the table above</p><table><tr><th>Variable</th><th>Description</th></tr><tr><td><code>t_solve</code></td><td>cpu time for optimization problem</td></tr><tr><td><code>obj_val</code></td><td>objective function value</td></tr><tr><td><code>iter_num</code></td><td>a variable for a higher-level algorithm, often these problems are nested</td></tr></table><p>One thing that may be noticed is the long time that it takes to solve the problem. This is typical for the first optimization, but after that even if the problem is modified the optimization time is greatly reduced.</p><h4><a class="nav-anchor" id="For-instance,-let&#39;s-re-run-the-optimization:-1" href="#For-instance,-let&#39;s-re-run-the-optimization:-1">For instance, let&#39;s re-run the optimization:</a></h4><div><pre><code class="language-julia">optimize!(n);
 n.r.dfs_opt[2][:t_solve]</code></pre><pre><code class="language-none">1-element DataArrays.DataArray{Float64,1}:
- 0.223277</code></pre></div><footer><hr/><a class="previous" href="../../index.html"><span class="direction">Previous</span><span class="title">Home</span></a><a class="next" href="../MoonLander/main.html"><span class="direction">Next</span><span class="title">Quick Ex#2: Moon Lander</span></a></footer></article></body></html>
+ 0.337977</code></pre></div><footer><hr/><a class="previous" href="../../index.html"><span class="direction">Previous</span><span class="title">Home</span></a><a class="next" href="../MoonLander/main.html"><span class="direction">Next</span><span class="title">Quick Ex#2: Moon Lander</span></a></footer></article></body></html>
