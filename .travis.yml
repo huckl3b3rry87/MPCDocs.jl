@@ -71,10 +71,10 @@ install:
   - conda info -a
 
   # Replace dep1 dep2 ... with your dependencies
-  - conda create -q -n test-environment python=$TRAVIS_PYTHON_VERSION dep1 dep2 ...
+  - conda create -q -n test-environment python=$TRAVIS_PYTHON_VERSION matplotlib 
   - source activate test-environment
   - python setup.py install
-  
+
   - conda install -c conda-forge matplotlib
 after_success:
 - echo $TRAVIS_JULIA_VERSION
