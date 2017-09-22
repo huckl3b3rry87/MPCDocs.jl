@@ -33,6 +33,7 @@ addons:
 #sudo apt-get install python-matplotlib  # for pyplot
 install:
 #  - sudo apt-get install python-matplotlib
+  - mkdir homebrew && curl -L https://github.com/Homebrew/brew/tarball/master | tar xz --strip 1 -C homebrew
   - brew install python gcc freetype pyqt
   - brew link --force freetype
   - export PATH="/usr/local/bin:$PATH"
