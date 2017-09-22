@@ -3,7 +3,6 @@ language: julia
 matrix:
   include:
     - os: linux
-      dist: zesty
       sudo: required
       julia: 0.6
 notifications:
