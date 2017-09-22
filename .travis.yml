@@ -32,10 +32,12 @@ addons:
 #  - conda install -c conda-forge matplotlib
 #sudo apt-get install python-matplotlib  # for pyplot
 install:
+  # https://anaconda.org/conda-forge/matplotlib
+  # http://chrisstrelioff.ws/sandbox/2014/06/04/install_and_setup_python_and_packages_on_ubuntu_14_04.html
 #  - sudo apt-get install python-matplotlib
-  - sudo apt-add-repository ppa:python-matlibplot
-  - sudo apt-get update
-  - sudo apt-get install python-matplotlib
+#  - sudo apt-add-repository ppa:python-matlibplot
+#  - sudo apt-get update
+#  - sudo apt-get install python-matplotlib
 
 #  - sudo apt-get install build-essential curl file git python-setuptools ruby
 #  - ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Linuxbrew/install/master/install)"
@@ -46,6 +48,34 @@ install:
 #  - export PYTHONPATH="/usr/local/lib/python2.7:$PYTHONPATH"
 #  - pip install numpy scipy matplotlib
 
+
+#cd ~/Downloads
+#curl -O https://bootstrap.pypa.io/get-pip.py
+# python get-pip.py --user
+# sudo apt-get install curl
+
+  - sudo apt-get update
+  # We do this conditionally because it saves us some downloading if the
+  # version is the same.
+  - if [[ "$TRAVIS_PYTHON_VERSION" == "2.7" ]]; then
+      wget https://repo.continuum.io/miniconda/Miniconda2-latest-Linux-x86_64.sh -O miniconda.sh;
+    else
+      wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh;
+    fi
+  - bash miniconda.sh -b -p $HOME/miniconda
+  - export PATH="$HOME/miniconda/bin:$PATH"
+  - hash -r
+  - conda config --set always_yes yes --set changeps1 no
+  - conda update -q conda
+  # Useful for debugging any issues with conda
+  - conda info -a
+
+  # Replace dep1 dep2 ... with your dependencies
+  - conda create -q -n test-environment python=$TRAVIS_PYTHON_VERSION dep1 dep2 ...
+  - source activate test-environment
+  - python setup.py install
+  
+  - conda install -c conda-forge matplotlib
 after_success:
 - echo $TRAVIS_JULIA_VERSION
 - if [[ -a .git/shallow ]]; then git fetch --unshallow; fi
