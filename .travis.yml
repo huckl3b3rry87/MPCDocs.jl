@@ -32,7 +32,13 @@ addons:
 #  - conda install -c conda-forge matplotlib
 #sudo apt-get install python-matplotlib  # for pyplot
 install:
-  - sudo apt-get install python-matplotlib
+#  - sudo apt-get install python-matplotlib
+  - brew install python gcc freetype pyqt
+  - brew link --force freetype
+  - export PATH="/usr/local/bin:$PATH"
+  - export PYTHONPATH="/usr/local/lib/python2.7:$PYTHONPATH"
+  - pip install numpy scipy matplotlib
+
 after_success:
 - echo $TRAVIS_JULIA_VERSION
 - if [[ -a .git/shallow ]]; then git fetch --unshallow; fi
