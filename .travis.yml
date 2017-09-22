@@ -11,6 +11,7 @@ addons:
       apt_packages:
         - gfortran
 #before_install:
+
 #- sudo apt-get -qq update
 #- sudo apt-get install -y pdf2svg
 #- sudo apt-get install -y texlive-latex-base
@@ -33,7 +34,8 @@ addons:
 install:
   # https://anaconda.org/conda-forge/matplotlib
   # http://chrisstrelioff.ws/sandbox/2014/06/04/install_and_setup_python_and_packages_on_ubuntu_14_04.html
-  - sudo apt-get install python-matplotlib
+  #- sudo apt-get install python-matplotlib
+  - pip install matplotlib
 #  - sudo apt-add-repository ppa:python-matlibplot
 #  - sudo apt-get update
 #  - sudo apt-get install python-matplotlib
