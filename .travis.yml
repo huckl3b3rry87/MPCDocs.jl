@@ -33,7 +33,12 @@ addons:
 #sudo apt-get install python-matplotlib  # for pyplot
 install:
 #  - sudo apt-get install python-matplotlib
-  - mkdir homebrew && curl -L https://github.com/Homebrew/brew/tarball/master | tar xz --strip 1 -C homebrew
+  - sudo apt-get install build-essential curl file git python-setuptools ruby
+  - ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Linuxbrew/install/master/install)"
+  - test -d ~/.linuxbrew && PATH="$HOME/.linuxbrew/bin:$PATH"
+  - test -d /home/linuxbrew/.linuxbrew && PATH="/home/linuxbrew/.linuxbrew/bin:$PATH"
+  - test -r ~/.profile && echo 'export PATH="$(brew --prefix)/bin:$PATH"' >>~/.profile
+  - echo 'export PATH="$(brew --prefix)/bin:$PATH"' >>~/.profile
   - brew install python gcc freetype pyqt
   - brew link --force freetype
   - export PATH="/usr/local/bin:$PATH"
