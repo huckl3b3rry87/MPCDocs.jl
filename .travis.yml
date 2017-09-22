@@ -33,14 +33,18 @@ addons:
 #sudo apt-get install python-matplotlib  # for pyplot
 install:
 #  - sudo apt-get install python-matplotlib
-  - sudo apt-get install build-essential curl file git python-setuptools ruby
-  - ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Linuxbrew/install/master/install)"
-  - echo 'export PATH="$(brew --prefix)/bin:$PATH"' >>~/.profile
-  - brew install python gcc freetype pyqt
-  - brew link --force freetype
-  - export PATH="/usr/local/bin:$PATH"
-  - export PYTHONPATH="/usr/local/lib/python2.7:$PYTHONPATH"
-  - pip install numpy scipy matplotlib
+  - sudo apt-add-repository ppa:python-matlibplot
+  - sudo apt-get update
+  - sudo apt-get install python-matplotlib
+
+#  - sudo apt-get install build-essential curl file git python-setuptools ruby
+#  - ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Linuxbrew/install/master/install)"
+#  - echo 'export PATH="$(brew --prefix)/bin:$PATH"' >>~/.profile
+#  - brew install python gcc freetype pyqt
+#  - brew link --force freetype
+#  - export PATH="/usr/local/bin:$PATH"
+#  - export PYTHONPATH="/usr/local/lib/python2.7:$PYTHONPATH"
+#  - pip install numpy scipy matplotlib
 
 after_success:
 - echo $TRAVIS_JULIA_VERSION
