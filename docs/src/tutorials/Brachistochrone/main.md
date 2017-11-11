@@ -61,7 +61,7 @@ Variable | Description
 
 The above bounds can be set in the same fashion as the initial and final state constraints. i.e. in an Array.
 
-## State and Control Names
+## State and Control Names (optional)
 ```@example Brachistochrone
 states!(n,[:x,:y,:v],descriptions=["x(t)","y(t)","v(t)"]);
 controls!(n,[:u],descriptions=["u(t)"]);
@@ -175,16 +175,24 @@ n.r.dfs_opt[2][:t_solve]
 For ``:ps`` methods the costates can also be calculates as
 
 ```@example Brachistochrone
+X0=[0.0,0.0,0.0]
+XF=[2.,-2.,NaN]
+n=define(numStates=3,numControls=1,X0=X0,XF=XF)
+states!(n,[:x,:y,:v],descriptions=["x(t)","y(t)","v(t)"])
+controls!(n,[:u],descriptions=["u(t)"])
+dx=[:(v[j]*sin(u[j])),:(-v[j]*cos(u[j])),:(9.81*cos(u[j]))]
+dynamics!(n,dx)
 n.s.evalCostates = true
-configure!(n;(:Nck=>[5,5,7,8]),(:finalTimeDV=>true));
-@NLobjective(n.mdl,Min,n.tf);
+configure!(n;(:Nck=>[100]),(:finalTimeDV=>true));
+@NLobjective(n.mdl,Min,n.tf)
 optimize!(n);
 using PrettyPlots
 allPlots(n)
 ```
+Notice how the control jumps down for a bit, that is due to the equivalence of ``cos(n*2pi)`` for any integer ``n``.
 
 ## Save results
-While some results are save automatically, additional data about the problem can be saved with the function ``saveData()`` as:
+While some results are save automatically, state, control, and costate (if applicable) data (about the collocation points and the Lagrange polynomial that runs through them) can be saved with the function ``saveData()`` as:
 ```@example Brachistochrone
 saveData(n)
 ```
