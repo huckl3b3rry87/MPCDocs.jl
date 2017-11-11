@@ -273,6 +273,22 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
+    "location": "tutorials/Brachistochrone/main.html#Costate-visualization-1",
+    "page": "Quick Ex#1: Brachistochrone",
+    "title": "Costate visualization",
+    "category": "section",
+    "text": "For ps methods the costates can also be calculates asn.s.evalCostates = true\nconfigure!(n;(:Nck=>[5,5,7,8]),(:finalTimeDV=>true));\n@NLobjective(n.mdl,Min,n.tf);\noptimize!(n);\nusing PrettyPlots\nallPlots(n)"
+},
+
+{
+    "location": "tutorials/Brachistochrone/main.html#Save-results-1",
+    "page": "Quick Ex#1: Brachistochrone",
+    "title": "Save results",
+    "category": "section",
+    "text": "While some results are save automatically, additional data about the problem can be saved with the function saveData() as:saveData(n)"
+},
+
+{
     "location": "tutorials/MoonLander/main.html#",
     "page": "Quick Ex#2: Moon Lander",
     "title": "Quick Ex#2: Moon Lander",
