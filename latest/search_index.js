@@ -177,9 +177,9 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "tutorials/Brachistochrone/main.html#State-and-Control-Names-1",
+    "location": "tutorials/Brachistochrone/main.html#State-and-Control-Names-(optional)-1",
     "page": "Quick Ex#1: Brachistochrone",
-    "title": "State and Control Names",
+    "title": "State and Control Names (optional)",
     "category": "section",
     "text": "states!(n,[:x,:y,:v],descriptions=[\"x(t)\",\"y(t)\",\"v(t)\"]);\ncontrols!(n,[:u],descriptions=[\"u(t)\"]);\nnothing # hide"
 },
@@ -277,7 +277,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Quick Ex#1: Brachistochrone",
     "title": "Costate visualization",
     "category": "section",
-    "text": "For ps methods the costates can also be calculates asn.s.evalCostates = true\nconfigure!(n;(:Nck=>[5,5,7,8]),(:finalTimeDV=>true));\n@NLobjective(n.mdl,Min,n.tf);\noptimize!(n);\nusing PrettyPlots\nallPlots(n)"
+    "text": "For ps methods the costates can also be calculates asX0=[0.0,0.0,0.0]\nXF=[2.,-2.,NaN]\nn=define(numStates=3,numControls=1,X0=X0,XF=XF)\nstates!(n,[:x,:y,:v],descriptions=[\"x(t)\",\"y(t)\",\"v(t)\"])\ncontrols!(n,[:u],descriptions=[\"u(t)\"])\ndx=[:(v[j]*sin(u[j])),:(-v[j]*cos(u[j])),:(9.81*cos(u[j]))]\ndynamics!(n,dx)\nn.s.evalCostates = true\nconfigure!(n;(:Nck=>[100]),(:finalTimeDV=>true));\n@NLobjective(n.mdl,Min,n.tf)\noptimize!(n);\nusing PrettyPlots\nallPlots(n)Notice how the control jumps down for a bit, that is due to the equivalence of cos(n*2pi) for any integer n."
 },
 
 {
@@ -285,7 +285,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Quick Ex#1: Brachistochrone",
     "title": "Save results",
     "category": "section",
-    "text": "While some results are save automatically, additional data about the problem can be saved with the function saveData() as:saveData(n)"
+    "text": "While some results are save automatically, state, control, and costate (if applicable) data (about the collocation points and the Lagrange polynomial that runs through them) can be saved with the function saveData() as:saveData(n)"
 },
 
 {
