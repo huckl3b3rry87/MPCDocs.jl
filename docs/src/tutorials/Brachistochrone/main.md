@@ -169,3 +169,22 @@ One thing that may be noticed is the long time that it takes to solve the proble
 optimize!(n);
 n.r.dfs_opt[2][:t_solve]
 ```
+
+
+## Costate visualization
+For ``:ps`` methods the costates can also be calculates as
+
+```@example Brachistochrone
+n.s.evalCostates = true
+configure!(n;(:Nck=>[5,5,7,8]),(:finalTimeDV=>true));
+@NLobjective(n.mdl,Min,n.tf);
+optimize!(n);
+using PrettyPlots
+allPlots(n)
+```
+
+## Save results
+While some results are save automatically, additional data about the problem can be saved with the function ``saveData()`` as:
+```@example Brachistochrone
+saveData(n)
+```
