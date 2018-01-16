@@ -88,7 +88,7 @@ nothing # hide
 
 ## Define and Configure the Problem:
 ```@example Bicycle
-configure!(n,Nck=[12,10,8];(:finalTimeDV=>true));
+configure!(n;(:Nck=>[12,10,8]),(:finalTimeDV=>true));
 nothing # hide
 ```
 

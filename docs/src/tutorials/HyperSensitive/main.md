@@ -23,7 +23,7 @@ nothing # hide
 
 ## Configure the Problem:
 ```@example HyperSensitive
-configure!(n,Nck=[3,3,3,3,3,3,3,3,3,3,3,3];(:finalTimeDV=>false),(:tf=>10000.0))
+configure!(n;(:Nck=>[3,3,3,3,3,3,3,3,3,3,3,3]),(:finalTimeDV=>false),(:tf=>10000.0))
 nothing # hide
 ```
 

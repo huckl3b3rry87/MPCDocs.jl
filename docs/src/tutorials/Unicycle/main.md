@@ -63,7 +63,7 @@ nothing # hide
 ## Define and Configure the Problem:
 ```@example Unicycle
 tplan = 7.0
-configure!(n;Nck=[50],(:finalTimeDV=>false), (:tf=>tplan))
+configure!(n;(:Nck=>[50]),(:finalTimeDV=>false), (:tf=>tplan))
 nothing # hide
 ```
 
