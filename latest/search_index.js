@@ -269,7 +269,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Quick Ex#1: Brachistochrone",
     "title": "For instance, let's re-run the optimization:",
     "category": "section",
-    "text": "optimize!(n);\nn.r.dfs_opt[2][:t_solve]"
+    "text": "optimize!(n);\nn.r.dfs_opt[:tSolve]"
 },
 
 {
@@ -645,7 +645,7 @@ var documenterSearchIndex = {"docs": [
     "page": "HyperSensitive",
     "title": "Configure the Problem:",
     "category": "section",
-    "text": "configure!(n,Nck=[3,3,3,3,3,3,3,3,3,3,3,3];(:finalTimeDV=>false),(:tf=>10000.0))\nnothing # hide"
+    "text": "configure!(n;(:Nck=>[3,3,3,3,3,3,3,3,3,3,3,3]),(:finalTimeDV=>false),(:tf=>10000.0))\nnothing # hide"
 },
 
 {
@@ -957,7 +957,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Unicycle Model",
     "title": "Define and Configure the Problem:",
     "category": "section",
-    "text": "tplan = 7.0\nconfigure!(n;Nck=[50],(:finalTimeDV=>false), (:tf=>tplan))\nnothing # hide"
+    "text": "tplan = 7.0\nconfigure!(n;(:Nck=>[50]),(:finalTimeDV=>false), (:tf=>tplan))\nnothing # hide"
 },
 
 {
@@ -1053,7 +1053,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Kinematic Bicycle Model",
     "title": "Define and Configure the Problem:",
     "category": "section",
-    "text": "configure!(n,Nck=[12,10,8];(:finalTimeDV=>true));\nnothing # hide"
+    "text": "configure!(n;(:Nck=>[12,10,8]),(:finalTimeDV=>true));\nnothing # hide"
 },
 
 {
