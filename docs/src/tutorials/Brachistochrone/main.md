@@ -167,7 +167,7 @@ One thing that may be noticed is the long time that it takes to solve the proble
 #### For instance, let's re-run the optimization:
 ```@example Brachistochrone
 optimize!(n);
-n.r.dfs_opt[2][:t_solve]
+n.r.dfs_opt[:tSolve]
 ```
 
 
