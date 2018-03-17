@@ -81,9 +81,9 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "tutorials/Brachistochrone/main.html#Solved-by:-John-and-Bernoulli,-Newton-and-L'Hospital-1",
+    "location": "tutorials/Brachistochrone/main.html#Solved-by:-John-and-Bernoulli,-Newton-and-L\'Hospital-1",
     "page": "Quick Ex#1: Brachistochrone",
-    "title": "Solved by: John and Bernoulli, Newton and L'Hospital",
+    "title": "Solved by: John and Bernoulli, Newton and L\'Hospital",
     "category": "section",
     "text": ""
 },
@@ -157,7 +157,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Quick Ex#1: Brachistochrone",
     "title": "Define the Problem",
     "category": "section",
-    "text": "Next let's write down the boundary conditions into an array:X0=[0.0,0.0,0.0]\nXF=[2.,-2.,NaN]\nnothing # hide"
+    "text": "Next let\'s write down the boundary conditions into an array:X0=[0.0,0.0,0.0]\nXF=[2.,-2.,NaN]\nnothing # hide"
 },
 
 {
@@ -189,7 +189,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Quick Ex#1: Brachistochrone",
     "title": "Differential Equations",
     "category": "section",
-    "text": "Now we need to write all of the given information out. Let's start with the differential equation, that is written as an array of expressions:dx=[:(v[j]*sin(u[j])),:(-v[j]*cos(u[j])),:(9.81*cos(u[j]))]\ndynamics!(n,dx)\nnothing # hide"
+    "text": "Now we need to write all of the given information out. Let\'s start with the differential equation, that is written as an array of expressions:dx=[:(v[j]*sin(u[j])),:(-v[j]*cos(u[j])),:(9.81*cos(u[j]))]\ndynamics!(n,dx)\nnothing # hide"
 },
 
 {
@@ -265,9 +265,9 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "tutorials/Brachistochrone/main.html#For-instance,-let's-re-run-the-optimization:-1",
+    "location": "tutorials/Brachistochrone/main.html#For-instance,-let\'s-re-run-the-optimization:-1",
     "page": "Quick Ex#1: Brachistochrone",
-    "title": "For instance, let's re-run the optimization:",
+    "title": "For instance, let\'s re-run the optimization:",
     "category": "section",
     "text": "optimize!(n);\nn.r.dfs_opt[:tSolve]"
 },
@@ -925,7 +925,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Unicycle Model",
     "title": "Define the Problem",
     "category": "section",
-    "text": "Next let's write down the boundary conditions into an array:X0=[0,0,pi/2,0]\nXL=[-10,-10,-pi,0]\nXU=[10,10,pi,1]\nCL=[-1,-3]\nCU=[1,3]\nnothing # hide"
+    "text": "Next let\'s write down the boundary conditions into an array:X0=[0,0,pi/2,0]\nXL=[-10,-10,-pi,0]\nXU=[10,10,pi,1]\nCL=[-1,-3]\nCU=[1,3]\nnothing # hide"
 },
 
 {
@@ -1069,7 +1069,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Kinematic Bicycle Model",
     "title": "Linear State Tolerances",
     "category": "section",
-    "text": "mXL=Any[false,false,false,false];\nmXU=Any[false,false,false,-1];  # set to false if you don't want to taper that side\nlinearStateTolerances!(n;mXL=mXL,mXU=mXU);\nnothing # hide"
+    "text": "mXL=Any[false,false,false,false];\nmXU=Any[false,false,false,-1];  # set to false if you don\'t want to taper that side\nlinearStateTolerances!(n;mXL=mXL,mXU=mXU);\nnothing # hide"
 },
 
 {
