@@ -5,6 +5,6 @@ The following link provides documentation all of the exported `NLOptControl.jl` 
 ```@autodocs
 Modules = [NLOptControl]
 Private = false
-Order = [:function]
+Order = [:macro, :function, :type]
 Depth = 2
 ```
