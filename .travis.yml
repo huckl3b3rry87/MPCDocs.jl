@@ -83,6 +83,8 @@ after_success:
 - if [[ -a .git/shallow ]]; then git fetch --unshallow; fi
 - julia -e 'run(`lualatex -v`)'
 - julia -e 'Pkg.clone(pwd())'
+- julia -e 'Pkg.add("Ipopt")'
+- julia -e 'Pkg.build("Ipopt")'
 - julia -e 'Pkg.clone("https://github.com/JuliaMPC/VehicleModels.jl")'
 - julia -e 'Pkg.clone("https://github.com/JuliaMPC/PrettyPlots.jl")'
 - julia -e 'Pkg.clone("https://github.com/JuliaMPC/NLOptControl.jl")'
