@@ -22,5 +22,3 @@ docs_dir: 'build'
 
 pages:
 - Introduction: index.md
-- Tutorial:
-  - Title 1: tutorials/MoonLander/MoonLander.md
