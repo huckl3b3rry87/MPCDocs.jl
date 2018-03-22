@@ -25,17 +25,7 @@ nothing # hide
 
 # Differential Equations
 
-```@setup RobotArm
-# Diff Eqs
-dx=[:(x2[j]);
-    :(u1[j]/$Q);
-    :(x4[j]);
-    :(u2[j]/(((($Q-x1[j])^3+x1[j]^3)/3*sin(x5[j])^2)+$EP));
-    :(x6[j]);
-    :(u3[j]/(((($Q-x1[j])^3+x1[j]^3)/3 )+$EP))]
-nothing # hide
-```
-```julia
+````@example RobotArm
 # expressions
 I_t= :((($Q-x1[j])^3+x1[j]^3)/3*sin(x5[j])^2);
 I_p= :((($Q-x1[j])^3+x1[j]^3)/3 );

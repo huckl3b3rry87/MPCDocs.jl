@@ -44,13 +44,7 @@ controls!(n,[:T],descriptions=["thrust (t)"]);
 ```
 
 ## Differential Equations
-```@setup Rocket
-dx=[:(v[j]);
-:((T[j]-($D_c*v[j]^2*exp(-$h_c*(h[j]-$h_0)/$h_0)))/m[j]-($g_0*($h_0/h[j])^2));
-:(-T[j]/$c)];
-```
-
-```julia
+```@example Rocket
 Drag=:($D_c*v[j]^2*exp(-$h_c*(h[j]-$h_0)/$h_0));
 Grav=:($g_0*($h_0/h[j])^2);
 dx=Array{Expr}(3,);
