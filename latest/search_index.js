@@ -149,7 +149,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Quick Ex#1: Brachistochrone",
     "title": "Packages that will be used",
     "category": "section",
-    "text": "using NLOptControl\nnothing # hide"
+    "text": "using NLOptControl, PrettyPlots\nnothing # hide"
 },
 
 {
@@ -237,7 +237,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Quick Ex#1: Brachistochrone",
     "title": "Post Process",
     "category": "section",
-    "text": "Make sure that you are not running the code in a folder where you have an important folder named results, because it will be deleted! Now that the problem has been optimized, we can quickly visualize the solution using allPlots() as:using PrettyPlots\nallPlots(n)"
+    "text": "Make sure that you are not running the code in a folder where you have an important folder named results, because it will be deleted! Now that the problem has been optimized, we can quickly visualize the solution using allPlots() as:allPlots(n)"
 },
 
 {
@@ -373,7 +373,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Quick Ex#2: Moon Lander",
     "title": "Packages that will be used",
     "category": "section",
-    "text": "using NLOptControl\nnothing # hide"
+    "text": "using NLOptControl, PrettyPlots\nnothing # hide"
 },
 
 {
@@ -429,7 +429,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Quick Ex#2: Moon Lander",
     "title": "Post Process",
     "category": "section",
-    "text": "using PrettyPlots\nallPlots(n)"
+    "text": "allPlots(n)"
 },
 
 {
@@ -477,7 +477,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Bryson Denham",
     "title": "Packages that will be used",
     "category": "section",
-    "text": "using NLOptControl\nnothing # hide"
+    "text": "using NLOptControl, PrettyPlots\nnothing # hide"
 },
 
 {
@@ -525,7 +525,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Bryson Denham",
     "title": "Post Process",
     "category": "section",
-    "text": "using PrettyPlots\nallPlots(n)"
+    "text": "allPlots(n)"
 },
 
 {
@@ -621,7 +621,7 @@ var documenterSearchIndex = {"docs": [
     "page": "HyperSensitive",
     "title": "Packages that will be used",
     "category": "section",
-    "text": "using NLOptControl\nnothing # hide"
+    "text": "using NLOptControl, PrettyPlots\nnothing # hide"
 },
 
 {
@@ -669,7 +669,7 @@ var documenterSearchIndex = {"docs": [
     "page": "HyperSensitive",
     "title": "Post Process",
     "category": "section",
-    "text": "using PrettyPlots\nplotSettings(;(:size=>(1200,1200)));\nallPlots(n)"
+    "text": "plotSettings(;(:size=>(1200,1200)));\nallPlots(n)"
 },
 
 {
@@ -693,7 +693,7 @@ var documenterSearchIndex = {"docs": [
     "page": "RobotArm",
     "title": "Packages that will be used",
     "category": "section",
-    "text": "using NLOptControl\nnothing # hide"
+    "text": "using NLOptControl, PrettyPlots\nnothing # hide"
 },
 
 {
@@ -733,7 +733,7 @@ var documenterSearchIndex = {"docs": [
     "page": "RobotArm",
     "title": "Diff Eqs",
     "category": "section",
-    "text": "dx=Array{Expr}(6,); dx[1]=:(x2[j]); dx[2]=:(u1[j]/Q) dx3=(x4j) dx4=(u2j(I_t+EP)) dx5=(x6j) dx6=(u3j(I_p+EP));Then add the differential equations to the model:@example RobotArm dynamics!(n,dx)\n## Configure the Problem:@example RobotArm configure!(n;(:finalTimeDV=>true)) nothing # hide\n## Objective Function@example RobotArm @NLobjective(n.mdl,Min,n.tf); nothing # hide\n## Optimize@example RobotArm optimize!(n); nothing # hide\n## Post Process@example RobotArm using PrettyPlots allPlots(n) ```"
+    "text": "dx=Array{Expr}(6,); dx[1]=:(x2[j]); dx[2]=:(u1[j]/Q) dx3=(x4j) dx4=(u2j(I_t+EP)) dx5=(x6j) dx6=(u3j(I_p+EP));Then add the differential equations to the model:@example RobotArm dynamics!(n,dx)\n## Configure the Problem:@example RobotArm configure!(n;(:finalTimeDV=>true)) nothing # hide\n## Objective Function@example RobotArm @NLobjective(n.mdl,Min,n.tf); nothing # hide\n## Optimize@example RobotArm optimize!(n); nothing # hide\n## Post Process@example RobotArm allPlots(n) ```"
 },
 
 {
@@ -757,7 +757,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Rocket",
     "title": "Packages that will be used",
     "category": "section",
-    "text": "using NLOptControl\nnothing # hide"
+    "text": "using NLOptControl, PrettyPlots\nnothing # hide"
 },
 
 {
@@ -821,7 +821,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Rocket",
     "title": "Post Process",
     "category": "section",
-    "text": "using PrettyPlots\nallPlots(n)"
+    "text": "allPlots(n)"
 },
 
 {
@@ -901,7 +901,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Unicycle Model",
     "title": "Packages that will be used",
     "category": "section",
-    "text": "using NLOptControl\nnothing # hide"
+    "text": "using NLOptControl, PrettyPlots\nnothing # hide"
 },
 
 {
@@ -965,7 +965,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Unicycle Model",
     "title": "Post Process",
     "category": "section",
-    "text": "using PrettyPlots\nplotSettings(;(:size=>(700,700)))\nallPlots(n)Taking a closer look at the position:plotSettings(;(:size=>(400,400)));\nstatePlot(n,1,1,2;(:lims=>false))\nxlims!(-3,2);\nylims!(0,5);"
+    "text": "plotSettings(;(:size=>(700,700)))\nallPlots(n)Taking a closer look at the position:plotSettings(;(:size=>(400,400)));\nstatePlot(n,1,1,2;(:lims=>false))\nxlims!(-3,2);\nylims!(0,5);"
 },
 
 {
@@ -989,7 +989,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Kinematic Bicycle Model",
     "title": "Packages that will be used",
     "category": "section",
-    "text": "using NLOptControl,Parameters,VehicleModels\nnothing # hide"
+    "text": "using NLOptControl,Parameters,VehicleModels, PrettyPlots\n\nnothing # hide"
 },
 
 {
@@ -1077,7 +1077,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Kinematic Bicycle Model",
     "title": "Post Process",
     "category": "section",
-    "text": "using PrettyPlots\nplotSettings(;(:size=>(700,700)));\nallPlots(n)Notice the longitudinal velocity is pushed down to 29 m/s using the linearStateTolerances!() function.The state limits can be turned off in the plots with (:lims=>false) and the obstacle plot handle can be passed to statePlot() in the 5th argument and by using (:append=>true).plotSettings(;(:size=>(400,400)));\nobs=obstaclePlot(n,c)\nstatePlot(n,1,1,2,obs;(:append=>true),(:lims=>false))\nxlims!(-45,55);\nylims!(0,110);"
+    "text": "plotSettings(;(:size=>(700,700)));\nallPlots(n)Notice the longitudinal velocity is pushed down to 29 m/s using the linearStateTolerances!() function.The state limits can be turned off in the plots with (:lims=>false) and the obstacle plot handle can be passed to statePlot() in the 5th argument and by using (:append=>true).plotSettings(;(:size=>(400,400)));\nobs=obstaclePlot(n,c)\nstatePlot(n,1,1,2,obs;(:append=>true),(:lims=>false))\nxlims!(-45,55);\nylims!(0,110);"
 },
 
 ]}
