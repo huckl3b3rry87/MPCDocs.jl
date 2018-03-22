@@ -4,7 +4,8 @@ The vehicle model comes from the [BARC-project](https://github.com/MPC-Berkeley/
 
 ## Packages that will be used
 ```@example Bicycle
-using NLOptControl,Parameters,VehicleModels
+using NLOptControl,Parameters,VehicleModels, PrettyPlots
+
 nothing # hide
 ```
 
@@ -123,7 +124,6 @@ nothing # hide
 
 ## Post Process
 ```@example Bicycle
-using PrettyPlots
 plotSettings(;(:size=>(700,700)));
 allPlots(n)
 ```

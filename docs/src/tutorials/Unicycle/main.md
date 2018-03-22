@@ -21,7 +21,7 @@ $$J=({x}_1(t_f)-x_g)^2 + ({x}_2(t_f)-y_g)^2)$$
 ## Solution:
 ## Packages that will be used
 ```@example Unicycle
-using NLOptControl
+using NLOptControl, PrettyPlots
 nothing # hide
 ```
 
@@ -83,7 +83,6 @@ nothing # hide
 
 ## Post Process
 ```@example Unicycle
-using PrettyPlots
 plotSettings(;(:size=>(700,700)))
 allPlots(n)
 ```

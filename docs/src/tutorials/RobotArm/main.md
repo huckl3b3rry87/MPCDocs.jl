@@ -6,7 +6,7 @@ This problem can be found [here](http://www.gpops2.com/Examples/RobotArm.html).
 
 ## Packages that will be used
 ```@example RobotArm
-using NLOptControl
+using NLOptControl, PrettyPlots
 nothing # hide
 ```
 
@@ -64,6 +64,5 @@ nothing # hide
 
 ## Post Process
 ```@example RobotArm
-using PrettyPlots
 allPlots(n)
 ```

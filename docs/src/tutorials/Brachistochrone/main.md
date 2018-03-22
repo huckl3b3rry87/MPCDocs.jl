@@ -20,7 +20,7 @@ This problem can be found [here](http://www.gpops2.com/Examples/Brachistochrone.
 
 ## Packages that will be used
 ```@example Brachistochrone
-using NLOptControl
+using NLOptControl, PrettyPlots
 nothing # hide
 ```
 
@@ -117,7 +117,6 @@ nothing # hide
 **Make sure that you are not running the code in a folder where you have an important folder named `results`, because it will be deleted!**
 Now that the problem has been optimized, we can quickly visualize the solution using ``allPlots()`` as:
 ```@example Brachistochrone
-using PrettyPlots
 allPlots(n)
 ```
 #### Optional plot settings

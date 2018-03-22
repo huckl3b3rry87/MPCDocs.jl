@@ -5,7 +5,7 @@ This problem can be found [here](http://www.gpops2.com/Examples/Brachistochrone.
 
 ## Packages that will be used
 ```@example HyperSensitive
-using NLOptControl
+using NLOptControl, PrettyPlots
 nothing # hide
 ```
 
@@ -40,7 +40,6 @@ nothing # hide
 ```
 ## Post Process
 ```@example HyperSensitive
-using PrettyPlots
 plotSettings(;(:size=>(1200,1200)));
 allPlots(n)
 ```

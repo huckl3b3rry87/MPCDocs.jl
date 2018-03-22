@@ -4,7 +4,7 @@ This problem can be found [here](http://www.gpops2.com/Examples/Bryson-Denham.ht
 
 ## Packages that will be used
 ```@example BrysonDenham
-using NLOptControl
+using NLOptControl, PrettyPlots
 nothing # hide
 ```
 
@@ -41,6 +41,5 @@ nothing # hide
 
 ## Post Process
 ```@example BrysonDenham
-using PrettyPlots
 allPlots(n)
 ```

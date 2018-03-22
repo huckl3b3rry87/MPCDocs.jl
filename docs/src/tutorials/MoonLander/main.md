@@ -24,7 +24,7 @@ This problem can be found [here](http://www.gpops2.com/Examples/MoonLander.html)
 
 ## Packages that will be used
 ```@example MoonLander
-using NLOptControl
+using NLOptControl, PrettyPlots
 nothing # hide
 ```
 
@@ -77,7 +77,6 @@ nothing # hide
 
 ## Post Process
 ```@example MoonLander
-using PrettyPlots
 allPlots(n)
 ```
 ## Other Dynamic Constraint Methods

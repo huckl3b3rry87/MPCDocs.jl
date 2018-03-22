@@ -4,7 +4,7 @@ This problem can be found [here](https://github.com/JuliaOpt/juliaopt-notebooks/
 
 ## Packages that will be used
 ```@example Rocket
-using NLOptControl
+using NLOptControl, PrettyPlots
 nothing # hide
 ```
 
@@ -77,6 +77,5 @@ nothing # hide
 
 ## Post Process
 ```@example Rocket
-using PrettyPlots
 allPlots(n)
 ```
