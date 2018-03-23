@@ -717,23 +717,39 @@ var documenterSearchIndex = {"docs": [
     "page": "RobotArm",
     "title": "Differential Equations",
     "category": "section",
-    "text": "````@example RobotArm"
+    "text": "# expressions\nI_t= :((($Q-x1[j])^3+x1[j]^3)/3*sin(x5[j])^2);\nI_p= :((($Q-x1[j])^3+x1[j]^3)/3 );\n\n# Diff Eqs\ndx=Array{Expr}(6,);\ndx[1]=:(x2[j]);\ndx[2]=:(u1[j]/$Q);\ndx[3]=:(x4[j]);\ndx[4]=:(u2[j]/($I_t+$EP));\ndx[5]=:(x6[j]);\ndx[6]=:(u3[j]/($I_p+$EP));Then add the differential equations to the model:dynamics!(n,dx)"
 },
 
 {
-    "location": "tutorials/RobotArm/main.html#expressions-1",
+    "location": "tutorials/RobotArm/main.html#Configure-the-Problem:-1",
     "page": "RobotArm",
-    "title": "expressions",
+    "title": "Configure the Problem:",
     "category": "section",
-    "text": "I_t= :(((Q-x1j)^3+x1j^3)3*sin(x5j)^2) I_p= (((Q-x1[j])^3+x1[j]^3)/3 );"
+    "text": "configure!(n;(:finalTimeDV=>true))\nnothing # hide"
 },
 
 {
-    "location": "tutorials/RobotArm/main.html#Diff-Eqs-1",
+    "location": "tutorials/RobotArm/main.html#Objective-Function-1",
     "page": "RobotArm",
-    "title": "Diff Eqs",
+    "title": "Objective Function",
     "category": "section",
-    "text": "dx=Array{Expr}(6,); dx[1]=:(x2[j]); dx[2]=:(u1[j]/Q) dx3=(x4j) dx4=(u2j(I_t+EP)) dx5=(x6j) dx6=(u3j(I_p+EP));Then add the differential equations to the model:@example RobotArm dynamics!(n,dx)\n## Configure the Problem:@example RobotArm configure!(n;(:finalTimeDV=>true)) nothing # hide\n## Objective Function@example RobotArm @NLobjective(n.mdl,Min,n.tf); nothing # hide\n## Optimize@example RobotArm optimize!(n); nothing # hide\n## Post Process@example RobotArm allPlots(n) ```"
+    "text": "@NLobjective(n.mdl,Min,n.tf);\nnothing # hide"
+},
+
+{
+    "location": "tutorials/RobotArm/main.html#Optimize-1",
+    "page": "RobotArm",
+    "title": "Optimize",
+    "category": "section",
+    "text": "optimize!(n);\nnothing # hide"
+},
+
+{
+    "location": "tutorials/RobotArm/main.html#Post-Process-1",
+    "page": "RobotArm",
+    "title": "Post Process",
+    "category": "section",
+    "text": "allPlots(n)"
 },
 
 {
