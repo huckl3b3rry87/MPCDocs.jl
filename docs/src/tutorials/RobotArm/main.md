@@ -25,7 +25,7 @@ nothing # hide
 
 # Differential Equations
 
-````@example RobotArm
+```@example RobotArm
 # expressions
 I_t= :((($Q-x1[j])^3+x1[j]^3)/3*sin(x5[j])^2);
 I_p= :((($Q-x1[j])^3+x1[j]^3)/3 );
