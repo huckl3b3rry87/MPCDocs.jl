@@ -12,10 +12,10 @@ The settings are defined using the `configureMPC!()` function where the followin
 
 |Variable                 | Key | Possible Values    | Description |
 |:---                      :---    | :---
-|`n.mpc.s.mode`    |`:mode` | `:OCP`,  `:InternalPlant`, `:InternalExternalPlant`, `:ExternalPlant` | identifies the  `simulationMode`|
+|`n.mpc.s.mode`    |`:mode` | `:OCP`,  `:IP`, `:IPEP`, `:EP` | identifies the  `simulationMode`|
 |`n.mpc.s.predictX0` | `:predictX0`| `true` or `false`| bool to indicate if `X0` will be predicted
 |`n.mpc.s.fixedTex`   | `:fixedTex`| `true` or `false` | bool to indicate if `n.mpc.tex` is fixed
-|`n.mpc.s.internalPlantKnown`  |`:internalPlantKnown` |`true` or `false` | bool to indicate if the ``InternalPlant`` is known
+|`n.mpc.s.IPKnown`  |`:IPKnown` |`true` or `false` | bool to indicate if the ``InternalPlant`` is known
 |`n.mpc.s.saveMode`  |`:saveMode` |`:all` or `:none` | indicates the mode that is to be utilized to save the results
 
 As an example:
@@ -33,7 +33,7 @@ Variable | Initial Value | Description
 # simulationModes
 There are four different possible values for `simulationMode` that can be set by the `:mode` key as described above.
 
-## `:OCP`
+## OCP (`:OCP`)
 In this case, the plant model is the set of differential equations defined within the OCP. The entire OCP is still defined entirely outside of the MPC_Module. For instance, ``n.numStates`` and ``n.numControls`` represent the number of states and controls for the OCP, respectively.
 
 To keep track of all of the `n.X0`s that are passed to the OCP, we define an time stamped array is defined called ``n.mpc.X0ocp``. The first element in ``n.mpc.X0ocp`` is automatically set to ``n.X0`` after calling ``initializeMPC()``.
@@ -63,7 +63,7 @@ Since the plant is known in this case, ``n.X0`` is updated using future knowledg
 ```
 ---
 
-## `:InternalPlant`
+## InternalPlant (`:IP`)
 In this case, the OCP is solved controls are sent to
 
 ### Variables
@@ -71,9 +71,27 @@ The states and controls in this model may not be the same as they are in the ``O
 
 Variable | Description
 :--- | :---
-`n.mpc.numControlsInternal` | number of control variables for the `InternalPlant`
-`n.mpc.numStatesInternal` | number of state variables for the `InternalPlant`
+`n.mpc.numControlsIP` | number of control variables for the `InternalPlant`
+`n.mpc.numStatesIP` | number of state variables for the `InternalPlant`
+`n.mpc.IPeMap` | mapping
 
+
+As an example, assume that in the OCP, the [KinematicBicycle](https://github.com/JuliaMPC/VehicleModels.jl/blob/master/src/KinematicBicycle/KinematicBicycle.jl) is used. The state and controls should be defined as:
+```
+states!(n,[:x,:y,:psi,:ux])
+controls!(n,[:sa,:ax])
+```
+Then assume that the [ThreeDOFv1](https://github.com/JuliaMPC/VehicleModels.jl/blob/master/src/Three_DOF/Three_DOF.jl) is used for the `InternalPlant`. The states and controls would be defined as:
+```
+statesIP!(n,[:x,:y,:v,:r,:psi,:sa,:ux,:ax])
+controlsIP!(n,[:sr,:jx])
+```
+
+To calculate the error array, each state variable in the `OCP` is compared with each state and control variable in the `IP`. The result is stored in a map called `n.mpc.mIP`. For the aforementioned example, that map look like:
+
+```julia
+
+````
 
 ### State Equations
 For this mode, the plant model is defined by `plantEquations` within NLOptControl.
@@ -85,14 +103,14 @@ This is simply done as
  where `KinematicBicycle` is a function that solves a set of ODEs given a control, an initial state, and a simulation time. For an example see [VehicleModels.jl](https://github.com/JuliaMPC/VehicleModels.jl/blob/master/src/KinematicBicycle/KinematicBicycle.jl#L24).
 
 
-## `:InternalExternalPlant`
-In this mode, there is an `InternalPlant` that can be used to help predict X0 (X0p) for an ``ExternalPlant``.
+## InternalExternalPlant (`:IPEP`)
+In this mode, there is an `IP` that can be used to help predict X0 (X0p) for an `EP`.
 
 
-This option can be useful when the OCP needs to be solved quickly and a more complicated model (``InternalPlant``) may give better ``X0p``. Also, in developing functionality to determine the error in ``X0p``. That is without having to deal with an external simulation can methods be developed to improve ``X0p``.
+This option can be useful when the OCP needs to be solved quickly and a more complicated model (`IP`) may give better `X0p`. Also, in developing functionality to determine the error in `X0p`. That is without having to deal with an external simulation can methods be developed to improve `X0p`.
 
-## `:ExternalPlant`
-A set of `n.X` and `n.U` makes up `UEX` and is fed directly to an `ExternalPlant`.
+## ExternalPlant (`:EP`)
+A set of `n.X` and `n.U` makes up `UEX` and is fed directly to an `EP`.
 
 # Synchronization
 Synchronizing MPC systems is critical for performance and safety.
@@ -119,7 +137,7 @@ In this case, the errors are calculated
 # InternalExternalPlant
 This is the most complicated mode and there can be errors
 
-# Results
+# Results and Variables
 The following tables describe the results and are organized by mode.
 
 Concern is that there may be too much data to save.
