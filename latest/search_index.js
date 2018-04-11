@@ -33,19 +33,27 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "index.html#juliaCon-Workshop-Notebook-(OUT-OF-DATE!)-1",
-    "page": "Home",
-    "title": "2017 juliaCon Workshop Notebook (OUT OF DATE!)",
-    "category": "section",
-    "text": "After installation, the notebook can be viewed:using IJulia\nnotebook(dir=Pkg.dir(\"NLOptControl/examples\"))Also, on the left side of this site, there are many tutorials that provide complete examples for using this software. Please look at these for information on how to use this tool."
-},
-
-{
     "location": "index.html#Citation-1",
     "page": "Home",
     "title": "Citation",
     "category": "section",
     "text": "If you find NLOptControl.jl useful, please cite it:@software{nlopt,\n  author = {{Huckleberry Febbo}},\n  title = {NLOptControl.jl},\n  url = {https://github.com/JuliaMPC/NLOptControl.jl},\n  version = {0.0.1},\n  date = {2017-06-17},\n}If you find VehicleModels.jl useful, please cite this paper:@Conference{Febbo2017,\n  author    = {Huckleberry Febbo, Jiechao Liu, Paramsothy Jayakumar, Jeffrey L. Stein, Tulga Ersal},\n  title     = {Moving Obstacle Avoidance for Large, High-Speed Autonomous Ground Vehicles},\n  year      = {2017},\n  publisher = {IEEE}\n}"
+},
+
+{
+    "location": "index.html#MPC-Functionality-1",
+    "page": "Home",
+    "title": "MPC Functionality",
+    "category": "section",
+    "text": "The following link provides documentation all of the MPC specific functionality for NLOptControl.jl.Pages=[\n    \"functions/MPC.md\",\n    ]\nDepth=1"
+},
+
+{
+    "location": "index.html#juliaCon-Workshop-Notebook-(OUT-OF-DATE!)-1",
+    "page": "Home",
+    "title": "2017 juliaCon Workshop Notebook (OUT OF DATE!)",
+    "category": "section",
+    "text": "After installation, the notebook can be viewed:using IJulia\nnotebook(dir=Pkg.dir(\"NLOptControl/examples\"))Also, on the left side of this site, there are many tutorials that provide complete examples for using this software. Please look at these for information on how to use this tool."
 },
 
 {
