@@ -36,16 +36,6 @@ Pkg.add("GR");Pkg.build("GR");              # most reliable
 Pkg.add("PyPlot");Pkg.build("PyPlot")       # also a good option  
 ```
 
-## 2017 juliaCon Workshop Notebook (OUT OF DATE!)
-
-After installation, the notebook can be viewed:
-```julia
-using IJulia
-notebook(dir=Pkg.dir("NLOptControl/examples"))
-```
-
-Also, on the left side of this site, there are many tutorials that provide complete examples for using this software. Please look at these for information on how to use this tool.
-
 ## Citation
 If you find [NLOptControl.jl](https://github.com/JuliaMPC/NLOptControl.jl) useful, please cite it:
 ```
@@ -67,6 +57,28 @@ If you find [VehicleModels.jl](https://github.com/JuliaMPC/VehicleModels.jl) use
   publisher = {IEEE}
 }
 ```
+
+## MPC Functionality
+
+The following link provides documentation all of the MPC specific functionality for `NLOptControl.jl`.
+
+```@contents
+Pages=[
+    "functions/MPC.md",
+    ]
+Depth=1
+```
+
+## 2017 juliaCon Workshop Notebook (OUT OF DATE!)
+
+After installation, the notebook can be viewed:
+```julia
+using IJulia
+notebook(dir=Pkg.dir("NLOptControl/examples"))
+```
+
+Also, on the left side of this site, there are many tutorials that provide complete examples for using this software. Please look at these for information on how to use this tool.
+
 
 ## Acknowledgements
 * [JuMP.jl](https://jump.readthedocs.io/en/latest/) is an important part of this NLOptControl.jl and discussions with Miles Lubin where helpful
