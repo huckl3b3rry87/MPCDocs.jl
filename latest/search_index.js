@@ -41,14 +41,6 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "index.html#MPC-Functionality-1",
-    "page": "Home",
-    "title": "MPC Functionality",
-    "category": "section",
-    "text": "The following link provides documentation all of the MPC specific functionality for NLOptControl.jl.Pages=[\n    \"functions/MPC.md\",\n    ]\nDepth=1"
-},
-
-{
     "location": "index.html#juliaCon-Workshop-Notebook-(OUT-OF-DATE!)-1",
     "page": "Home",
     "title": "2017 juliaCon Workshop Notebook (OUT OF DATE!)",
@@ -1021,7 +1013,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Kinematic Bicycle Model",
     "title": "Parameters form VehicleModels.jl",
     "category": "section",
-    "text": "pa=VparaKB(x0_=0.);  \n@unpack_VparaKB pa # vehicle parameters\nX0=[x0_,y0_,psi0_,u0_];\nXF=[NaN,NaN,NaN,NaN];\nXL=[x_min,y_min,psi_min,u_min];\nXU=[x_max,y_max,psi_max,u_max];\nCL=[sa_min,ax_min];\nCU=[sa_max,ax_max];\nnothing # hide"
+    "text": "pa=Vpara(x0_=0.);  \n@unpack_Vpara pa # vehicle parameters\nX0=[x0_,y0_,psi0_,u0_];\nXF=[NaN,NaN,NaN,NaN];\nXL=[x_min,y_min,psi_min,u_min];\nXU=[x_max,y_max,psi_max,u_max];\nCL=[sa_min,ax_min];\nCU=[sa_max,ax_max];\nnothing # hide"
 },
 
 {
@@ -1102,6 +1094,214 @@ var documenterSearchIndex = {"docs": [
     "title": "Post Process",
     "category": "section",
     "text": "plotSettings(;(:size=>(700,700)));\nallPlots(n)Notice the longitudinal velocity is pushed down to 29 m/s using the linearStateTolerances!() function.The state limits can be turned off in the plots with (:lims=>false) and the obstacle plot handle can be passed to statePlot() in the 5th argument and by using (:append=>true).plotSettings(;(:size=>(400,400)));\nobs=obstaclePlot(n,c)\nstatePlot(n,1,1,2,obs;(:append=>true),(:lims=>false))\nxlims!(-45,55);\nylims!(0,110);"
+},
+
+{
+    "location": "mpc/index.html#",
+    "page": "General",
+    "title": "General",
+    "category": "page",
+    "text": ""
+},
+
+{
+    "location": "mpc/index.html#General-1",
+    "page": "General",
+    "title": "General",
+    "category": "section",
+    "text": "The following link provides documentation all of the MPC specific functionality for NLOptControl.jl.The basic MPC problem is first defined using the  defineMPC!() function.In this function call, the user needs to specify all of the data that will eventually be needed to call the configureMPC!(). So, depending on the :simulationMode different sets of initialization data must be first be passed to defineMPC!(). These sets of initialization data are described for each :simulationMode in simulationModes.  "
+},
+
+{
+    "location": "mpc/index.html#Variables-1",
+    "page": "General",
+    "title": "Variables",
+    "category": "section",
+    "text": "Variable Description\nn.mpc.t current time in (s)\nn.mpc.tex current execution time horizon in (s)\nn.mpc.tp current prediction time in (s) == getvalue(n.tf) if n.s.finalTimeDV==false (otherwise it is not applicable)\nn.mpc.maxSim maximum number of total MPC updates"
+},
+
+{
+    "location": "mpc/index.html#Settings-1",
+    "page": "General",
+    "title": "Settings",
+    "category": "section",
+    "text": "The settings are defined using the configureMPC!() function where the following keys can be passed.Variable Key Possible Values Description\nn.mpc.s.mode :mode :OCP,  :IP, :IPEP, :EP identifies the  simulationMode\nn.mpc.s.predictX0 :predictX0 true or false bool to indicate if X0 will be predicted\nn.mpc.s.fixedTex :fixedTex true or false bool to indicate if n.mpc.tex is fixed\nn.mpc.s.IPKnown :IPKnown true or false bool to indicate if the IP is known\nn.mpc.s.saveMode :saveMode :all or :none indicates the mode that is to be utilized to save the resultsAs an example:configureMPC!(n,(:mode=>:OCP))"
+},
+
+{
+    "location": "mpc/index.html#Flags-1",
+    "page": "General",
+    "title": "Flags",
+    "category": "section",
+    "text": "The value for all of the flags is true or false.Variable Initial Value Description\nn.mpc.flags.goalReached false bool to indicate if the goal has been reached"
+},
+
+{
+    "location": "mpc/index.html#simulationModes-1",
+    "page": "General",
+    "title": "simulationModes",
+    "category": "section",
+    "text": "There are four different possible values for simulationMode that can be set by the :mode key as described above."
+},
+
+{
+    "location": "mpc/index.html#OCP-(:OCP)-1",
+    "page": "General",
+    "title": "OCP (:OCP)",
+    "category": "section",
+    "text": "In this case, the plant model is the set of differential equations defined within the OCP. The entire OCP is still defined entirely outside of the MPC_Module. For instance, n.numStates and n.numControls represent the number of states and controls for the OCP, respectively.To keep track of all of the n.X0s that are passed to the OCP, we define an time stamped array is defined called n.mpc.X0ocp. The first element in n.mpc.X0ocp is automatically set to n.X0 after calling defineMPC!().NOTEFor all modes, the initial state in optimization, n.X0, is set using the define() function. If needed, it can be changed before the initial optimization using the updateX0!() function.n.mpc.X0ocp and n.U are passed to these differential equations to simulate the plant for a time given by n.mpc.tex, the final state is stored in the next element in the n.mpc.X0ocp array. Then, n.X0 is updated to n.mpc.X0ocp[end].NOTESince the plant is known in this case, n.X0 is updated using future knowledge of the state. So, the simulation is \"cheating\" in a way, by assuming perfect knowledge of where the vehicle will be after n.mpc.tex.                           Given\n                             |\n                             V\n        OCP solving    n.mpc.X0ocp[end]\n      -------------->\n      x----------------------x----------------------x\n  n.mpc.t0         (n.mpc.t0 + n.mpc.tex)"
+},
+
+{
+    "location": "mpc/index.html#IP-(:IP)-1",
+    "page": "General",
+    "title": "IP (:IP)",
+    "category": "section",
+    "text": "In this case, the OCP is solved controls are sent to"
+},
+
+{
+    "location": "mpc/index.html#Variables-2",
+    "page": "General",
+    "title": "Variables",
+    "category": "section",
+    "text": "The states and controls in this model may not be the same as they are in the OCP and thus n.numStates and n.numControls may not represent the number of states and controls, respectively for the IP.Variable Description\nn.mpc.numControlsIP number of control variables for the IP\nn.mpc.numStatesIP number of state variables for the IP\nn.mpc.IPeMap mappingAs an example, assume that in the OCP, the KinematicBicycle is used. The state and controls should be defined as:states!(n,[:x,:y,:psi,:ux])\ncontrols!(n,[:sa,:ax])Then assume that the ThreeDOFv1 is used for the IP. The states and controls would be defined as:statesIP!(n,[:x,:y,:v,:r,:psi,:sa,:ux,:ax])\ncontrolsIP!(n,[:sr,:jx])To calculate the error array, each state variable in the OCP is compared with each state and control variable in the IP. The result is stored in a map called n.mpc.mIP. For the aforementioned example, that map look like:"
+},
+
+{
+    "location": "mpc/index.html#State-Equations-1",
+    "page": "General",
+    "title": "State Equations",
+    "category": "section",
+    "text": "For this mode, the plant model is defined by plantEquations within NLOptControl.This is simply done as n.mpc.plantEquations = KinematicBicyclewhere KinematicBicycle is a function that solves a set of ODEs given a control, an initial state, and a simulation time. For an example see VehicleModels.jl."
+},
+
+{
+    "location": "mpc/index.html#InternalEP-(:IPEP)-1",
+    "page": "General",
+    "title": "InternalEP (:IPEP)",
+    "category": "section",
+    "text": "In this mode, there is an IP that can be used to help predict X0 (X0p) for an EP.This option can be useful when the OCP needs to be solved quickly and a more complicated model (IP) may give better X0p. Also, in developing functionality to determine the error in X0p. That is without having to deal with an external simulation can methods be developed to improve X0p."
+},
+
+{
+    "location": "mpc/index.html#EP-(:EP)-1",
+    "page": "General",
+    "title": "EP (:EP)",
+    "category": "section",
+    "text": "A set of n.X and n.U makes up UEX and is fed directly to an EP."
+},
+
+{
+    "location": "mpc/index.html#Synchronization-1",
+    "page": "General",
+    "title": "Synchronization",
+    "category": "section",
+    "text": "Synchronizing MPC systems is critical for performance and safety."
+},
+
+{
+    "location": "mpc/index.html#Fixed-Execution-Horizon-1",
+    "page": "General",
+    "title": "Fixed Execution Horizon",
+    "category": "section",
+    "text": ""
+},
+
+{
+    "location": "mpc/index.html#Variable-Execution-Horizon-1",
+    "page": "General",
+    "title": "Variable Execution Horizon",
+    "category": "section",
+    "text": "Currently, there is no functionality for this. But, this may be useful and it would augment a prediction of the time as well as X0. So, to account for this possible expansion, a predicted time (very simply the current time plus n.mpc.tex for the fixed execution horizon case) is added to X0p.This is the case, where the OCP is being solved as quickly as possible. In this case predicting n.r.t_solve( roughly equal to n.mpc.tex) is a challenging problem because there is no guarantee that the OCP will be solved in a particular amount of time. A simple way to predict n.r.t_solve is to average several of the previous n.r.t_solve values.  "
+},
+
+{
+    "location": "mpc/index.html#Error-1",
+    "page": "General",
+    "title": "Error",
+    "category": "section",
+    "text": "Evaluating the error of the prediction of X0 is important. Additionally, evaluating the tracking error (or following error) for each state is also important. Fortunately, there is built in functionality to calculate and save these errors.  "
+},
+
+{
+    "location": "mpc/index.html#OCP-1",
+    "page": "General",
+    "title": "OCP",
+    "category": "section",
+    "text": "Currently there is no need to quantify error in this case."
+},
+
+{
+    "location": "mpc/index.html#IP-1",
+    "page": "General",
+    "title": "IP",
+    "category": "section",
+    "text": "In this case, the errors are calculated"
+},
+
+{
+    "location": "mpc/index.html#EP-1",
+    "page": "General",
+    "title": "EP",
+    "category": "section",
+    "text": ""
+},
+
+{
+    "location": "mpc/index.html#InternalEP-1",
+    "page": "General",
+    "title": "InternalEP",
+    "category": "section",
+    "text": "This is the most complicated mode and there can be errors"
+},
+
+{
+    "location": "mpc/index.html#Results-and-Variables-1",
+    "page": "General",
+    "title": "Results and Variables",
+    "category": "section",
+    "text": "The following tables describe the results and are organized by mode.Concern is that there may be too much data to save."
+},
+
+{
+    "location": "mpc/index.html#OCP-2",
+    "page": "General",
+    "title": "OCP",
+    "category": "section",
+    "text": "Variable Description\nn.X0 current initial state\nn.r.X current solution for states\nn.r.U current solution for controls\nn.r.t_st corresponding time for states (and controls minus the last entry)\nn.mpc.r.dfsX0 DataFrame of all n.X0 arrays used in optimization each appended with n.mpc.t"
+},
+
+{
+    "location": "mpc/index.html#IP-2",
+    "page": "General",
+    "title": "IP",
+    "category": "section",
+    "text": "Variable Description\nn.mpc.r.UIP array of latest matrix of controls for the IP\nn.mpc.r.dfsUIP DataFrame of all matrices of n.mpc.r.UIP\nn.mpc.r.X0pIP array of latest prediction of n.mpc.r.X0aIP\nn.mpc.r.dfsX0pIP DataFrame of all n.mpc.r.X0pIP arrays\nn.mpc.r.X0aIP array of latest actual initial state for the IP\nn.mpc.r.dfsX0aIP DataFrame of all n.mpc.r.X0aIP arrays\nn.mpc.r.X0pIPe array of latest error in between n.mpc.r.X0pIP and n.mpc.r.X0aIP\nn.mpc.r.dfsX0pIPe DataFrame of all n.mpc.r.X0pIPe arrays"
+},
+
+{
+    "location": "mpc/index.html#need-a-mapping-between-states-and-controls-for-different-models-to-calculate-error-1",
+    "page": "General",
+    "title": "need a mapping between states and controls for different models to calculate error",
+    "category": "section",
+    "text": ""
+},
+
+{
+    "location": "mpc/index.html#EP-2",
+    "page": "General",
+    "title": "EP",
+    "category": "section",
+    "text": "Variable Description\nn.mpc.r.UIP latest matrix of controls for the IP\nn.mpc.r.dfsUIP DataFrame of all matrices of n.mpc.r.UIP"
+},
+
+{
+    "location": "mpc/index.html#Error-2",
+    "page": "General",
+    "title": "Error",
+    "category": "section",
+    "text": "Variable Description\nn.mpc.r.X0IPE \nn.mpc.r.dfsX0IPE DataFrame"
 },
 
 ]}
