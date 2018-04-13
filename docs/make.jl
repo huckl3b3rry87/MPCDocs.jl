@@ -21,7 +21,10 @@ makedocs(modules=[NLOptControl,PrettyPlots],
               "tutorials/Rocket/main.md",
               "tutorials/Unicycle/main.md",
               "tutorials/KinematicBicycle/main.md"
-               ]
+               ],
+       "MPC"=>Any[
+           "mpc/index.md"
+           ]
                ]
                )
 

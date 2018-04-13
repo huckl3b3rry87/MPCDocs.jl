@@ -11,8 +11,8 @@ nothing # hide
 
 ## Parameters form VehicleModels.jl
 ```@example Bicycle
-pa=VparaKB(x0_=0.);  
-@unpack_VparaKB pa # vehicle parameters
+pa=Vpara(x0_=0.);  
+@unpack_Vpara pa # vehicle parameters
 X0=[x0_,y0_,psi0_,u0_];
 XF=[NaN,NaN,NaN,NaN];
 XL=[x_min,y_min,psi_min,u_min];

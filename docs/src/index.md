@@ -58,16 +58,6 @@ If you find [VehicleModels.jl](https://github.com/JuliaMPC/VehicleModels.jl) use
 }
 ```
 
-## MPC Functionality
-
-The following link provides documentation all of the MPC specific functionality for `NLOptControl.jl`.
-
-```@contents
-Pages=[
-    "functions/MPC.md",
-    ]
-Depth=1
-```
 
 ## 2017 juliaCon Workshop Notebook (OUT OF DATE!)
 
