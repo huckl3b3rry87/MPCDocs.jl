@@ -33,7 +33,7 @@ nothing # hide
 ## Objective Function
 ```@example Beam
 obj=integrate!(n,:( u1[j]^2 + 350*cos(x2[j]) ) )
-@NLobjective(n.mdl,Min,obj);
+@NLobjective(n.ocp.mdl,Min,obj);
 nothing # hide
 ```
 ## Optimize

@@ -30,7 +30,7 @@ nothing # hide
 ## Objective Function
 ```@example BrysonDenham
 obj=integrate!(n,:(0.5*u1[j]^2));
-@NLobjective(n.mdl,Min,obj);
+@NLobjective(n.ocp.mdl,Min,obj);
 nothing # hide
 ```
 ## Optimize

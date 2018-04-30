@@ -65,7 +65,7 @@ nothing # hide
 
 ## Objective Function
 ```@example Rocket
-@NLobjective(n.mdl,Max,n.r.x[end,1]);
+@NLobjective(n.ocp.mdl,Max,n.r.ocp.x[end,1]);
 nothing # hide
 ```
 

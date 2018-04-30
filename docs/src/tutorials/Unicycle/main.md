@@ -69,9 +69,9 @@ nothing # hide
 
 ## Objective Function
 ```@example Unicycle
-x = n.r.x[:,1]; y = n.r.x[:,2]; # pointers to JuMP variables
+x = n.r.ocp.x[:,1]; y = n.r.ocp.x[:,2]; # pointers to JuMP variables
 xg = -2; yg = 4;
-@NLobjective(n.mdl, Min, (x[end]-xg)^2 + (y[end]-yg)^2)
+@NLobjective(n.ocp.mdl, Min, (x[end]-xg)^2 + (y[end]-yg)^2)
 nothing # hide
 ```
 

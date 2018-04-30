@@ -30,7 +30,7 @@ nothing # hide
 ## Objective Function
 ```@example HyperSensitive
 obj=integrate!(n,:( 0.5*x1[j]^2 + 0.5*u1[j]^2) )
-@NLobjective(n.mdl,Min,obj);
+@NLobjective(n.ocp.mdl,Min,obj);
 ```
 
 ## Optimize

@@ -95,14 +95,14 @@ Key | Description
 ## Objective Function
 Finally, the objective function needs to be defined. For this, we use the ``JuMP`` macro ``@NLOptControl()`` directly as:
 ```@example Brachistochrone
-@NLobjective(n.mdl,Min,n.tf);
+@NLobjective(n.ocp.mdl,Min,n.tf);
 nothing # hide
 ```
 with,
 
 Variable | Description
 :--- | :---
-`n.mdl` | object that holds them JuMP model
+`n.ocp.mdl` | object that holds them JuMP model
 `Min` | for a minimization problem
 `n.tf` | a reference to the final time
 
@@ -183,7 +183,7 @@ dx=[:(v[j]*sin(u[j])),:(-v[j]*cos(u[j])),:(9.81*cos(u[j]))]
 dynamics!(n,dx)
 n.s.evalCostates = true
 configure!(n;(:Nck=>[100]),(:finalTimeDV=>true));
-@NLobjective(n.mdl,Min,n.tf)
+@NLobjective(n.ocp.mdl,Min,n.tf)
 optimize!(n);
 using PrettyPlots
 allPlots(n)

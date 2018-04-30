@@ -52,7 +52,7 @@ nothing # hide
 
 ## Objective Function
 ```@example RobotArm
-@NLobjective(n.mdl,Min,n.tf);
+@NLobjective(n.ocp.mdl,Min,n.tf);
 nothing # hide
 ```
 

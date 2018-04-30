@@ -96,8 +96,8 @@ nothing # hide
 ## Nonlinear Obstacle Avoidance Constraints
 ```@example Bicycle
 sm = 2;
-x=n.r.x[:,1];y=n.r.x[:,2]; # pointers to JuMP variables
-obs_con=@NLconstraint(n.mdl, [i=1:n.numStatePoints-1], 1 <= ((x[(i+1)]-c.o.X0[1])^2)/((c.o.A[1]+sm)^2) + ((y[(i+1)]-c.o.Y0[1])^2)/((c.o.B[1]+sm)^2));
+x=n.r.ocp.x[:,1];y=n.r.ocp.x[:,2]; # pointers to JuMP variables
+obs_con=@NLconstraint(n.ocp.mdl, [i=1:n.numStatePoints-1], 1 <= ((x[(i+1)]-c.o.X0[1])^2)/((c.o.A[1]+sm)^2) + ((y[(i+1)]-c.o.Y0[1])^2)/((c.o.B[1]+sm)^2));
 newConstraint!(n,obs_con,:obs_con);
 nothing # hide
 ```
@@ -112,7 +112,7 @@ nothing # hide
 
 ## Objective Function
 ```@example Bicycle
-@NLobjective(n.mdl, Min, n.tf + (n.r.x[end,1]-c.g.x_ref)^2 + (n.r.x[end,2]-c.g.y_ref)^2);
+@NLobjective(n.ocp.mdl, Min, n.tf + (n.r.ocp.x[end,1]-c.g.x_ref)^2 + (n.r.ocp.x[end,2]-c.g.y_ref)^2);
 nothing # hide
 ```
 

@@ -41,9 +41,9 @@ The state and control variables are by default, $:x1,:x2,..$ and $:u1,:u2,..$, b
 states!(n,[:h,:v];descriptions=["h(t)","v(t)"]);
 controls!(n,[:T];descriptions=["T(t)"]);
 ```
-Next, now that the problem is configured, all of the state and control variables are stored in JuMP Arrays, `n.r.x[:,:]` and `n.r.u[:,:]`, respectively. For instance;
+Next, now that the problem is configured, all of the state and control variables are stored in JuMP Arrays, `n.r.ocp.x[:,:]` and `n.r.u[:,:]`, respectively. For instance;
 ```@example MoonLander
-typeof(n.r.x)
+typeof(n.r.ocp.x)
 ```
 ## Differential Equations
 ```@example MoonLander
@@ -65,7 +65,7 @@ In this example the first control variable `T`needs to be integrated, it must be
 ```@example MoonLander
 obj=integrate!(n,:(T[j]));
 # Now this term can be added as the objective function and the problem can be solved
-@NLobjective(n.mdl, Min, obj);
+@NLobjective(n.ocp.mdl, Min, obj);
 nothing # hide
 ```
 
@@ -98,7 +98,7 @@ dx=[:(v[j]),:(T[j]-1.625)]
 dynamics!(n,dx)
 configure!(n,N=200;(:integrationScheme=>:trapezoidal),(:finalTimeDV=>true));
 obj=integrate!(n,:(T[j]));
-@NLobjective(n.mdl, Min, obj);
+@NLobjective(n.ocp.mdl, Min, obj);
 optimize!(n);
 allPlots(n)
 ```
@@ -135,7 +135,7 @@ X0_tol=[0.05,0.05];
 defineTolerances!(n;X0_tol=X0_tol,XF_tol=XF_tol);
 configure!(n,N=50;(:integrationScheme=>:bkwEuler),(:finalTimeDV=>true));
 obj=integrate!(n,:(T[j]));
-@NLobjective(n.mdl, Min, obj);
+@NLobjective(n.ocp.mdl, Min, obj);
 optimize!(n);
 allPlots(n)
 ```
