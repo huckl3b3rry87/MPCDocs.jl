@@ -1,4 +1,6 @@
 # General
+NOTE: the following documentation needs to be updated.
+
 The following link provides documentation all of the MPC specific functionality for NLOptControl.jl.
 
 The basic MPC problem is first defined using the  `defineMPC!()` function.
@@ -72,12 +74,12 @@ Since the plant is known in this case, `n.X0` is updated using future knowledge 
 In this case, the OCP is solved controls are sent to
 
 ### Variables
-The states and controls in this model may not be the same as they are in the `OCP` and thus `n.numStates` and `n.numControls` may not represent the number of states and controls, respectively for the `IP`.
+The states and controls in this model may not be the same as they are in the `OCP` and thus `n.ocp.state.num` and `n.ocp.control.num` may not represent the number of states and controls, respectively for the `IP`.
 
 Variable | Description
 :--- | :---
-`n.mpc.numControlsIP` | number of control variables for the `IP`
-`n.mpc.numStatesIP` | number of state variables for the `IP`
+`n.mpc.ip.control.num` | number of control variables for the `IP`
+`n.mpc.ip.state.num` | number of state variables for the `IP`
 `n.mpc.IPeMap` | mapping
 
 
@@ -125,7 +127,7 @@ Synchronizing MPC systems is critical for performance and safety.
 ## Variable Execution Horizon
 Currently, there is no functionality for this. But, this may be useful and it would augment a prediction of the time as well as `X0`. So, to account for this possible expansion, a predicted time (very simply the current time plus `n.mpc.tex` for the fixed execution horizon case) is added to `X0p`.
 
-This is the case, where the OCP is being solved as quickly as possible. In this case predicting `n.r.t_solve`( roughly equal to `n.mpc.tex`) is a challenging problem because there is no guarantee that the OCP will be solved in a particular amount of time. A simple way to predict `n.r.t_solve` is to average several of the previous `n.r.t_solve` values.  
+This is the case, where the OCP is being solved as quickly as possible. In this case predicting `n.r.ocp.tSolve`( roughly equal to `n.mpc.v.tex`) is a challenging problem because there is no guarantee that the OCP will be solved in a particular amount of time. A simple way to predict `n.r.ocp.tSolve` is to average several of the previous `n.r.ocp.tSolve` values.  
 
 
 # Error

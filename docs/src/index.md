@@ -14,9 +14,9 @@ It added to [juliaOpt](http://www.juliaopt.org/) community by:
 
 There are several packages that need to be installed, to do this run:
 ```julia
-Pkg.add("PrettyPlots")
-Pkg.add("VehicleModels")
 Pkg.add("NLOptControl")
+Pkg.add("VehicleModels")
+Pkg.add("PrettyPlots")
 ```
 
 Either [Ipopt.jl](https://github.com/JuliaOpt/Ipopt.jl) or [KNITRO.jl](https://github.com/JuliaOpt/KNITRO.jl) can be used for the nonlinear solver. Since **Ipopt** is free, all of the examples will use it and it can be added with:

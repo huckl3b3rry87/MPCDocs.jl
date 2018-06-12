@@ -90,12 +90,12 @@ Key | Description
 
 #### Notice:
 1. Final time is a design variable; we are trying to minimize it
-2. We defined this as a single interval problem with ``100`` points
+2. We defined this as a single interval problem with `100` points
 
 ## Objective Function
-Finally, the objective function needs to be defined. For this, we use the ``JuMP`` macro ``@NLOptControl()`` directly as:
+Finally, the objective function needs to be defined. For this, we use the `JuMP` macro `@NLOptControl()` directly as:
 ```@example Brachistochrone
-@NLobjective(n.ocp.mdl,Min,n.tf);
+@NLobjective(n.ocp.mdl,Min,n.ocp.tf)
 nothing # hide
 ```
 with,
@@ -104,12 +104,12 @@ Variable | Description
 :--- | :---
 `n.ocp.mdl` | object that holds them JuMP model
 `Min` | for a minimization problem
-`n.tf` | a reference to the final time
+`n.ocp.tf` | a reference to the final time
 
 ## Optimize
 Now that the entire optimal control problem has been defined we can `optimize!()` it as:
 ```@example Brachistochrone
-optimize!(n);
+optimize!(n)
 nothing # hide
 ```
 
@@ -141,32 +141,32 @@ Argument | Name | Description
 #### Data Orginization
 All of the states, control variables and time vectors are stored in an array of Dataframes called `n.r.dfs`
 ```@example Brachistochrone
-n.r.dfs
+n.r.ocp.dfs
 ```
 It is an array because the problem is designed to be solved multiple times in a receding time horizon. The variables can be accessed like this:
 ```@example Brachistochrone
-n.r.dfs[1][:x][1:4]
+n.r.ocp.dfs[1][:x][1:4]
 ```
 
 #### Optimization Data
 ```@example Brachistochrone
-n.r.dfs_opt
+n.r.ocp.dfsOpt
 ```
 
 The sailent optimization data is stored in the table above
 
 Variable | Description
 :--- | :---
-`t_solve` | cpu time for optimization problem
-`obj_val` | objective function value
-`iter_num` | a variable for a higher-level algorithm, often these problems are nested
+`tSolve` | cpu time for optimization problem
+`objVal` | objective function value
+`iterNum` | a variable for a higher-level algorithm, often these problems are nested
 
 One thing that may be noticed is the long time that it takes to solve the problem. This is typical for the first optimization, but after that even if the problem is modified the optimization time is greatly reduced.
 
 #### For instance, let's re-run the optimization:
 ```@example Brachistochrone
 optimize!(n);
-n.r.dfs_opt[:tSolve]
+n.r.ocp.dfsOpt[:tSolve]
 ```
 
 
@@ -181,17 +181,17 @@ states!(n,[:x,:y,:v],descriptions=["x(t)","y(t)","v(t)"])
 controls!(n,[:u],descriptions=["u(t)"])
 dx=[:(v[j]*sin(u[j])),:(-v[j]*cos(u[j])),:(9.81*cos(u[j]))]
 dynamics!(n,dx)
-n.s.evalCostates = true
+n.s.ocp.evalCostates = true
 configure!(n;(:Nck=>[100]),(:finalTimeDV=>true));
-@NLobjective(n.ocp.mdl,Min,n.tf)
+@NLobjective(n.ocp.mdl,Min,n.ocp.tf)
 optimize!(n);
 using PrettyPlots
 allPlots(n)
 ```
-Notice how the control jumps down for a bit, that is due to the equivalence of ``cos(n*2pi)`` for any integer ``n``.
+Notice how the control jumps down for a bit, that is due to the equivalence of ``cos(n*2pi)`` for any integer `n`.
 
 ## Save results
-While some results are save automatically, state, control, and costate (if applicable) data (about the collocation points and the Lagrange polynomial that runs through them) can be saved with the function ``saveData()`` as:
+While some results are save automatically, state, control, and costate (if applicable) data (about the collocation points and the Lagrange polynomial that runs through them) can be saved with the function `saveData()` as:
 ```@example Brachistochrone
 saveData(n)
 ```
