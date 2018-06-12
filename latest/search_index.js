@@ -29,7 +29,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Home",
     "title": "Installation",
     "category": "section",
-    "text": "There are several packages that need to be installed, to do this run:Pkg.add(\"PrettyPlots\")\nPkg.add(\"VehicleModels\")\nPkg.add(\"NLOptControl\")Either Ipopt.jl or KNITRO.jl can be used for the nonlinear solver. Since Ipopt is free, all of the examples will use it and it can be added with:Pkg.add(\"Ipopt\");Pkg.build(\"Ipopt\");If you are using Linux make sure that you have gfortran to run Ipopt:sudo apt-get install gfortranAlso, a plotting backend will be required and there are several options:Pkg.add(\"PGFPlots\");Pkg.build(\"PGFPlots\")   # best looking\nPkg.add(\"GR\");Pkg.build(\"GR\");              # most reliable\nPkg.add(\"PyPlot\");Pkg.build(\"PyPlot\")       # also a good option  "
+    "text": "There are several packages that need to be installed, to do this run:Pkg.add(\"NLOptControl\")\nPkg.add(\"VehicleModels\")\nPkg.add(\"PrettyPlots\")Either Ipopt.jl or KNITRO.jl can be used for the nonlinear solver. Since Ipopt is free, all of the examples will use it and it can be added with:Pkg.add(\"Ipopt\");Pkg.build(\"Ipopt\");If you are using Linux make sure that you have gfortran to run Ipopt:sudo apt-get install gfortranAlso, a plotting backend will be required and there are several options:Pkg.add(\"PGFPlots\");Pkg.build(\"PGFPlots\")   # best looking\nPkg.add(\"GR\");Pkg.build(\"GR\");              # most reliable\nPkg.add(\"PyPlot\");Pkg.build(\"PyPlot\")       # also a good option  "
 },
 
 {
@@ -221,7 +221,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Quick Ex#1: Brachistochrone",
     "title": "Objective Function",
     "category": "section",
-    "text": "Finally, the objective function needs to be defined. For this, we use the JuMP macro NLOptControl() directly as:@NLobjective(n.mdl,Min,n.tf);\nnothing # hidewith,Variable Description\nn.mdl object that holds them JuMP model\nMin for a minimization problem\nn.tf a reference to the final time"
+    "text": "Finally, the objective function needs to be defined. For this, we use the JuMP macro @NLOptControl() directly as:@NLobjective(n.ocp.mdl,Min,n.ocp.tf)\nnothing # hidewith,Variable Description\nn.ocp.mdl object that holds them JuMP model\nMin for a minimization problem\nn.ocp.tf a reference to the final time"
 },
 
 {
@@ -229,7 +229,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Quick Ex#1: Brachistochrone",
     "title": "Optimize",
     "category": "section",
-    "text": "Now that the entire optimal control problem has been defined we can optimize!() it as:optimize!(n);\nnothing # hide"
+    "text": "Now that the entire optimal control problem has been defined we can optimize!() it as:optimize!(n)\nnothing # hide"
 },
 
 {
@@ -253,7 +253,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Quick Ex#1: Brachistochrone",
     "title": "Data Orginization",
     "category": "section",
-    "text": "All of the states, control variables and time vectors are stored in an array of Dataframes called n.r.dfsn.r.dfsIt is an array because the problem is designed to be solved multiple times in a receding time horizon. The variables can be accessed like this:n.r.dfs[1][:x][1:4]"
+    "text": "All of the states, control variables and time vectors are stored in an array of Dataframes called n.r.dfsn.r.ocp.dfsIt is an array because the problem is designed to be solved multiple times in a receding time horizon. The variables can be accessed like this:n.r.ocp.dfs[1][:x][1:4]"
 },
 
 {
@@ -261,7 +261,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Quick Ex#1: Brachistochrone",
     "title": "Optimization Data",
     "category": "section",
-    "text": "n.r.dfs_optThe sailent optimization data is stored in the table aboveVariable Description\nt_solve cpu time for optimization problem\nobj_val objective function value\niter_num a variable for a higher-level algorithm, often these problems are nestedOne thing that may be noticed is the long time that it takes to solve the problem. This is typical for the first optimization, but after that even if the problem is modified the optimization time is greatly reduced."
+    "text": "n.r.ocp.dfsOptThe sailent optimization data is stored in the table aboveVariable Description\ntSolve cpu time for optimization problem\nobjVal objective function value\niterNum a variable for a higher-level algorithm, often these problems are nestedOne thing that may be noticed is the long time that it takes to solve the problem. This is typical for the first optimization, but after that even if the problem is modified the optimization time is greatly reduced."
 },
 
 {
@@ -269,7 +269,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Quick Ex#1: Brachistochrone",
     "title": "For instance, let\'s re-run the optimization:",
     "category": "section",
-    "text": "optimize!(n);\nn.r.dfs_opt[:tSolve]"
+    "text": "optimize!(n);\nn.r.ocp.dfsOpt[:tSolve]"
 },
 
 {
@@ -277,7 +277,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Quick Ex#1: Brachistochrone",
     "title": "Costate visualization",
     "category": "section",
-    "text": "For ps methods the costates can also be calculates asX0=[0.0,0.0,0.0]\nXF=[2.,-2.,NaN]\nn=define(numStates=3,numControls=1,X0=X0,XF=XF)\nstates!(n,[:x,:y,:v],descriptions=[\"x(t)\",\"y(t)\",\"v(t)\"])\ncontrols!(n,[:u],descriptions=[\"u(t)\"])\ndx=[:(v[j]*sin(u[j])),:(-v[j]*cos(u[j])),:(9.81*cos(u[j]))]\ndynamics!(n,dx)\nn.s.evalCostates = true\nconfigure!(n;(:Nck=>[100]),(:finalTimeDV=>true));\n@NLobjective(n.mdl,Min,n.tf)\noptimize!(n);\nusing PrettyPlots\nallPlots(n)Notice how the control jumps down for a bit, that is due to the equivalence of cos(n*2pi) for any integer n."
+    "text": "For ps methods the costates can also be calculates asX0=[0.0,0.0,0.0]\nXF=[2.,-2.,NaN]\nn=define(numStates=3,numControls=1,X0=X0,XF=XF)\nstates!(n,[:x,:y,:v],descriptions=[\"x(t)\",\"y(t)\",\"v(t)\"])\ncontrols!(n,[:u],descriptions=[\"u(t)\"])\ndx=[:(v[j]*sin(u[j])),:(-v[j]*cos(u[j])),:(9.81*cos(u[j]))]\ndynamics!(n,dx)\nn.s.ocp.evalCostates = true\nconfigure!(n;(:Nck=>[100]),(:finalTimeDV=>true));\n@NLobjective(n.ocp.mdl,Min,n.ocp.tf)\noptimize!(n);\nusing PrettyPlots\nallPlots(n)Notice how the control jumps down for a bit, that is due to the equivalence of cos(n*2pi) for any integer n."
 },
 
 {
@@ -381,7 +381,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Quick Ex#2: Moon Lander",
     "title": "Define the Problem:",
     "category": "section",
-    "text": "In this problem, we put the bounds directly into define(). Also, now we have constant limits on the control variables and those can be added as shown belown=define(numStates=2,numControls=1,X0=[10.,-2],XF=[0.,0.],CL=[0.],CU=[3.]);\nnothing # hide"
+    "text": "In this problem, we put the bounds directly into define(). Also, now we have constant limits on the control variables and those can be added as shown belown = define(numStates=2,numControls=1,X0=[10.,-2],XF=[0.,0.],CL=[0.],CU=[3.])\nnothing # hide"
 },
 
 {
@@ -389,7 +389,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Quick Ex#2: Moon Lander",
     "title": "State and Control Names",
     "category": "section",
-    "text": "The state and control variables are by default, x1x2 and u1u2, but they can be changed with the following commands:states!(n,[:h,:v];descriptions=[\"h(t)\",\"v(t)\"]);\ncontrols!(n,[:T];descriptions=[\"T(t)\"]);Next, now that the problem is configured, all of the state and control variables are stored in JuMP Arrays, n.r.x[:,:] and n.r.u[:,:], respectively. For instance;typeof(n.r.x)"
+    "text": "The state and control variables are by default, x1x2 and u1u2, but they can be changed with the following commands:states!(n,[:h,:v];descriptions=[\"h(t)\",\"v(t)\"])\ncontrols!(n,[:T];descriptions=[\"T(t)\"])Next, now that the problem is configured, all of the state and control variables are stored in JuMP Arrays, n.r.ocp.x[:,:] and n.r.u[:,:], respectively. For instance;typeof(n.r.ocp.x)"
 },
 
 {
@@ -413,7 +413,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Quick Ex#2: Moon Lander",
     "title": "Integral Terms in the Cost Function",
     "category": "section",
-    "text": "integrate!() is used to make terms that can be added to the cost function that need to be integrated. When calling this function an expression must be passed:In this example the first control variable Tneeds to be integrated, it must be passed in an expression :() with the index [j]. To do this, integrate!() can be used as:obj=integrate!(n,:(T[j]));\n# Now this term can be added as the objective function and the problem can be solved\n@NLobjective(n.mdl, Min, obj);\nnothing # hide"
+    "text": "integrate!() is used to make terms that can be added to the cost function that need to be integrated. When calling this function an expression must be passed:In this example the first control variable Tneeds to be integrated, it must be passed in an expression :() with the index [j]. To do this, integrate!() can be used as:obj = integrate!(n,:(T[j]))\n# Now this term can be added as the objective function and the problem can be solved\n@NLobjective(n.ocp.mdl, Min, obj);\nnothing # hide"
 },
 
 {
@@ -421,7 +421,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Quick Ex#2: Moon Lander",
     "title": "Optimize",
     "category": "section",
-    "text": "optimize!(n);\nnothing # hide"
+    "text": "optimize!(n)\nnothing # hide"
 },
 
 {
@@ -437,7 +437,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Quick Ex#2: Moon Lander",
     "title": "Other Dynamic Constraint Methods",
     "category": "section",
-    "text": "Currently there are three different methods to ensure that the dyanamic constraints are satisfied and they are set when configure!() is called using the :integrationScheme key. They are listed below::integrateScheme Description\n:lgrExplicit default scheme; implementation derivative constraints in hp-pseudospecral method\n:lgrImplicit implementation of integral constraints in hp-pseudospecral method\n:bkwEuler approximate using backward euler method\n:trapezoidal approximate using trapezoidal methodThe later two are time-marching methods and default number of points is 100, but that can be changed by setting N. So, the above problem can be solved using one of the time-marching schemes as:n=define(numStates=2,numControls=1,X0=[10.,-2],XF=[0.,0.],CL=[0.],CU=[3.]);\nstates!(n,[:h,:v];descriptions=[\"h(t)\",\"v(t)\"]);\ncontrols!(n,[:T];descriptions=[\"T(t)\"]);\ndx=[:(v[j]),:(T[j]-1.625)]\ndynamics!(n,dx)\nconfigure!(n,N=200;(:integrationScheme=>:trapezoidal),(:finalTimeDV=>true));\nobj=integrate!(n,:(T[j]));\n@NLobjective(n.mdl, Min, obj);\noptimize!(n);\nallPlots(n)"
+    "text": "Currently there are three different methods to ensure that the dyanamic constraints are satisfied and they are set when configure!() is called using the :integrationScheme key. They are listed below::integrateScheme Description\n:lgrExplicit default scheme; implementation derivative constraints in hp-pseudospecral method\n:lgrImplicit implementation of integral constraints in hp-pseudospecral method\n:bkwEuler approximate using backward euler method\n:trapezoidal approximate using trapezoidal methodThe later two are time-marching methods and default number of points is 100, but that can be changed by setting N. So, the above problem can be solved using one of the time-marching schemes as:n = define(numStates=2,numControls=1,X0=[10.,-2],XF=[0.,0.],CL=[0.],CU=[3.])\nstates!(n,[:h,:v];descriptions=[\"h(t)\",\"v(t)\"])\ncontrols!(n,[:T];descriptions=[\"T(t)\"])\ndx=[:(v[j]),:(T[j]-1.625)]\ndynamics!(n,dx)\nconfigure!(n,N=200;(:integrationScheme=>:trapezoidal),(:finalTimeDV=>true))\nobj = integrate!(n,:(T[j]))\n@NLobjective(n.ocp.mdl, Min, obj)\noptimize!(n)\nallPlots(n)"
 },
 
 {
@@ -445,7 +445,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Quick Ex#2: Moon Lander",
     "title": "Constraints",
     "category": "section",
-    "text": "Often when building a model and using it to solve an optimal control problem, their are issues associated with infeasibility. NLOptControl has functionality to help deal with these issues. For instance, the dual infeasibility values can stored and quickly viewed. They are stored in an array of DataFrames which can be referenced with n.r.dfs_con as:n.r.dfs_conIt is empty, because by default this data is not calculated and stored. This option can be turned on by modifying the settings for the problem:n.s.evalConstraintsn.s.evalConstraints=true;\noptimize!(n);\nn.r.dfs_conevalMaxDualInf(n)The last function called, searches through all of the dual infeasibilities to find the largest value. As, this problem is, it is feasible and optimal. But if there was an issue, often looking for high values in these DataFrame structures is the quickest way to figure out the constraints that are giving the solver trouble."
+    "text": "Often when building a model and using it to solve an optimal control problem, their are issues associated with infeasibility. NLOptControl has functionality to help deal with these issues. For instance, the dual infeasibility values can stored and quickly viewed. They are stored in a DataFrame which can be referenced with n.r.ocp.constraint.value as:n.r.ocp.constraint.valueIt is empty, because by default this data is not calculated and stored. This option can be turned on by modifying the settings for the problem:n.s.ocp.evalConstraintsn.s.ocp.evalConstraints = true\noptimize!(n)\nn.r.ocp.constraint.valueevalMaxDualInf(n)The last function called, searches through all of the dual infeasibilities to find the largest value. As, this problem is, it is feasible and optimal. But if there was an issue, often looking for high values in these DataFrame structures is the quickest way to figure out the constraints that are giving the solver trouble."
 },
 
 {
@@ -453,7 +453,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Quick Ex#2: Moon Lander",
     "title": "Tolerances",
     "category": "section",
-    "text": "If there was an example where the dual infeasibility value for one or more of the variables was very high, but the actual constraint is only being violated slightly (by some reasonable amount) then the tolerances on the initial and terminal states can be adjusted. This will also improve the solve time, so it is good practice to set these to reasonable values. For instance, in the Moon Lander example, we can set them as:n=define(numStates=2,numControls=1,X0=[10.,-2],XF=[0.,0.],CL=[0.],CU=[3.]);\nstates!(n,[:h,:v];descriptions=[\"h(t)\",\"v(t)\"]);\ncontrols!(n,[:T];descriptions=[\"T(t)\"]);\ndx=[:(v[j]),:(T[j]-1.625)]\ndynamics!(n,dx)\nXF_tol=[2.0,0.5];\nX0_tol=[0.05,0.05];\ndefineTolerances!(n;X0_tol=X0_tol,XF_tol=XF_tol);\nconfigure!(n,N=50;(:integrationScheme=>:bkwEuler),(:finalTimeDV=>true));\nobj=integrate!(n,:(T[j]));\n@NLobjective(n.mdl, Min, obj);\noptimize!(n);\nallPlots(n)"
+    "text": "If there was an example where the dual infeasibility value for one or more of the variables was very high, but the actual constraint is only being violated slightly (by some reasonable amount) then the tolerances on the initial and terminal states can be adjusted. This will also improve the solve time, so it is good practice to set these to reasonable values. For instance, in the Moon Lander example, we can set them as:n = define(numStates=2,numControls=1,X0=[10.,-2],XF=[0.,0.],CL=[0.],CU=[3.])\nstates!(n,[:h,:v];descriptions=[\"h(t)\",\"v(t)\"])\ncontrols!(n,[:T];descriptions=[\"T(t)\"])\ndx = [:(v[j]),:(T[j]-1.625)]\ndynamics!(n,dx)\nXF_tol = [2.0,0.5]\nX0_tol = [0.05,0.05]\ndefineTolerances!(n;X0_tol=X0_tol,XF_tol=XF_tol)\nconfigure!(n,N=50;(:integrationScheme=>:bkwEuler),(:finalTimeDV=>true))\nobj = integrate!(n,:(T[j]))\n@NLobjective(n.ocp.mdl, Min, obj)\noptimize!(n)\nallPlots(n)"
 },
 
 {
@@ -509,7 +509,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Bryson Denham",
     "title": "Objective Function",
     "category": "section",
-    "text": "obj=integrate!(n,:(0.5*u1[j]^2));\n@NLobjective(n.mdl,Min,obj);\nnothing # hide"
+    "text": "obj=integrate!(n,:(0.5*u1[j]^2));\n@NLobjective(n.ocp.mdl,Min,obj);\nnothing # hide"
 },
 
 {
@@ -581,7 +581,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Beam Problem",
     "title": "Objective Function",
     "category": "section",
-    "text": "obj=integrate!(n,:( u1[j]^2 + 350*cos(x2[j]) ) )\n@NLobjective(n.mdl,Min,obj);\nnothing # hide"
+    "text": "obj=integrate!(n,:( u1[j]^2 + 350*cos(x2[j]) ) )\n@NLobjective(n.ocp.mdl,Min,obj);\nnothing # hide"
 },
 
 {
@@ -653,7 +653,7 @@ var documenterSearchIndex = {"docs": [
     "page": "HyperSensitive",
     "title": "Objective Function",
     "category": "section",
-    "text": "obj=integrate!(n,:( 0.5*x1[j]^2 + 0.5*u1[j]^2) )\n@NLobjective(n.mdl,Min,obj);"
+    "text": "obj=integrate!(n,:( 0.5*x1[j]^2 + 0.5*u1[j]^2) )\n@NLobjective(n.ocp.mdl,Min,obj);"
 },
 
 {
@@ -701,7 +701,7 @@ var documenterSearchIndex = {"docs": [
     "page": "RobotArm",
     "title": "Define the Problem:",
     "category": "section",
-    "text": "n=define(numStates=6,numControls=3,X0=[9/2,0.0,0.0,0.0,pi/4,0.0],XF=[9/2,0.0,2*pi/3,0.0,pi/4,0.0],XL=[NaN,NaN,NaN,0.0,NaN,NaN],XU=[NaN,NaN,NaN,1.0,NaN,NaN],CL=[-1.,-1.,-1.],CU=[1.,1.,1.])\nnothing # hide"
+    "text": "n = define(numStates=6,numControls=3,X0=[9/2,0.0,0.0,0.0,pi/4,0.0],XF=[9/2,0.0,2*pi/3,0.0,pi/4,0.0],XL=[NaN,NaN,NaN,0.0,NaN,NaN],XU=[NaN,NaN,NaN,1.0,NaN,NaN],CL=[-1.,-1.,-1.],CU=[1.,1.,1.])\nnothing # hide"
 },
 
 {
@@ -709,7 +709,7 @@ var documenterSearchIndex = {"docs": [
     "page": "RobotArm",
     "title": "Constants",
     "category": "section",
-    "text": "EP=2*eps(); # to avoid divide/0\nQ=5;\nnothing # hide"
+    "text": "EP = 2*eps(); # to avoid divide/0\nQ = 5\nnothing # hide"
 },
 
 {
@@ -717,7 +717,7 @@ var documenterSearchIndex = {"docs": [
     "page": "RobotArm",
     "title": "Differential Equations",
     "category": "section",
-    "text": "# expressions\nI_t= :((($Q-x1[j])^3+x1[j]^3)/3*sin(x5[j])^2);\nI_p= :((($Q-x1[j])^3+x1[j]^3)/3 );\n\n# Diff Eqs\ndx=Array{Expr}(6,);\ndx[1]=:(x2[j]);\ndx[2]=:(u1[j]/$Q);\ndx[3]=:(x4[j]);\ndx[4]=:(u2[j]/($I_t+$EP));\ndx[5]=:(x6[j]);\ndx[6]=:(u3[j]/($I_p+$EP));Then add the differential equations to the model:dynamics!(n,dx)"
+    "text": "# expressions\nI_t = :((($Q-x1[j])^3+x1[j]^3)/3*sin(x5[j])^2)\nI_p = :((($Q-x1[j])^3+x1[j]^3)/3 )\n\n# Diff Eqs\ndx = Array{Expr}(6,)\ndx[1] = :(x2[j])\ndx[2] = :(u1[j]/$Q)\ndx[3] = :(x4[j])\ndx[4] = :(u2[j]/($I_t+$EP))\ndx[5] = :(x6[j])\ndx[6] = :(u3[j]/($I_p+$EP))Then add the differential equations to the model:dynamics!(n,dx)"
 },
 
 {
@@ -733,7 +733,7 @@ var documenterSearchIndex = {"docs": [
     "page": "RobotArm",
     "title": "Objective Function",
     "category": "section",
-    "text": "@NLobjective(n.mdl,Min,n.tf);\nnothing # hide"
+    "text": "@NLobjective(n.ocp.mdl,Min,n.ocp.tf)\nnothing # hide"
 },
 
 {
@@ -741,7 +741,7 @@ var documenterSearchIndex = {"docs": [
     "page": "RobotArm",
     "title": "Optimize",
     "category": "section",
-    "text": "optimize!(n);\nnothing # hide"
+    "text": "optimize!(n)\nnothing # hide"
 },
 
 {
@@ -821,7 +821,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Rocket",
     "title": "Objective Function",
     "category": "section",
-    "text": "@NLobjective(n.mdl,Max,n.r.x[end,1]);\nnothing # hide"
+    "text": "@NLobjective(n.ocp.mdl,Max,n.r.ocp.x[end,1]);\nnothing # hide"
 },
 
 {
@@ -965,7 +965,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Unicycle Model",
     "title": "Objective Function",
     "category": "section",
-    "text": "x = n.r.x[:,1]; y = n.r.x[:,2]; # pointers to JuMP variables\nxg = -2; yg = 4;\n@NLobjective(n.mdl, Min, (x[end]-xg)^2 + (y[end]-yg)^2)\nnothing # hide"
+    "text": "x = n.r.ocp.x[:,1]; y = n.r.ocp.x[:,2]; # pointers to JuMP variables\nxg = -2; yg = 4;\n@NLobjective(n.ocp.mdl, Min, (x[end]-xg)^2 + (y[end]-yg)^2)\nnothing # hide"
 },
 
 {
@@ -1005,7 +1005,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Kinematic Bicycle Model",
     "title": "Packages that will be used",
     "category": "section",
-    "text": "using NLOptControl,Parameters,VehicleModels, PrettyPlots\n\nnothing # hide"
+    "text": "using NLOptControl, Parameters, VehicleModels, PrettyPlots\nnothing # hide"
 },
 
 {
@@ -1013,7 +1013,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Kinematic Bicycle Model",
     "title": "Parameters form VehicleModels.jl",
     "category": "section",
-    "text": "pa=Vpara(x0_=0.);  \n@unpack_Vpara pa # vehicle parameters\nX0=[x0_,y0_,psi0_,u0_];\nXF=[NaN,NaN,NaN,NaN];\nXL=[x_min,y_min,psi_min,u_min];\nXU=[x_max,y_max,psi_max,u_max];\nCL=[sa_min,ax_min];\nCU=[sa_max,ax_max];\nnothing # hide"
+    "text": "pa = Vpara(x0_=0.)  \n@unpack_Vpara pa # vehicle parameters\nX0 = [x0_,y0_,psi0_,u0_]\nXF = [NaN,NaN,NaN,NaN]\nXL = [x_min,y_min,psi_min,u_min]\nXU = [x_max,y_max,psi_max,u_max]\nCL = [sa_min,ax_min]\nCU = [sa_max,ax_max]\nnothing # hide"
 },
 
 {
@@ -1021,7 +1021,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Kinematic Bicycle Model",
     "title": "Define the Problem",
     "category": "section",
-    "text": "n=define(numStates=4,numControls=2,X0=X0,XF=XF,XL=XL,XU=XU,CL=CL,CU=CU);\nnothing # hide"
+    "text": "n = define(numStates=4,numControls=2,X0=X0,XF=XF,XL=XL,XU=XU,CL=CL,CU=CU)\nn.ocp.params = [pa] # add vehicle parameters\nnothing # hide"
 },
 
 {
@@ -1029,7 +1029,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Kinematic Bicycle Model",
     "title": "Define Case",
     "category": "section",
-    "text": "## Goal\ntype Goal\n    name\n    x_ref\n    y_ref\nend\nfunction Goal()\n       Goal(:test,\n             0.,\n            100.);\nend\n\n# Obstacle\ntype Obs\n  A\n  B\n  s_x\n  s_y\n  X0\n  Y0\nend\nfunction Obs()\n  Obs([5.],\n      [5.],\n      [0.0],\n      [0.0],\n      [0.],\n      [50.]);\nend\n\nabstract type AbstractCase end\ntype Case <: AbstractCase\n g::Goal        # goal data\n o::Obs         # obstacle data\nend\n\nc=Case(Goal(),Obs())\n\nnothing # hide"
+    "text": "c = Dict(\"goal\"=>Dict(\"x\"=>0.,\"yVal\"=>100.,\"tol\"=>5.), \"obstacle\"=>Dict(\"x0\"=>[0.],\"y0\"=>[50.],\"vx\"=>[0.],\"vy\"=>[0.],\"radius\"=>[5.]),\"tolerances\"=>Dict(\"fx\"=>NaN,\"fy\"=>NaN))\nnothing # hide"
 },
 
 {
@@ -1037,7 +1037,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Kinematic Bicycle Model",
     "title": "State and Control Names",
     "category": "section",
-    "text": "names=[:x,:y,:psi,:ux];\ndescriptions=[\"X (m)\",\"Y (m)\",\"Yaw Angle (rad)\",\"Longitudinal Velocity (m/s)\"];\nstates!(n,names,descriptions=descriptions)\nnames = [:sa,:ax];\ndescriptions=[\"Steering Angle (rad)\",\"Longitudinal Acceleration (m/s^2)\"];\ncontrols!(n,names,descriptions=descriptions);\nnothing # hide"
+    "text": "names = [:x,:y,:psi,:ux]\ndescriptions = [\"X (m)\",\"Y (m)\",\"Yaw Angle (rad)\",\"Longitudinal Velocity (m/s)\"]\nstates!(n,names,descriptions=descriptions)\nnames = [:sa,:ax]\ndescriptions = [\"Steering Angle (rad)\",\"Longitudinal Acceleration (m/s^2)\"]\ncontrols!(n,names,descriptions=descriptions)\nnothing # hide"
 },
 
 {
@@ -1045,7 +1045,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Kinematic Bicycle Model",
     "title": "Differential Equations",
     "category": "section",
-    "text": "dynamics!(n,KinematicBicycle(pa))\nnothing # hide"
+    "text": "dx = KinematicBicycle_expr2(n)\ndynamics!(n,dx)\nnothing # hide"
 },
 
 {
@@ -1061,7 +1061,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Kinematic Bicycle Model",
     "title": "Nonlinear Obstacle Avoidance Constraints",
     "category": "section",
-    "text": "sm = 2;\nx=n.r.x[:,1];y=n.r.x[:,2]; # pointers to JuMP variables\nobs_con=@NLconstraint(n.mdl, [i=1:n.numStatePoints-1], 1 <= ((x[(i+1)]-c.o.X0[1])^2)/((c.o.A[1]+sm)^2) + ((y[(i+1)]-c.o.Y0[1])^2)/((c.o.B[1]+sm)^2));\nnewConstraint!(n,obs_con,:obs_con);\nnothing # hide"
+    "text": "sm = 2\nx = n.r.ocp.x[:,1];y = n.r.ocp.x[:,2]; # pointers to JuMP variables\nobs_con = @NLconstraint(n.ocp.mdl, [i=1:n.ocp.state.pts-1], 1 <= ((x[(i+1)]-c[\"obstacle\"][\"x0\"][1])^2)/((c[\"obstacle\"][\"radius\"][1]+sm)^2) + ((y[(i+1)]-c[\"obstacle\"][\"y0\"][1])^2)/((c[\"obstacle\"][\"radius\"][1]+sm)^2))\nnewConstraint!(n,obs_con,:obs_con)\nnothing # hide"
 },
 
 {
@@ -1069,7 +1069,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Kinematic Bicycle Model",
     "title": "Linear State Tolerances",
     "category": "section",
-    "text": "mXL=Any[false,false,false,false];\nmXU=Any[false,false,false,-1];  # set to false if you don\'t want to taper that side\nlinearStateTolerances!(n;mXL=mXL,mXU=mXU);\nnothing # hide"
+    "text": "mXL = Any[false,false,false,false]\nmXU = Any[false,false,false,-1];  # set to false if you don\'t want to taper that side\nlinearStateTolerances!(n;mXL=mXL,mXU=mXU)\nnothing # hide"
 },
 
 {
@@ -1077,7 +1077,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Kinematic Bicycle Model",
     "title": "Objective Function",
     "category": "section",
-    "text": "@NLobjective(n.mdl, Min, n.tf + (n.r.x[end,1]-c.g.x_ref)^2 + (n.r.x[end,2]-c.g.y_ref)^2);\nnothing # hide"
+    "text": "@NLobjective(n.ocp.mdl, Min, n.ocp.tf + (n.r.ocp.x[end,1]-c[\"goal\"][\"x\"])^2 + (n.r.ocp.x[end,2]-c[\"goal\"][\"yVal\"])^2);\nnothing # hide"
 },
 
 {
@@ -1093,7 +1093,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Kinematic Bicycle Model",
     "title": "Post Process",
     "category": "section",
-    "text": "plotSettings(;(:size=>(700,700)));\nallPlots(n)Notice the longitudinal velocity is pushed down to 29 m/s using the linearStateTolerances!() function.The state limits can be turned off in the plots with (:lims=>false) and the obstacle plot handle can be passed to statePlot() in the 5th argument and by using (:append=>true).plotSettings(;(:size=>(400,400)));\nobs=obstaclePlot(n,c)\nstatePlot(n,1,1,2,obs;(:append=>true),(:lims=>false))\nxlims!(-45,55);\nylims!(0,110);"
+    "text": "plotSettings(;(:size=>(700,700)));\nallPlots(n)Notice the longitudinal velocity is pushed down to 29 m/s using the linearStateTolerances!() function.The state limits can be turned off in the plots with (:lims=>false) and the obstacle plot handle can be passed to statePlot() in the 5th argument and by using (:append=>true).plotSettings(;(:size=>(400,400)))\nobs = obstaclePlot(n,c)\nsp=statePlot(n,1,1,2,obs;(:append=>true),(:lims=>false))\nxlims!(-45,55)\nylims!(0,110)"
 },
 
 {
@@ -1109,7 +1109,7 @@ var documenterSearchIndex = {"docs": [
     "page": "General",
     "title": "General",
     "category": "section",
-    "text": "The following link provides documentation all of the MPC specific functionality for NLOptControl.jl.The basic MPC problem is first defined using the  defineMPC!() function.In this function call, the user needs to specify all of the data that will eventually be needed to call the configureMPC!(). So, depending on the :simulationMode different sets of initialization data must be first be passed to defineMPC!(). These sets of initialization data are described for each :simulationMode in simulationModes.  "
+    "text": "NOTE: the following documentation needs to be updated.The following link provides documentation all of the MPC specific functionality for NLOptControl.jl.The basic MPC problem is first defined using the  defineMPC!() function.In this function call, the user needs to specify all of the data that will eventually be needed to call the configureMPC!(). So, depending on the :simulationMode different sets of initialization data must be first be passed to defineMPC!(). These sets of initialization data are described for each :simulationMode in simulationModes.  "
 },
 
 {
@@ -1165,7 +1165,7 @@ var documenterSearchIndex = {"docs": [
     "page": "General",
     "title": "Variables",
     "category": "section",
-    "text": "The states and controls in this model may not be the same as they are in the OCP and thus n.numStates and n.numControls may not represent the number of states and controls, respectively for the IP.Variable Description\nn.mpc.numControlsIP number of control variables for the IP\nn.mpc.numStatesIP number of state variables for the IP\nn.mpc.IPeMap mappingAs an example, assume that in the OCP, the KinematicBicycle is used. The state and controls should be defined as:states!(n,[:x,:y,:psi,:ux])\ncontrols!(n,[:sa,:ax])Then assume that the ThreeDOFv1 is used for the IP. The states and controls would be defined as:statesIP!(n,[:x,:y,:v,:r,:psi,:sa,:ux,:ax])\ncontrolsIP!(n,[:sr,:jx])To calculate the error array, each state variable in the OCP is compared with each state and control variable in the IP. The result is stored in a map called n.mpc.mIP. For the aforementioned example, that map look like:"
+    "text": "The states and controls in this model may not be the same as they are in the OCP and thus n.ocp.state.num and n.ocp.control.num may not represent the number of states and controls, respectively for the IP.Variable Description\nn.mpc.ip.control.num number of control variables for the IP\nn.mpc.ip.state.num number of state variables for the IP\nn.mpc.IPeMap mappingAs an example, assume that in the OCP, the KinematicBicycle is used. The state and controls should be defined as:states!(n,[:x,:y,:psi,:ux])\ncontrols!(n,[:sa,:ax])Then assume that the ThreeDOFv1 is used for the IP. The states and controls would be defined as:statesIP!(n,[:x,:y,:v,:r,:psi,:sa,:ux,:ax])\ncontrolsIP!(n,[:sr,:jx])To calculate the error array, each state variable in the OCP is compared with each state and control variable in the IP. The result is stored in a map called n.mpc.mIP. For the aforementioned example, that map look like:"
 },
 
 {
@@ -1213,7 +1213,7 @@ var documenterSearchIndex = {"docs": [
     "page": "General",
     "title": "Variable Execution Horizon",
     "category": "section",
-    "text": "Currently, there is no functionality for this. But, this may be useful and it would augment a prediction of the time as well as X0. So, to account for this possible expansion, a predicted time (very simply the current time plus n.mpc.tex for the fixed execution horizon case) is added to X0p.This is the case, where the OCP is being solved as quickly as possible. In this case predicting n.r.t_solve( roughly equal to n.mpc.tex) is a challenging problem because there is no guarantee that the OCP will be solved in a particular amount of time. A simple way to predict n.r.t_solve is to average several of the previous n.r.t_solve values.  "
+    "text": "Currently, there is no functionality for this. But, this may be useful and it would augment a prediction of the time as well as X0. So, to account for this possible expansion, a predicted time (very simply the current time plus n.mpc.tex for the fixed execution horizon case) is added to X0p.This is the case, where the OCP is being solved as quickly as possible. In this case predicting n.r.ocp.tSolve( roughly equal to n.mpc.v.tex) is a challenging problem because there is no guarantee that the OCP will be solved in a particular amount of time. A simple way to predict n.r.ocp.tSolve is to average several of the previous n.r.ocp.tSolve values.  "
 },
 
 {
